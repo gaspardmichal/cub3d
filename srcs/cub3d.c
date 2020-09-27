@@ -60,14 +60,14 @@ static int		check_av(t_struc *st, char *av)
 	if (st->fd < 0)
 	{
 		ft_printf("ERROR: ./cub3D <filename.cub>\n");
-		ft_printf("/!\\ invalid fd\n");
+		ft_printf("/!\\ %s does not exist\n", av);
 		ft_free(st);
 		exit(1);
 	}
 	else if (ft_strcmp(ft_strrchr(av, '.'), CUB))
 	{
 		ft_printf("ERROR: ./cub3D <filename.cub>\n");
-		ft_printf("/!\\ invalid file extension\n");
+		ft_printf("/!\\ map has invalid extension\n");
 		ft_free(st);
 		exit(1);
 	}
@@ -120,6 +120,35 @@ int				main(int ac, char **av)
 	}
 	else if (ac == 3)
 	{
+		if (ft_strcmp(av[2], "--save"))
+		{
+			ft_printf("ERROR : ./cub3D <filename.cub> --save\n");
+			ft_printf("/!\\ \"%s\" is not a valid argument\n", av[2]);
+			exit(1);
+		}
+		/*st = init_struct();
+		check_av(st, av[1]);
+		if (parse_cub_file(st, NULL))
+			free_struct(st);
+		ft_printf("R = %d %d\n", st->width, st->height);
+		ft_printf("NO = %s\n", st->no);
+		ft_printf("SO = %s\n", st->so);
+		ft_printf("WE = %s\n", st->we);
+		ft_printf("EA = %s\n", st->ea);
+		ft_printf("S = %s\n", st->s);
+		ft_printf("F =  %d\n", st->f);
+		ft_printf("C = %d\n", st->c);
+		if (check_map(st))
+			free_struct(st);
+		i = 0;
+		while (st->map[i])
+		{
+			ft_printf("%s\n", st->map[i]);
+			++i;
+		}
+		while (1)
+		{
+		}*/
 	}
 	else
 	{
