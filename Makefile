@@ -12,10 +12,13 @@
 
 NAME				=	cub3D
 
+INC					=	%%%%
+INCLIB				=	$(INC)/minilibx-linux/lib
+
 LIBFT				=	libft/
 FT_HEADER			=	libft/includes/libft.h
 FT_SRCS				=	$(shell find libft -name "*.c")
-MLX					=	libmlx/
+MLX					=	minilibx-linux/
 SRCS_PATH			=	srcs/
 OBJS_PATH			=	objs/
 INCL_PATH			=	includes
@@ -35,9 +38,8 @@ RM					=	rm -rf
 CC					=	clang
 CFLAGS				=	-Wall -Wextra -Werror
 FSANITIZE			=	-g3 -fsanitize=address
-FRAMEWORKS			=	-framework OpenGL -framework Appkit
 FTFLAGS				=	-L $(LIBFT) -l ft
-MLXFLAGS			=	-L $(MLX) -l mlx
+MLXFLAGS			=	-g -L $(MLX) -l mlx_Linux -L $(INCLIB) -l Xext -l X11 -l m -l bsd
 
 $(OBJS_PATH)%.o		:	$(SRCS_PATH)%.c $(HEADER) 
 						$(shell mkdir -p $(OBJS_PATH))
@@ -53,10 +55,10 @@ $(NAME)				:	$(OBJS) $(FT_HEADER) $(FT_SRCS)
 						@$(MAKE) -C $(MLX)
 ifdef FSAN
 						@$(MAKE) -C $(LIBFT) FSAN=1
-						$(CC) $(CFLAGS) $(FSANITIZE) $(FRAMEWORKS) -o $@ $(OBJS) $(MLXFLAGS) $(FTFLAGS)
+						$(CC) $(CFLAGS) $(FSANITIZE) -o $@ $(OBJS) $(MLXFLAGS) $(FTFLAGS)
 else
 						@$(MAKE) -C $(LIBFT)
-						$(CC) $(CFLAGS) $(FRAMEWORKS) -o $@ $(OBJS) $(MLXFLAGS) $(FTFLAGS)
+						$(CC) $(CFLAGS) -o $@ $(OBJS) $(MLXFLAGS) $(FTFLAGS)
 endif
 
 clean				:
