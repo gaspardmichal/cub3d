@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_resolution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/19 11:00:10 by gamichal          #+#    #+#             */
-/*   Updated: 2020/06/25 16:23:03 by user42           ###   ########.fr       */
+/*   Created: 2020/10/08 09:35:18 by gamichal          #+#    #+#             */
+/*   Updated: 2020/10/10 10:43:36 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3d.h"
+#include "../includes/cub3d.h"
 
 static int	check_width_and_height(char **tab)
 {
@@ -77,6 +77,8 @@ int			parse_resolution(t_struc *st, char *line)
 	ft_free(tab);
 	if (!st->width || !st->height)
 		return (ft_printf("ERROR: width or height is zero\n"));
+	st->width = st->width > 2880 ? 2880 : st->width;
+	st->height = st->height > 1800 ? 1800 : st->height;
 	++st->map_info;
 	return (0);
 }

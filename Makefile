@@ -6,7 +6,7 @@
 #    By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/21 20:55:11 by gamichal          #+#    #+#              #
-#    Updated: 2020/06/11 09:10:18 by user42           ###   ########.fr        #
+#    Updated: 2020/10/10 11:13:18 by gamichal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,15 @@ MLX					=	minilibx-linux/
 SRCS_PATH			=	srcs/
 OBJS_PATH			=	objs/
 INCL_PATH			=	includes
-HEADER				=	includes/cube3d.h
+HEADER				=	includes/cub3d.h
 
 SRC					=	cub3d.c					\
 						parse_map.c				\
 						parse_resolution.c		\
 						parse_texture.c			\
 						parse_color.c			\
-						check_map.c
+						check_map.c				\
+						check_map_utils.c
 
 SRCS 				= 	$(addprefix $(SRCS_PATH),$(SRC))
 OBJS				=	$(patsubst $(SRCS_PATH)%.c,$(OBJS_PATH)%.o, $(SRCS))

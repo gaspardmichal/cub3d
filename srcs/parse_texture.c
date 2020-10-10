@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/19 11:45:36 by gamichal          #+#    #+#             */
-/*   Updated: 2020/06/11 16:08:30 by user42           ###   ########.fr       */
+/*   Created: 2020/10/08 09:35:32 by gamichal          #+#    #+#             */
+/*   Updated: 2020/10/10 10:43:13 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3d.h"
+#include "../includes/cub3d.h"
 
 static int	check_texture_exist(char *path, char *id)
 {

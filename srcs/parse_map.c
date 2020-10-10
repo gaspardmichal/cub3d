@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/19 10:56:23 by gamichal          #+#    #+#             */
-/*   Updated: 2020/06/12 18:59:51 by user42           ###   ########.fr       */
+/*   Created: 2020/10/08 09:35:05 by gamichal          #+#    #+#             */
+/*   Updated: 2020/10/10 13:11:35 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3d.h"
+#include "../includes/cub3d.h"
 
 int		check_parsing(t_struc *st)
 {
@@ -85,7 +85,7 @@ int		parse_line(t_struc *st, char *line)
 		ret = parse_color(st, line + i + 1, 'F');
 	else if (line[i] == 'C')
 		ret = parse_color(st, line + i + 1, 'C');
-	return (ft_exit(line, ret));
+	return (check_map_char(st, line, ret));
 }
 
 int		allocate_map(t_struc *st, char *line)
@@ -107,8 +107,7 @@ int		allocate_map(t_struc *st, char *line)
 	}
 	ft_free(st->map);
 	st->map = tab;
-	ft_free(line);
-	return (0);
+	return (ft_exit(line, 0));
 }
 
 int		parse_map(t_struc *st, char *line)
@@ -127,7 +126,7 @@ int		parse_map(t_struc *st, char *line)
 		}
 		else
 		{
-			ft_printf("ERROR: map description not last\n");
+			ft_printf("ERROR: map description is not last\n");
 			check_parsing(st);
 			return (ft_exit(line, 1));
 		}

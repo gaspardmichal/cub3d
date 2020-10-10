@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/07 11:18:58 by gamichal          #+#    #+#             */
-/*   Updated: 2020/06/01 10:54:13 by user42           ###   ########.fr       */
+/*   Created: 2020/10/08 09:34:19 by gamichal          #+#    #+#             */
+/*   Updated: 2020/10/10 13:12:34 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3d.h"
+#include "../includes/cub3d.h"
 
 static int	get_start_position(int i, t_struc *st)
 {
@@ -36,6 +36,27 @@ static int	get_start_position(int i, t_struc *st)
 	return (0);
 }
 
+static int	check_around(char **map, int i, int j)
+{
+	char	*err;
+	int		ret;
+
+	if (!(err = ft_strdup("ERROR: map not surrounded by walls\n")))
+		return (1);
+	ret = 0;
+	if (i == 0 || j == 0 || map[i + 1] == 0)
+		ret = ft_printf("%s/!\\ '%c' in map[%d][%d]\n", err, map[i][j], i, j);
+	else if (i)
+		ret = check_up(map, err, i, j);
+	else if (map[i + 1] != 0)
+		ret = check_down(map, err, i, j);
+	else if (j)
+		ret = check_left(map, err, i, j);
+	else if (j != (int)ft_strlen(map[i]))
+		ret = check_right(map, err, i, j);
+	return (ret > 0 ? ft_exit(err, ret) : ret);
+}
+
 static int	check_walls(t_struc *st)
 {
 	int i;
@@ -47,6 +68,11 @@ static int	check_walls(t_struc *st)
 		j = 0;
 		while (st->map[i][j])
 		{
+			if (ft_strchr("02NSWE", st->map[i][j]))
+			{
+				if (check_around(st->map, i, j))
+					return (1);
+			}
 			++j;
 		}
 		++i;
@@ -61,19 +87,17 @@ int			check_map(t_struc *st)
 	i = 0;
 	while (st->map[i])
 	{
-		if (!line_is_in_map(MAP, st->map[i]))
-			return (ft_printf("unauthorized character, use 'NSWE012 ' ONLY\n"));
 		if (get_start_position(i, st))
-			return (ft_printf("too many starting positions, use only one\n"));
+			return (ft_printf("ERROR: too many start positions\n"));
 		if (!st->pos_x || !st->pos_y)
-			return (ft_printf("player is out of bounds\n"));
+			return (ft_printf("ERROR: start position out of bounds\n"));
 		++i;
 	}
 	if (st->pos_y == i - 1)
-		return (ft_printf("player is out of bounds\n"));
+		return (ft_printf("ERROR: start position out of bounds\n"));
 	if (st->pos_x < 0)
-		return (ft_printf("starting position was not found\n"));
+		return (ft_printf("ERROR: no start position\n"));
 	if (check_walls(st))
-		return (ft_printf("map is not surrounded by walls\n"));
+		return (1);
 	return (0);
 }

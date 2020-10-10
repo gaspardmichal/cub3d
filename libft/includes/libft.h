@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 05:45:48 by gamichal          #+#    #+#             */
-/*   Updated: 2020/03/07 14:07:19 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/09/29 15:42:10 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ char				**ft_split(char const *s, char const *charset);
 char				*ft_strcat(char *dst, const char *src);
 char				*ft_strchr(const char *s, int c);
 int					ft_strcmp(const char *s1, const char *s2);
+size_t				ft_strcountchr(const char *s, int c);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strdup(const char *src);
 char				*ft_strjoin(char const *s1, char const *s2);

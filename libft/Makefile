@@ -6,7 +6,7 @@
 #    By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/20 18:13:37 by gamichal          #+#    #+#              #
-#    Updated: 2020/03/06 13:44:17 by gamichal         ###   ########lyon.fr    #
+#    Updated: 2020/09/29 15:38:32 by gamichal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,7 @@ SRC					=	char/ft_isalnum.c				\
    						str/ft_strcat.c					\
    						str/ft_strchr.c					\
 						str/ft_strcmp.c					\
+						str/ft_strcountchr.c			\
    						str/ft_strcpy.c					\
    						str/ft_strdup.c					\
    						str/ft_strjoin.c				\

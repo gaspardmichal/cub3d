@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/22 11:47:24 by gamichal          #+#    #+#             */
-/*   Updated: 2020/06/12 18:55:13 by user42           ###   ########.fr       */
+/*   Created: 2020/10/08 09:33:49 by gamichal          #+#    #+#             */
+/*   Updated: 2020/10/10 11:40:25 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3d.h"
+#include "../includes/cub3d.h"
 
 static t_struc	*init_struct(void)
 {
@@ -90,7 +90,7 @@ static int		parse_cub_file(t_struc *st, char *line)
 int				main(int ac, char **av)
 {
 	t_struc	*st;
-	//int		i;
+	int		i;
 
 	if (ac == 2)
 	{
@@ -98,17 +98,23 @@ int				main(int ac, char **av)
 		check_av(st, av[1]);
 		if (parse_cub_file(st, NULL))
 			free_struct(st);
-		ft_printf("R = %d %d\n", st->width, st->height);
+		i = 0;
+		while (st->map[i])
+		{
+			ft_printf("line %d :	%s\n", i, st->map[i]);
+			++i;
+		}
+		/*ft_printf("R = %d %d\n", st->width, st->height);
 		ft_printf("NO = %s\n", st->no);
 		ft_printf("SO = %s\n", st->so);
 		ft_printf("WE = %s\n", st->we);
 		ft_printf("EA = %s\n", st->ea);
 		ft_printf("S = %s\n", st->s);
 		ft_printf("F =  %d\n", st->f);
-		ft_printf("C = %d\n", st->c);
-		/*if (check_map(st))
+		ft_printf("C = %d\n", st->c);*/
+		if (check_map(st))
 			free_struct(st);
-		i = 0;
+		/*i = 0;
 		while (st->map[i])
 		{
 			ft_printf("%s\n", st->map[i]);
@@ -126,29 +132,7 @@ int				main(int ac, char **av)
 			ft_printf("/!\\ \"%s\" is not a valid argument\n", av[2]);
 			exit(1);
 		}
-		/*st = init_struct();
-		check_av(st, av[1]);
-		if (parse_cub_file(st, NULL))
-			free_struct(st);
-		ft_printf("R = %d %d\n", st->width, st->height);
-		ft_printf("NO = %s\n", st->no);
-		ft_printf("SO = %s\n", st->so);
-		ft_printf("WE = %s\n", st->we);
-		ft_printf("EA = %s\n", st->ea);
-		ft_printf("S = %s\n", st->s);
-		ft_printf("F =  %d\n", st->f);
-		ft_printf("C = %d\n", st->c);
-		if (check_map(st))
-			free_struct(st);
-		i = 0;
-		while (st->map[i])
-		{
-			ft_printf("%s\n", st->map[i]);
-			++i;
-		}
-		while (1)
-		{
-		}*/
+		/* La suite */
 	}
 	else
 	{

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3d.h                                           :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/20 12:36:52 by gamichal          #+#    #+#             */
-/*   Updated: 2020/06/05 10:41:40 by user42           ###   ########.fr       */
+/*   Created: 2020/10/10 10:41:49 by gamichal          #+#    #+#             */
+/*   Updated: 2020/10/10 13:07:04 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,10 @@ int					parse_resolution(t_struc *st, char *line);
 int					parse_texture(char **path, char *line, char *s);
 int					parse_color(t_struc *st, char *line, char c);
 int					check_map(t_struc *st);
+int					check_up(char **map, char *error, int i, int j);
+int					check_down(char **map, char *error, int i, int j);
+int					check_left(char **map, char *error, int i, int j);
+int					check_right(char **map, char *error, int i, int j);
+int					check_map_char(t_struc *st, char *line, int ret);
 
 #endif

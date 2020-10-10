@@ -3,16 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/19 11:46:10 by gamichal          #+#    #+#             */
-/*   Updated: 2020/06/11 16:09:04 by user42           ###   ########.fr       */
+/*   Created: 2020/10/08 09:34:52 by gamichal          #+#    #+#             */
+/*   Updated: 2020/10/10 10:43:23 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3d.h"
+#include "../includes/cub3d.h"
 
-static int	check_unauthorized_char(char **tab, char *line, char c)
+static int	check_color_format(char *line, int c)
+{
+	int i;
+
+	if (ft_strcountchr(line, ',') != 2)
+	{
+		ft_printf("ERROR: %c <int>,<int>,<int>\n", c);
+		return (ft_printf("/!\\ wrong number of commas\n"));
+	}
+	i = 0;
+	while (line[i] == ' ')
+		++i;
+	if (line[i] == ',')
+	{
+		ft_printf("ERROR: %c <int>,<int>,<int>\n", c);
+		return (ft_printf("/!\\ comma placed before first color\n"));
+	}
+	return (0);
+}
+
+static int	check_unauthorized_char(char **tab, char *line, int c)
 {
 	int i;
 	int	j;
@@ -37,7 +57,7 @@ static int	check_unauthorized_char(char **tab, char *line, char c)
 	return (0);
 }
 
-static int	check_number_of_colors(char **tab, char c)
+static int	check_number_of_colors(char **tab, int c)
 {
 	int i;
 
@@ -56,9 +76,26 @@ static int	check_number_of_colors(char **tab, char c)
 	return (0);
 }
 
-static int	convert_rgb_color(int r, int g, int b)
+static int	convert_rgb(int r, int g, int b, int c)
 {
-	/* check color validity here */
+	if (r < 0 || r > 255)
+	{
+		ft_printf("ERROR: %c <int>,<int>,<int>\n", c);
+		ft_printf("/!\\ invalid value for the first <int> (red)\n");
+		return (-1);
+	}
+	if (g < 0 || g > 255)
+	{
+		ft_printf("ERROR: %c <int>,<int>,<int>\n", c);
+		ft_printf("/!\\ invalid value for the second <int> (green)\n");
+		return (-1);
+	}
+	if (b < 0 || b > 255)
+	{
+		ft_printf("ERROR: %c <int>,<int>,<int>\n", c);
+		ft_printf("/!\\ invalid value for third <int> (blue)\n");
+		return (-1);
+	}
 	return ((r << 16) + (g << 8) + b);
 }
 
@@ -73,7 +110,7 @@ int			parse_color(t_struc *st, char *line, char c)
 	if (st->c >= 0 && c == 'C')
 		return (ft_printf("ERROR: ceiling color described more than once\n"));
 	tab = ft_split(line, " ,");
-	if (check_number_of_colors(tab, c))
+	if (check_number_of_colors(tab, c) || check_color_format(line, c))
 		return (1);
 	if (check_unauthorized_char(tab, line, c))
 		return (1);
@@ -85,8 +122,8 @@ int			parse_color(t_struc *st, char *line, char c)
 		++i;
 	}
 	ft_free(tab);
-	st->f = c == 'F' ? convert_rgb_color(color[0], color[1], color[2]) : st->f;
-	st->c = c == 'C' ? convert_rgb_color(color[0], color[1], color[2]) : st->c;
+	st->f = c == 'F' ? convert_rgb(color[0], color[1], color[2], c) : st->f;
+	st->c = c == 'C' ? convert_rgb(color[0], color[1], color[2], c) : st->c;
 	++st->map_info;
 	return (0);
 }
