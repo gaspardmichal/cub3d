@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:33:49 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/12 10:50:36 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/10/12 15:40:05 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ static void		free_struct(t_struc *st)
 	ft_free(st->ea);
 	ft_free(st->s);
 	ft_free(st);
-	while (1)
-	{
-	}
-	//exit(1);
+	exit(1);
 }
 
 static int		check_av(t_struc *st, char *av)
@@ -62,15 +59,13 @@ static int		check_av(t_struc *st, char *av)
 	{
 		ft_printf("ERROR: ./cub3D <filename.cub>\n");
 		ft_printf("/!\\ %s does not exist\n", av);
-		ft_free(st);
-		exit(1);
+		ft_exit(st, 1);
 	}
 	else if (ft_strcmp(ft_strrchr(av, '.'), CUB))
 	{
 		ft_printf("ERROR: ./cub3D <filename.cub>\n");
 		ft_printf("/!\\ map has invalid extension\n");
-		ft_free(st);
-		exit(1);
+		ft_exit(st, 1);
 	}
 	return (0);
 }
@@ -91,46 +86,18 @@ static int		parse_cub_file(t_struc *st, char *line)
 int				main(int ac, char **av)
 {
 	t_struc	*st;
-	int		i;
 
-	if (ac == 2)
+	if (ac == 2 || ac == 3)
 	{
-		st = init_struct();
-		check_av(st, av[1]);
-		if (parse_cub_file(st, NULL))
-		{
-			/*ft_printf("WIDTH  = %d\nHEIGHT = %d\n", st->width, st->height);
-			ft_printf("NO     = %s\n", st->no);
-			ft_printf("SO     = %s\n", st->so);
-			ft_printf("WE     = %s\n", st->we);
-			ft_printf("EA     = %s\n", st->ea);
-			ft_printf("S      = %s\n", st->s);
-			ft_printf("F      = %d\n", st->f);
-			ft_printf("C      = %d\n", st->c);*/
-			free_struct(st);
-		}
-		
-		if (check_map(st))
-			free_struct(st);
-		i = 0;
-		while (st->map[i])
-		{
-			ft_printf("[%d] %s\n", i, st->map[i]);
-			++i;
-		}
-		while (1)
-		{
-		}
-	}
-	else if (ac == 3)
-	{
-		if (ft_strcmp(av[2], "--save"))
+		if (ac == 3 && ft_strcmp(av[2], "--save"))
 		{
 			ft_printf("ERROR : ./cub3D <filename.cub> --save\n");
 			ft_printf("/!\\ \"%s\" is not a valid argument\n", av[2]);
 			exit(1);
 		}
-		/* La suite */
+		st = init_struct();
+		if (check_av(st, av[1]) || parse_cub_file(st, NULL) || check_map(st))
+			free_struct(st);
 	}
 	else
 	{

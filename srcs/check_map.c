@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:34:19 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/12 10:19:10 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/10/12 15:46:33 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static int	check_walls(t_struc *st)
 		}
 		++i;
 	}
+	ft_free(err);
 	return (0);
 }
 
