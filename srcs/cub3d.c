@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:33:49 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/10 11:40:25 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/10/12 10:50:36 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static t_struc	*init_struct(void)
 	if (!(st = malloc(sizeof(t_struc))))
 		return (NULL);
 	st->map = NULL;
+	st->len = 0;
 	st->map_info = 0;
 	st->width = -1;
 	st->height = -1;
@@ -97,29 +98,26 @@ int				main(int ac, char **av)
 		st = init_struct();
 		check_av(st, av[1]);
 		if (parse_cub_file(st, NULL))
+		{
+			/*ft_printf("WIDTH  = %d\nHEIGHT = %d\n", st->width, st->height);
+			ft_printf("NO     = %s\n", st->no);
+			ft_printf("SO     = %s\n", st->so);
+			ft_printf("WE     = %s\n", st->we);
+			ft_printf("EA     = %s\n", st->ea);
+			ft_printf("S      = %s\n", st->s);
+			ft_printf("F      = %d\n", st->f);
+			ft_printf("C      = %d\n", st->c);*/
+			free_struct(st);
+		}
+		
+		if (check_map(st))
 			free_struct(st);
 		i = 0;
 		while (st->map[i])
 		{
-			ft_printf("line %d :	%s\n", i, st->map[i]);
+			ft_printf("[%d] %s\n", i, st->map[i]);
 			++i;
 		}
-		/*ft_printf("R = %d %d\n", st->width, st->height);
-		ft_printf("NO = %s\n", st->no);
-		ft_printf("SO = %s\n", st->so);
-		ft_printf("WE = %s\n", st->we);
-		ft_printf("EA = %s\n", st->ea);
-		ft_printf("S = %s\n", st->s);
-		ft_printf("F =  %d\n", st->f);
-		ft_printf("C = %d\n", st->c);*/
-		if (check_map(st))
-			free_struct(st);
-		/*i = 0;
-		while (st->map[i])
-		{
-			ft_printf("%s\n", st->map[i]);
-			++i;
-		}*/
 		while (1)
 		{
 		}

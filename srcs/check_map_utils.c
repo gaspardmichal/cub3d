@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 10:41:15 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/10 13:06:02 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/10/12 11:24:31 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,33 @@
 
 int	check_up(char **map, char *err, int i, int j)
 {
-	if (j > (int)ft_strlen(map[i]))
-		return (ft_printf("%s/!\\ no wall above map[%d][%d]\n", err, i, j));
+	if (j >= (int)ft_strlen(map[i - 1]))
+		return (ft_printf("%s/!\\ no wall above [%d][%d]\n", err, i, j));
 	else if (map[i - 1][j] == ' ')
-		return (ft_printf("%s/!\\ space above map[%d][%d]\n", err, i, j));
+		return (ft_printf("%s/!\\ space above [%d][%d]\n", err, i, j));
 	return (0);
 }
 
 int	check_down(char **map, char *err, int i, int j)
 {
-	if (j > (int)ft_strlen(map[i]))
-		return (ft_printf("%s/!\\ no wall under map[%d][%d]\n", err, i, j));
+	if (j >= (int)ft_strlen(map[i + 1]))
+		return (ft_printf("%s/!\\ no wall under [%d][%d]\n", err, i, j));
 	else if (map[i + 1][j] == ' ')
-		return (ft_printf("%s/!\\ space under map[%d][%d]\n", err, i, j));
+		return (ft_printf("%s/!\\ space under [%d][%d]\n", err, i, j));
 	return (0);
 }
 
 int	check_left(char **map, char *err, int i, int j)
 {
 	if (map[i][j - 1] == ' ')
-		return (ft_printf("%s/!\\ space left of map[%d][%d]\n", err, i, j));
+		return (ft_printf("%s/!\\ space left of [%d][%d]\n", err, i, j));
 	return (0);
 }
 
 int	check_right(char **map, char *err, int i, int j)
 {
-	if (j == (int)ft_strlen(map[i]))
-		return (ft_printf("%s/!\\ no wall right of map[%d][%d]\n", err, i, j));
-	else if (map[i][j + 1] == ' ')
-		return (ft_printf("%s/!\\ space right of map[%d][%d]\n", err, i, j));
+	if (map[i][j + 1] == ' ')
+		return (ft_printf("%s/!\\ space right of [%d][%d]\n", err, i, j));
 	return (0);
 }
 

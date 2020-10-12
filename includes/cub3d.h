@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 10:41:49 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/10 13:07:04 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/10/11 11:06:42 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef	struct		s_struc
 {
 	int				fd;
 	char			**map;
+	int				len;
 	int				map_info;
 	int				width;
 	int				height;
