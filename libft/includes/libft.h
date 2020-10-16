@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 05:45:48 by gamichal          #+#    #+#             */
-/*   Updated: 2020/09/29 15:42:10 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/10/16 13:41:39 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void				ft_bzero(void *s, size_t n);
 void				*ft_calloc(size_t count, size_t size);
 int					ft_exit(void *ptr, int ret);
 void				ft_free(void *ptr);
+void				ft_free_tab(char **tab);
 void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);

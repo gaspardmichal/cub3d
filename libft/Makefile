@@ -6,7 +6,7 @@
 #    By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/20 18:13:37 by gamichal          #+#    #+#              #
-#    Updated: 2020/09/29 15:38:32 by gamichal         ###   ########.fr        #
+#    Updated: 2020/10/16 13:42:29 by gamichal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRC					=	char/ft_isalnum.c				\
  						mem/ft_calloc.c					\
 						mem/ft_exit.c					\
 						mem/ft_free.c					\
+						mem/ft_free_tab.c				\
  						mem/ft_memccpy.c				\
  						mem/ft_memchr.c					\
  						mem/ft_memcmp.c					\
