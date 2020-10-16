@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:35:18 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/16 13:49:20 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/10/16 15:39:28 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,37 +21,42 @@ static int	check_width_and_height(char **tab)
 		++i;
 	if (i != 2)
 	{
-		i = -1;
-		while (tab[++i])
-			ft_free(tab[i]);
-		ft_free(tab);
 		ft_printf("ERROR: R <int> <int>\n");
 		return (ft_printf("/!\\ wrong nb of arguments\n"));
 	}
 	return (0);
 }
 
-static int	check_unauthorized_char(char **tab, char *line)
+static int	check_unauthorized_char(char *line)
 {
 	int i;
-	int j;
 
-	i = 0;
-	j = 0;
-	while (line[i])
+	i = -1;
+	while (line[++i])
 	{
 		if (!ft_isdigit(line[i]) && line[i] != ' ')
 		{
-			while (tab[j])
-			{
-				ft_free(tab[j]);
-				++j;
-			}
-			ft_free(tab);
 			ft_printf("ERROR: R <int> <int>\n");
 			return (ft_printf("/!\\ unauthorized character, '0-9 ' ONLY\n"));
 		}
-		++i;
+	}
+	return (0);
+}
+
+static int	check_width_and_height_len(char **tab)
+{
+	if (ft_strlen(tab[0]) > 4 || ft_strlen(tab[1]) > 4)
+		return (ft_printf("ERROR: height or width number is too high\n"));
+	return (0);
+}
+
+static int	check_resolution_integrity(char **tab, char *line)
+{
+	if (check_width_and_height(tab) || check_unauthorized_char(line)
+			|| check_width_and_height_len(tab))
+	{
+		ft_free_tab(tab);
+		return (1);
 	}
 	return (0);
 }
@@ -63,24 +68,17 @@ int			parse_resolution(t_struc *st, char *line)
 
 	if ((st->width > 0 && st->height > 0))
 		return (ft_printf("ERROR: resolution is described more than once\n"));
-	tab = ft_split(line, " ");
-	if (check_unauthorized_char(tab, line) || check_width_and_height(tab))
+	if (!(tab = ft_split(line, " ")) || check_resolution_integrity(tab, line))
 		return (1);
 	i = -1;
 	while (tab[++i])
 	{
 		st->width = i == 0 ? ft_atoi(tab[i]) : st->width;
 		st->height = i == 1 ? ft_atoi(tab[i]) : st->height;
-		ft_free(tab[i]);
 	}
-	ft_free(tab);
+	ft_free_tab(tab);
 	if (!st->width || !st->height)
 		return (ft_printf("ERROR: width or height is zero\n"));
-	if (st->width > 2880 || st->height > 1800)
-	{
-		st->width = 2880;
-		st->height = 1800;
-	}
 	++st->map_info;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:32:39 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/16 13:39:34 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/10/16 15:41:09 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void	ft_free_tab(char **tab)
 
 	i = -1;
 	while (tab && tab[++i])
-			ft_free(tab[i]);
+		ft_free(tab[i]);
 	ft_free(tab);
 }

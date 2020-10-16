@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:35:32 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/10 10:43:13 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/10/16 16:04:28 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,6 @@ static int	check_number_of_arguments(char **tab, char *id)
 		++i;
 	if (i != 1)
 	{
-		i = -1;
-		while (tab[++i])
-			ft_free(tab[i]);
-		ft_free(tab);
 		ft_printf("ERROR: %s <path_to_file.xpm>\n", id);
 		return (ft_printf("/!\\ wrong nb of arguments\n"));
 	}
@@ -56,17 +52,18 @@ int			parse_texture(char **path, char *line, char *id)
 
 	if (*path)
 		return (ft_printf("ERROR: %s texture described more than once\n", id));
-	tab = ft_split(line, " ");
-	if (check_number_of_arguments(tab, id))
+	if (!(tab = ft_split(line, " ")) || check_number_of_arguments(tab, id))
+	{
+		ft_free_tab(tab);
 		return (1);
+	}
 	i = 0;
 	while (tab[i])
 	{
 		*path = ft_strdup(tab[i]);
-		ft_free(tab[i]);
 		++i;
 	}
-	ft_free(tab);
+	ft_free_tab(tab);
 	if (check_texture_exist(*path, id))
 		return (1);
 	return (0);

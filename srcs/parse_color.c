@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:34:52 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/10 10:43:23 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/10/16 16:06:18 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,15 @@ static int	check_color_format(char *line, int c)
 	return (0);
 }
 
-static int	check_unauthorized_char(char **tab, char *line, int c)
+static int	check_unauthorized_char(char *line, int c)
 {
 	int i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (line[i])
 	{
 		if (!ft_isdigit(line[i]) && line[i] != ' ' && line[i] != ',')
 		{
-			while (tab[j])
-			{
-				ft_free(tab[j]);
-				++j;
-			}
-			free(tab);
 			ft_printf("ERROR: %c <int>,<int>,<int>\n", c);
 			return (ft_printf("/!\\ unauthorized character, '0-9 ,' ONLY\n"));
 		}
@@ -66,10 +58,6 @@ static int	check_number_of_colors(char **tab, int c)
 		++i;
 	if (i != 3)
 	{
-		i = -1;
-		while (tab[++i])
-			ft_free(tab[i]);
-		ft_free(tab);
 		ft_printf("ERROR: %c <int>,<int>,<int>\n", c);
 		return (ft_printf("/!\\ wrong nb of colors\n"));
 	}
@@ -109,19 +97,17 @@ int			parse_color(t_struc *st, char *line, char c)
 		return (ft_printf("ERROR: floor color described more than once\n"));
 	if (st->c >= 0 && c == 'C')
 		return (ft_printf("ERROR: ceiling color described more than once\n"));
-	tab = ft_split(line, " ,");
-	if (check_number_of_colors(tab, c) || check_color_format(line, c))
-		return (1);
-	if (check_unauthorized_char(tab, line, c))
-		return (1);
-	i = 0;
-	while (tab[i])
+	if (!(tab = ft_split(line, " ,")) || check_number_of_colors(tab, c)
+			|| check_color_format(line, c)
+			|| check_unauthorized_char(line, c))
 	{
-		color[i] = ft_atoi(tab[i]);
-		ft_free(tab[i]);
-		++i;
+		ft_free_tab(tab);
+		return (1);
 	}
-	ft_free(tab);
+	i = -1;
+	while (tab[++i])
+		color[i] = ft_atoi(tab[i]);
+	ft_free_tab(tab);
 	st->f = c == 'F' ? convert_rgb(color[0], color[1], color[2], c) : st->f;
 	st->c = c == 'C' ? convert_rgb(color[0], color[1], color[2], c) : st->c;
 	++st->map_info;
