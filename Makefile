@@ -6,19 +6,16 @@
 #    By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/21 20:55:11 by gamichal          #+#    #+#              #
-#    Updated: 2020/10/10 11:13:18 by gamichal         ###   ########.fr        #
+#    Updated: 2020/11/25 15:57:51 by gamichal         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	cub3D
 
-INC					=	%%%%
-INCLIB				=	$(INC)/minilibx-linux/lib
-
 LIBFT				=	libft/
 FT_HEADER			=	libft/includes/libft.h
 FT_SRCS				=	$(shell find libft -name "*.c")
-MLX					=	minilibx-linux/
+MLX					=	minilibx/
 SRCS_PATH			=	srcs/
 OBJS_PATH			=	objs/
 INCL_PATH			=	includes
@@ -40,7 +37,7 @@ CC					=	clang
 CFLAGS				=	-Wall -Wextra -Werror
 FSANITIZE			=	-g3 -fsanitize=address
 FTFLAGS				=	-L $(LIBFT) -l ft
-MLXFLAGS			=	-g -L $(MLX) -l mlx_Linux -L $(INCLIB) -l Xext -l X11 -l m -l bsd
+MLXFLAGS			=	-g -L $(MLX) -l mlx -framework OpenGL -framework Appkit
 
 $(OBJS_PATH)%.o		:	$(SRCS_PATH)%.c $(HEADER) 
 						$(shell mkdir -p $(OBJS_PATH))
