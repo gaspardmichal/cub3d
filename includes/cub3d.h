@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 10:41:49 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/11 11:06:42 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/11/25 14:53:45 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUBE3D_H
 
 # include "../libft/includes/libft.h"
-# include "../minilibx-linux/mlx.h"
+# include "../minilibx/mlx.h"
 # include <math.h>
 # include <fcntl.h>
 
