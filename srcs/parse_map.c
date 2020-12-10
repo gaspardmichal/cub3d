@@ -3,38 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:35:05 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/10 13:11:35 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/12/10 14:46:39 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int		check_parsing(t_struc *st)
+/*
+** Check for potential missing information
+*/
+
+int		check_parsing(t_data *d)
 {
 	int ret;
 
 	ret = 0;
-	if (st->width < 0 && st->height < 0)
-		ret = ft_printf("/!\\ missing resolution\n");
-	if (!st->no)
-		ret = ft_printf("/!\\ missing northern texture\n");
-	if (!st->so)
-		ret = ft_printf("/!\\ missing southern texture\n");
-	if (!st->we)
-		ret = ft_printf("/!\\ missing western texture\n");
-	if (!st->ea)
-		ret = ft_printf("/!\\ missing eastern texture\n");
-	if (!st->s)
-		ret = ft_printf("/!\\ missing sprite texture\n");
-	if (st->f < 0)
-		ret = ft_printf("/!\\ missing floor color\n");
-	if (st->c < 0)
-		ret = ft_printf("/!\\ missing ceiling color\n");
-	return (ret > 0 ? 1 : 0);
+	if (d->res->x < 0 && d->res->y < 0)
+		ret = print_error(-8);
+	if (!d->text->no)
+		ret = print_error(-9);
+	if (!d->text->so)
+		ret = print_error(-10);
+	if (!d->text->we)
+		ret = print_error(-11);
+	if (!d->text->ea)
+		ret = print_error(-12);
+	if (!d->text->s)
+		ret = print_error(-13);
+	if (d->col->f < 0)
+		ret = print_error(-14);
+	if (d->col->c < 0)
+		ret = print_error(-15);
+	return (ret);
 }
+
+/*
+** Check if line only made of map characters "NSWE012 "
+*/
 
 int		line_is_in_map(const char *set, const char *s)
 {
@@ -60,7 +68,7 @@ int		line_is_in_map(const char *set, const char *s)
 	return (1);
 }
 
-int		parse_line(t_struc *st, char *line)
+int		parse_line(t_data *d, char *line)
 {
 	int ret;
 	int i;
@@ -70,31 +78,31 @@ int		parse_line(t_struc *st, char *line)
 	while (line[i] == ' ')
 		++i;
 	if (line[i] == 'R')
-		ret = parse_resolution(st, line + i + 1);
+		ret = parse_resolution(d, line + i + 1);
 	else if (!ft_strncmp(line + i, "NO", 2))
-		ret = parse_texture(&st->no, line + i + 2, "NO");
+		ret = parse_texture(&d->text->no, line + i + 2, "NO");
 	else if (!ft_strncmp(line + i, "SO", 2))
-		ret = parse_texture(&st->so, line + i + 2, "SO");
+		ret = parse_texture(&d->text->so, line + i + 2, "SO");
 	else if (!ft_strncmp(line + i, "WE", 2))
-		ret = parse_texture(&st->we, line + i + 2, "WE");
+		ret = parse_texture(&d->text->we, line + i + 2, "WE");
 	else if (!ft_strncmp(line + i, "EA", 2))
-		ret = parse_texture(&st->ea, line + i + 2, "EA");
+		ret = parse_texture(&d->text->ea, line + i + 2, "EA");
 	else if (line[i] == 'S')
-		ret = parse_texture(&st->s, line + i + 1, "S");
+		ret = parse_texture(&d->text->s, line + i + 1, "S");
 	else if (line[i] == 'F')
-		ret = parse_color(st, line + i + 1, 'F');
+		ret = parse_color(d, line + i + 1, 'F');
 	else if (line[i] == 'C')
-		ret = parse_color(st, line + i + 1, 'C');
-	return (check_map_char(st, line, ret));
+		ret = parse_color(d, line + i + 1, 'C');
+	return (check_map_char(d, line, ret));
 }
 
-int		allocate_map(t_struc *st, char *line)
+int		allocate_map(t_data *d, char *line)
 {
 	char	**tab;
 	int		i;
 
 	i = 0;
-	while (st->map && st->map[i])
+	while (d->map->grid && d->map->grid[i])
 		++i;
 	if (!(tab = malloc(sizeof(char **) * (++i + 1))))
 		return (ft_exit(line, 1));
@@ -102,38 +110,36 @@ int		allocate_map(t_struc *st, char *line)
 	tab[--i] = ft_strdup(line);
 	while (--i >= 0)
 	{
-		tab[i] = st->map[i];
-		st->map[i] = NULL;
+		tab[i] = d->map->grid[i];
+		d->map->grid[i] = NULL;
 	}
-	ft_free(st->map);
-	st->map = tab;
+	ft_free(d->map->grid);
+	d->map->grid = tab;
 	return (ft_exit(line, 0));
 }
 
-int		parse_map(t_struc *st, char *line)
+int		parse_map(t_data *d, char *line)
 {
-	if (!*line && st->map)
-	{
-		ft_printf("ERROR: empty line in map description\n");
-		return (ft_exit(line, 1));
-	}
+	if (!*line && d->map->grid)
+		return (ft_exit(line, print_error(-6)));
 	else if (line_is_in_map(MAP, line) && *line)
 	{
-		if (st->map_info == 4)
+		if (d->map->info == 4)
 		{
-			if (allocate_map(st, line))
-				return (1);
+			if (allocate_map(d, line))
+				return (-1);
 		}
 		else
 		{
-			ft_printf("ERROR: map description is not last\n");
-			check_parsing(st);
-			return (ft_exit(line, 1));
+			print_error(-7);
+			check_parsing(d);
+			return (ft_exit(line, -1));
 		}
 	}
-	else if (parse_line(st, line))
-		return (1);
-	if (st->no && st->so && st->we && st->ea && st->s && st->map_info == 3)
-		++st->map_info;
+	else if (parse_line(d, line))
+		return (-1);
+	if (d->text->no && d->text->so && d->text->we &&
+		d->text->ea && d->text->s && d->map->info == 3)
+		++d->map->info;
 	return (0);
 }

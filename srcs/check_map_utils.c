@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 10:41:15 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/12 11:24:31 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/12/10 14:37:07 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	check_right(char **map, char *err, int i, int j)
 	return (0);
 }
 
-int	check_map_char(t_struc *st, char *line, int ret)
+int	check_map_char(t_data *d, char *line, int ret)
 {
-	if (*line && st->map_info == 4)
-		ret = ft_printf("ERROR: unauthorized character in map description\n");
+	if (*line && d->map->info == 4)
+		ret = ft_printf("Error: unauthorized character in map description\n");
 	return (ft_exit(line, ret));
 }

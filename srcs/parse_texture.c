@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 09:35:32 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/16 16:04:28 by gamichal         ###   ########.fr       */
+/*   Created: 2020/12/10 14:46:52 by gamichal          #+#    #+#             */
+/*   Updated: 2020/12/10 14:47:21 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

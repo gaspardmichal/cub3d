@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:34:19 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/12 15:46:33 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/12/10 14:36:21 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int	get_start_position(int i, t_struc *st)
+static int	get_start_position(int i, t_data *d)
 {
 	int		j;
 	int		it;
 
 	it = 0;
 	j = 0;
-	while (st->map[i][j])
+	while (d->map->grid[i][j])
 	{
-		if (ft_strchr("NSWE", st->map[i][j]))
+		if (ft_strchr("NSWE", d->map->grid[i][j]))
 		{
-			if (st->pos_x >= 0 && st->pos_y >= 0)
+			if (d->play->x >= 0 && d->play->y >= 0)
 				return (1);
-			st->pos_x = j;
-			st->pos_y = i;
+			d->play->x = j;
+			d->play->y = i;
 			++it;
 		}
 		++j;
@@ -51,23 +51,23 @@ static int	check_around(char **map, char *err, int i, int j)
 	return (0);
 }
 
-static int	check_walls(t_struc *st)
+static int	check_walls(t_data *d)
 {
 	int		i;
 	int		j;
 	char	*err;
 
-	if (!(err = ft_strdup("ERROR: map not surrounded by walls\n")))
+	if (!(err = ft_strdup("Error: map not surrounded by walls\n")))
 		return (1);
 	i = 0;
-	while (st->map[i])
+	while (d->map->grid[i])
 	{
 		j = 0;
-		while (st->map[i][j])
+		while (d->map->grid[i][j])
 		{
-			if (ft_strchr("02NSWE", st->map[i][j]))
+			if (ft_strchr("02NSWE", d->map->grid[i][j]))
 			{
-				if (check_around(st->map, err, i, j))
+				if (check_around(d->map->grid, err, i, j))
 					return (ft_exit(err, 1));
 			}
 			++j;
@@ -78,26 +78,26 @@ static int	check_walls(t_struc *st)
 	return (0);
 }
 
-int			check_map(t_struc *st)
+int			check_map(t_data *d)
 {
 	int	i;
 
-	if (!st->map)
-		return (ft_printf("ERROR: no map description\n"));
+	if (!d->map->grid)
+		return (ft_printf("Error: no map description\n"));
 	i = 0;
-	while (st->map[i])
+	while (d->map->grid[i])
 	{
-		if (get_start_position(i, st))
-			return (ft_printf("ERROR: too many starting positions\n"));
-		if (!st->pos_x || !st->pos_y)
-			return (ft_printf("ERROR: starting position out of bounds\n"));
+		if (get_start_position(i, d))
+			return (ft_printf("Error: too many starting positions\n"));
+		if (!d->play->x || !d->play->y)
+			return (ft_printf("Error: starting position out of bounds\n"));
 		++i;
 	}
-	if (st->pos_y == i - 1)
-		return (ft_printf("ERROR: starting position out of bounds\n"));
-	if (st->pos_x < 0)
-		return (ft_printf("ERROR: no starting position\n"));
-	if (check_walls(st))
+	if (d->play->y == i - 1)
+		return (ft_printf("Error: starting position out of bounds\n"));
+	if (d->play->x < 0)
+		return (ft_printf("Error: no starting position\n"));
+	if (check_walls(d))
 		return (1);
 	return (0);
 }

@@ -3,107 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr       +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:33:49 by gamichal          #+#    #+#             */
-/*   Updated: 2020/10/12 15:40:05 by gamichal         ###   ########.fr       */
+/*   Updated: 2020/12/10 14:59:20 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static t_struc	*init_struct(void)
-{
-	t_struc	*st;
+/*
+** Read data from map file
+*/
 
-	if (!(st = malloc(sizeof(t_struc))))
-		return (NULL);
-	st->map = NULL;
-	st->len = 0;
-	st->map_info = 0;
-	st->width = -1;
-	st->height = -1;
-	st->no = NULL;
-	st->so = NULL;
-	st->we = NULL;
-	st->ea = NULL;
-	st->s = NULL;
-	st->f = -1;
-	st->c = -1;
-	st->pos_x = -1;
-	st->pos_y = -1;
-	return (st);
+int		parse_file(t_data *d, int fd, char *line)
+{
+	while ((get_next_line(fd, &line)))
+	{
+		if (parse_map(d, line))
+			return (1);
+	}
+	if (parse_map(d, line))
+		return (1);
+	close(fd);
+	return (check_parsing(d));
 }
 
-static void		free_struct(t_struc *st)
+/*
+** Free all objects
+*/
+
+void	free_data(t_data *d)
 {
 	int i;
 
 	i = -1;
-	while (st->map && st->map[++i])
-		ft_free(st->map[i]);
-	ft_free(st->map);
-	ft_free(st->no);
-	ft_free(st->so);
-	ft_free(st->we);
-	ft_free(st->ea);
-	ft_free(st->s);
-	ft_free(st);
-	exit(1);
+	while (d->map->grid[++i])
+		ft_free(d->map->grid[i]);
+	ft_free(d->map);
+	ft_free(d->play);
+	ft_free(d->res);
+	ft_free(d->text->no);
+	ft_free(d->text->so);
+	ft_free(d->text->we);
+	ft_free(d->text->ea);
+	ft_free(d->text->s);
+	ft_free(d->text);
+	ft_free(d->col);
+	ft_free(d);
+	exit(print_error(-5));
 }
 
-static int		check_av(t_struc *st, char *av)
+/*
+** Initialize all objects
+*/
+
+t_data	*init_data(void)
 {
-	st->fd = open(av, O_RDONLY);
-	if (st->fd < 0)
-	{
-		ft_printf("ERROR: ./cub3D <filename.cub>\n");
-		ft_printf("/!\\ %s does not exist\n", av);
-		ft_exit(st, 1);
-	}
-	else if (ft_strcmp(ft_strrchr(av, '.'), CUB))
-	{
-		ft_printf("ERROR: ./cub3D <filename.cub>\n");
-		ft_printf("/!\\ map has invalid extension\n");
-		ft_exit(st, 1);
-	}
-	return (0);
+	t_data *d;
+
+	if (!(d = malloc(sizeof(t_data))))
+		return (NULL);
+	d->map = init_map();
+	d->play = init_player();
+	d->res = init_resolution();
+	d->text = init_texture();
+	d->col = init_color();
+	if (!d->map || !d->play || !d->res || !d->text || !d->col)
+		free_data(d);
+	return (d);
 }
 
-static int		parse_cub_file(t_struc *st, char *line)
-{
-	while ((get_next_line(st->fd, &line)))
-	{
-		if (parse_map(st, line))
-			return (1);
-	}
-	if (parse_map(st, line))
-		return (1);
-	close(st->fd);
-	return (check_parsing(st));
-}
+/*
+** Run game loop
+*/
 
-int				main(int ac, char **av)
+void	run_cub3d(int fd)
 {
-	t_struc	*st;
+	t_data *d;
 
-	if (ac == 2 || ac == 3)
-	{
-		if (ac == 3 && ft_strcmp(av[2], "--save"))
-		{
-			ft_printf("ERROR : ./cub3D <filename.cub> --save\n");
-			ft_printf("/!\\ \"%s\" is not a valid argument\n", av[2]);
-			exit(1);
-		}
-		st = init_struct();
-		if (check_av(st, av[1]) || parse_cub_file(st, NULL) || check_map(st))
-			free_struct(st);
-	}
-	else
-	{
-		ft_printf("ERROR: ./cub3D <filename.cub>\n");
-		ft_printf("/!\\ wrong number of arguments\n");
-		exit(1);
-	}
-	return (0);
+	d = init_data();
+	if (parse_file(d, fd, NULL))
+		free_data(d);
 }

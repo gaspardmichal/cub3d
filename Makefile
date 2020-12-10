@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+         #
+#    By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/21 20:55:11 by gamichal          #+#    #+#              #
-#    Updated: 2020/11/25 15:57:51 by gamichal         ###   ########lyon.fr    #
+#    Updated: 2020/12/10 15:00:47 by gamichal         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ OBJS_PATH			=	objs/
 INCL_PATH			=	includes
 HEADER				=	includes/cub3d.h
 
-SRC					=	cub3d.c					\
+SRC					=	main.c					\
+						cub3d.c					\
+						init.c					\
 						parse_map.c				\
 						parse_resolution.c		\
 						parse_texture.c			\
