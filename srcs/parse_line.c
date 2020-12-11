@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 09:01:01 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/11 09:04:10 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/11 11:36:49 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,27 @@
 ** Check for potential missing information
 */
 
-int		check_parsing(t_data *d)
+int		check_parsing(t_data *s)
 {
 	int ret;
 
 	ret = 0;
-	if (d->res->x < 0 && d->res->y < 0)
+	if (s->res->x < 0 && s->res->y < 0)
+		ret = print_error(-7);
+	if (!s->txt->no)
 		ret = print_error(-8);
-	if (!d->text->no)
+	if (!s->txt->so)
 		ret = print_error(-9);
-	if (!d->text->so)
+	if (!s->txt->we)
 		ret = print_error(-10);
-	if (!d->text->we)
+	if (!s->txt->ea)
 		ret = print_error(-11);
-	if (!d->text->ea)
+	if (!s->txt->s)
 		ret = print_error(-12);
-	if (!d->text->s)
+	if (s->col->f < 0)
 		ret = print_error(-13);
-	if (d->col->f < 0)
+	if (s->col->c < 0)
 		ret = print_error(-14);
-	if (d->col->c < 0)
-		ret = print_error(-15);
 	return (ret);
 }
 
@@ -68,7 +68,7 @@ int		is_line_of_map(const char *set, const char *s)
 	return (1);
 }
 
-int		parse_identifiers(t_data *d, char *line)
+int		parse_identifiers(t_data *s, char *line)
 {
 	int ret;
 	int i;
@@ -78,31 +78,31 @@ int		parse_identifiers(t_data *d, char *line)
 	while (line[i] == ' ')
 		++i;
 	if (line[i] == 'R')
-		ret = parse_resolution(d, line + i + 1);
+		ret = parse_resolution(s, line + i + 1);
 	else if (!ft_strncmp(line + i, "NO", 2))
-		ret = parse_texture(&d->text->no, line + i + 2, "NO");
+		ret = parse_texture(&s->txt->no, line + i + 2, "NO");
 	else if (!ft_strncmp(line + i, "SO", 2))
-		ret = parse_texture(&d->text->so, line + i + 2, "SO");
+		ret = parse_texture(&s->txt->so, line + i + 2, "SO");
 	else if (!ft_strncmp(line + i, "WE", 2))
-		ret = parse_texture(&d->text->we, line + i + 2, "WE");
+		ret = parse_texture(&s->txt->we, line + i + 2, "WE");
 	else if (!ft_strncmp(line + i, "EA", 2))
-		ret = parse_texture(&d->text->ea, line + i + 2, "EA");
+		ret = parse_texture(&s->txt->ea, line + i + 2, "EA");
 	else if (line[i] == 'S')
-		ret = parse_texture(&d->text->s, line + i + 1, "S");
+		ret = parse_texture(&s->txt->s, line + i + 1, "S");
 	else if (line[i] == 'F')
-		ret = parse_color(d, line + i + 1, 'F');
+		ret = parse_color(s, line + i + 1, 'F');
 	else if (line[i] == 'C')
-		ret = parse_color(d, line + i + 1, 'C');
-	return (check_map_char(d, line, ret));
+		ret = parse_color(s, line + i + 1, 'C');
+	return (check_map_grid_cells(s, line, ret));
 }
 
-int		alloc_map_line(t_data *d, char *line)
+int		alloc_map_line(t_data *s, char *line)
 {
 	char	**tab;
 	int		i;
 
 	i = 0;
-	while (d->map->grid && d->map->grid[i])
+	while (s->map->grid && s->map->grid[i])
 		++i;
 	if (!(tab = malloc(sizeof(char **) * (++i + 1))))
 		return (ft_exit(line, 1));
@@ -110,36 +110,36 @@ int		alloc_map_line(t_data *d, char *line)
 	tab[--i] = ft_strdup(line);
 	while (--i >= 0)
 	{
-		tab[i] = d->map->grid[i];
-		d->map->grid[i] = NULL;
+		tab[i] = s->map->grid[i];
+		s->map->grid[i] = NULL;
 	}
-	ft_free(d->map->grid);
-	d->map->grid = tab;
+	ft_free(s->map->grid);
+	s->map->grid = tab;
 	return (ft_exit(line, 0));
 }
 
-int		parse_line(t_data *d, char *line)
+int		parse_line(t_data *s, char *line)
 {
-	if (!*line && d->map->grid)
-		return (ft_exit(line, print_error(-6)));
+	if (!*line && s->map->grid)
+		return (ft_exit(line, print_error(-5)));
 	else if (is_line_of_map(MAP, line) && *line)
 	{
-		if (d->map->info == 4)
+		if (s->map->info == 4)
 		{
-			if (alloc_map_line(d, line))
+			if (alloc_map_line(s, line))
 				return (-1);
 		}
 		else
 		{
-			print_error(-7);
-			check_parsing(d);
+			print_error(-6);
+			check_parsing(s);
 			return (ft_exit(line, -1));
 		}
 	}
-	else if (parse_identifiers(d, line))
+	else if (parse_identifiers(s, line))
 		return (-1);
-	if (d->text->no && d->text->so && d->text->we &&
-		d->text->ea && d->text->s && d->map->info == 3)
-		++d->map->info;
+	if (s->txt->no && s->txt->so && s->txt->we &&
+		s->txt->ea && s->txt->s && s->map->info == 3)
+		++s->map->info;
 	return (0);
 }

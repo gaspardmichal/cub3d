@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:34:52 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/10 14:59:24 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/11 10:59:12 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,15 @@ static int	convert_rgb(int r, int g, int b, int c)
 	return ((r << 16) + (g << 8) + b);
 }
 
-int			parse_color(t_data *d, char *line, char c)
+int			parse_color(t_data *s, char *line, char c)
 {
 	char	**tab;
 	int		i;
 	int		col[3];
 
-	if (d->col->f >= 0 && c == 'F')
+	if (s->col->f >= 0 && c == 'F')
 		return (ft_printf("Error: floor color described more than once\n"));
-	if (d->col->c >= 0 && c == 'C')
+	if (s->col->c >= 0 && c == 'C')
 		return (ft_printf("Error: ceiling color described more than once\n"));
 	if (!(tab = ft_split(line, " ,")) || check_number_of_colors(tab, c)
 			|| check_color_format(line, c)
@@ -108,8 +108,8 @@ int			parse_color(t_data *d, char *line, char c)
 	while (tab[++i])
 		col[i] = ft_atoi(tab[i]);
 	ft_free_tab(tab);
-	d->col->f = c == 'F' ? convert_rgb(col[0], col[1], col[2], c) : d->col->f;
-	d->col->c = c == 'C' ? convert_rgb(col[0], col[1], col[2], c) : d->col->c;
-	++d->map->info;
+	s->col->f = c == 'F' ? convert_rgb(col[0], col[1], col[2], c) : s->col->f;
+	s->col->c = c == 'C' ? convert_rgb(col[0], col[1], col[2], c) : s->col->c;
+	++s->map->info;
 	return (0);
 }

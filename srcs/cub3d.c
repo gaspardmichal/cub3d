@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:33:49 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/11 09:09:44 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/11 14:34:02 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,62 +16,62 @@
 ** Read data from map file
 */
 
-int		parse_file(t_data *d, int fd, char *line)
+int		read_config_file(t_data *s, int fd, char *line)
 {
 	while ((get_next_line(fd, &line)))
 	{
-		if (parse_line(d, line))
+		if (parse_line(s, line))
 			return (1);
 	}
-	if (parse_line(d, line))
+	if (parse_line(s, line))
 		return (1);
 	close(fd);
-	return (check_parsing(d));
+	return (check_parsing(s));
 }
 
 /*
 ** Free all objects
 */
 
-void	free_data(t_data *d)
+void	free_data_structs(t_data *s)
 {
 	int i;
 
 	i = -1;
-	while (d->map->grid[++i])
-		ft_free(d->map->grid[i]);
-	ft_free(d->map);
-	ft_free(d->play);
-	ft_free(d->res);
-	ft_free(d->text->no);
-	ft_free(d->text->so);
-	ft_free(d->text->we);
-	ft_free(d->text->ea);
-	ft_free(d->text->s);
-	ft_free(d->text);
-	ft_free(d->col);
-	ft_free(d);
-	exit(print_error(-5));
+	while (s->map->grid && s->map->grid[++i])
+		ft_free(s->map->grid[i]);
+	ft_free(s->map);
+	ft_free(s->p);
+	ft_free(s->res);
+	ft_free(s->txt->no);
+	ft_free(s->txt->so);
+	ft_free(s->txt->we);
+	ft_free(s->txt->ea);
+	ft_free(s->txt->s);
+	ft_free(s->txt);
+	ft_free(s->col);
+	ft_free(s);
+	exit(-1);
 }
 
 /*
 ** Initialize all objects
 */
 
-t_data	*init_data(void)
+t_data	*init_data_structs(void)
 {
-	t_data *d;
+	t_data *s;
 
-	if (!(d = malloc(sizeof(t_data))))
+	if (!(s = malloc(sizeof(t_data))))
 		return (NULL);
-	d->map = init_map();
-	d->play = init_player();
-	d->res = init_resolution();
-	d->text = init_texture();
-	d->col = init_color();
-	if (!d->map || !d->play || !d->res || !d->text || !d->col)
-		free_data(d);
-	return (d);
+	s->map = init_map_struct();
+	s->p = init_player_struct();
+	s->res = init_resolution_struct();
+	s->txt = init_texture_struct();
+	s->col = init_color_struct();
+	if (!s->map || !s->p || !s->res || !s->txt || !s->col)
+		free_data_structs(s);
+	return (s);
 }
 
 /*
@@ -80,9 +80,22 @@ t_data	*init_data(void)
 
 void	run_cub3d(int fd)
 {
-	t_data *d;
+	t_data	*s;
+	t_mlx	*mlx;
+	t_win	*win;
 
-	d = init_data();
-	if (parse_file(d, fd, NULL))
-		free_data(d);
+	s = init_data_structs();
+	if (read_config_file(s, fd, NULL))
+		free_data_structs(s);
+	if (!(mlx = malloc(sizeof(t_mlx))))
+		return ;
+	mlx->ptr = mlx_init();
+	s->mlx = mlx;
+	if (!(win = malloc(sizeof(t_win))))
+		return ;
+	win->x = s->res->x;
+	win->y = s->res->y;
+	win->ptr = mlx_new_window(s->mlx->ptr, win->x, win->y, "cub3D");
+	s->win = win;
+	mlx_loop(s->win->ptr);
 }

@@ -1,4 +1,4 @@
-R 1920 1080
+R 5120 2880
 NO ./textures/no_texture.xpm
 SO ./textures/so_texture.xpm
 WE ./textures/we_texture.xpm
