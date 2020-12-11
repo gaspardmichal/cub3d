@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 10:41:49 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/10 14:28:26 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/11 09:07:50 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,20 +86,20 @@ t_player			*init_player(void);
 t_resolution		*init_resolution(void);
 t_texture			*init_texture(void);
 t_color				*init_color(void);
-int					parse_map(t_data *d, char *line);
 int					parse_line(t_data *d, char *line);
+int					parse_identifiers(t_data *d, char *line);
 int					parse_resolution(t_data *d, char *line);
 int					parse_texture(char **path, char *line, char *s);
 int					parse_color(t_data *d, char *line, char c);
-int					line_is_in_map(const char *set, const char *s);
-int					check_parsing(t_data *d);
+int					is_line_of_map(const char *set, const char *s);
 int					allocate_map(t_data *d, char *line);
-int					check_map(t_data *st);
+int					parse_map(t_data *d);
 int					check_up(char **map, char *error, int i, int j);
 int					check_down(char **map, char *error, int i, int j);
 int					check_left(char **map, char *error, int i, int j);
 int					check_right(char **map, char *error, int i, int j);
 int					check_map_char(t_data *d, char *line, int ret);
+int					check_parsing(t_data *d);
 int					print_error(int err);
 
 #endif

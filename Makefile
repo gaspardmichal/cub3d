@@ -6,7 +6,7 @@
 #    By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/21 20:55:11 by gamichal          #+#    #+#              #
-#    Updated: 2020/12/10 15:00:47 by gamichal         ###   ########lyon.fr    #
+#    Updated: 2020/12/11 09:08:51 by gamichal         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,12 @@ HEADER				=	includes/cub3d.h
 SRC					=	main.c					\
 						cub3d.c					\
 						init.c					\
-						parse_map.c				\
+						parse_line.c			\
 						parse_resolution.c		\
 						parse_texture.c			\
 						parse_color.c			\
-						check_map.c				\
-						check_map_utils.c
+						parse_map.c				\
+						check_walls.c
 
 SRCS 				= 	$(addprefix $(SRCS_PATH),$(SRC))
 OBJS				=	$(patsubst $(SRCS_PATH)%.c,$(OBJS_PATH)%.o, $(SRCS))

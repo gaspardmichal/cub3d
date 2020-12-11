@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:33:49 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/10 14:59:20 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/11 09:09:44 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int		parse_file(t_data *d, int fd, char *line)
 {
 	while ((get_next_line(fd, &line)))
 	{
-		if (parse_map(d, line))
+		if (parse_line(d, line))
 			return (1);
 	}
-	if (parse_map(d, line))
+	if (parse_line(d, line))
 		return (1);
 	close(fd);
 	return (check_parsing(d));
