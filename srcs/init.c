@@ -6,13 +6,17 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 14:09:53 by gamichal          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/12/12 15:57:57 by gamichal         ###   ########lyon.fr   */
+=======
+/*   Updated: 2020/12/11 11:17:12 by gamichal         ###   ########lyon.fr   */
+>>>>>>> 5c228cfb11d9b811f519347160044789ce1bfdc1
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-t_map			*init_map(void)
+t_map			*init_map_struct(void)
 {
 	t_map *map;
 
@@ -23,7 +27,7 @@ t_map			*init_map(void)
 	return (map);
 }
 
-t_player		*init_player(void)
+t_player		*init_player_struct(void)
 {
 	t_player *p;
 
@@ -34,7 +38,7 @@ t_player		*init_player(void)
 	return (p);
 }
 
-t_resolution	*init_resolution(void)
+t_resolution	*init_resolution_struct(void)
 {
 	t_resolution *res;
 
@@ -45,7 +49,7 @@ t_resolution	*init_resolution(void)
 	return (res);
 }
 
-t_texture		*init_texture(void)
+t_texture		*init_texture_struct(void)
 {
 	t_texture		*txt;
 
@@ -59,7 +63,7 @@ t_texture		*init_texture(void)
 	return (txt);
 }
 
-t_color			*init_color(void)
+t_color			*init_color_struct(void)
 {
 	t_color *col;
 
