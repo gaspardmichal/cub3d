@@ -6,19 +6,17 @@
 #    By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/21 20:55:11 by gamichal          #+#    #+#              #
-#    Updated: 2020/12/11 09:08:51 by gamichal         ###   ########lyon.fr    #
+#    Updated: 2020/12/12 19:08:19 by gamichal         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	cub3D
 
 LIBFT				=	libft/
-FT_HEADER			=	libft/includes/libft.h
-FT_SRCS				=	$(shell find libft -name "*.c")
-MLX					=	minilibx/
+LIBFT_HEADER		=	libft/includes/libft.h
+LIBFT_SRCS			=	$(shell find libft -name "*.c")
 SRCS_PATH			=	srcs/
 OBJS_PATH			=	objs/
-INCL_PATH			=	includes
 HEADER				=	includes/cub3d.h
 
 SRC					=	main.c					\
@@ -36,29 +34,41 @@ OBJS				=	$(patsubst $(SRCS_PATH)%.c,$(OBJS_PATH)%.o, $(SRCS))
 
 RM					=	rm -rf
 CC					=	clang
-CFLAGS				=	-Wall -Wextra -Werror
 FSANITIZE			=	-g3 -fsanitize=address
-FTFLAGS				=	-L $(LIBFT) -l ft
-MLXFLAGS			=	-g -L $(MLX) -l mlx -framework OpenGL -framework Appkit
+CFLAGS				=	-Wall -Wextra -Werror
+
+OS_NAME				=	$(shell uname -s)
+
+ifeq ($(OS_NAME), Darwin)
+		MLX			=	mlx_mac
+		MLX_FLAGS	=	-L $(MLX) -l mlx -framework OpenGL -framework Appkit
+		DEFINES		=	-D OS_LINUX=0
+else
+		MLX			=	mlx_linux
+		MLX_FLAGS	=	-L $(MLX) -l mlx -l Xext -l X11 -l bsd
+		DEFINES		=	-D OS_LINUX=1
+endif
+
+LIBFT_FLAGS			=	-L $(LIBFT) -l ft
 
 $(OBJS_PATH)%.o		:	$(SRCS_PATH)%.c $(HEADER) 
 						$(shell mkdir -p $(OBJS_PATH))
 ifdef FSAN
-						$(CC) $(CFLAGS) $(FSANITIZE) -c $< -o $@
+						$(CC) $(DEEFINES) $(CFLAGS) $(FSANITIZE) -c $< -o $@
 else
-						$(CC) $(CFLAGS) -c $< -o $@
+						$(CC) $(DEFINES) $(CFLAGS) -c $< -o $@
 endif
 
 all					:	$(NAME)
 
-$(NAME)				:	$(OBJS) $(FT_HEADER) $(FT_SRCS)
+$(NAME)				:	$(OBJS) $(LIBFT_HEADER) $(LIBFT_SRCS)
 						@$(MAKE) -C $(MLX)
 ifdef FSAN
 						@$(MAKE) -C $(LIBFT) FSAN=1
-						$(CC) $(CFLAGS) $(FSANITIZE) -o $@ $(OBJS) $(MLXFLAGS) $(FTFLAGS)
+						$(CC) $(CFLAGS) $(FSANITIZE) -o $@ $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS)
 else
 						@$(MAKE) -C $(LIBFT)
-						$(CC) $(CFLAGS) -o $@ $(OBJS) $(MLXFLAGS) $(FTFLAGS)
+						$(CC) $(CFLAGS) -o $@ $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS)
 endif
 
 clean				:

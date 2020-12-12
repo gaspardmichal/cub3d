@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 16:42:36 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/10 14:44:29 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/12 17:07:14 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,22 @@
 
 int		print_error(int err)
 {
+	(err == -1) ? write(2, "Error: First argument is a directory\n", 37) : 0;
 	(err == -2) ? write(2, "Error: No such file or directory\n", 33) : 0;
 	(err == -3) ? write(2, "Error: Map has a wrong extension\n", 33) : 0;
 	(err == -4) ? write(2, "Error: Second argument is not '--save'\n", 39) : 0;
-	(err == -5) ? write(2, "Error: Memory allocation failed\n", 32) : 0;
-	(err == -6) ? write(2, "Error: empty line in map description\n", 37) : 0;
-	(err == -7) ? write(2, "Error: map description is not last\n", 35) : 0;
-	(err == -8) ? write(2, "/!\\ missing resolution\n", 24) : 0;
-	(err == -9) ? write(2, "/!\\ missing northern texture\n", 30) : 0;
-	(err == -10) ? write(2, "/!\\ missing southern texture\n", 30) : 0;
-	(err == -11) ? write(2, "/!\\ missing western texture\n", 29) : 0;
-	(err == -12) ? write(2, "/!\\ missing eastern texture\n", 29) : 0;
-	(err == -13) ? write(2, "/!\\ missing sprite texture\n", 28) : 0;
-	(err == -14) ? write(2, "/!\\ missing floor color\n", 25) : 0;
-	(err == -14) ? write(2, "/!\\ missing ceiling color\n", 27) : 0;
+	(err == -5) ? write(2, "Error: Empty line in map description\n", 37) : 0;
+	(err == -6) ? write(2, "Error: Map description is not last\n", 35) : 0;
+	(err == -7) ? write(2, "/!\\ missing resolution\n", 23) : 0;
+	(err == -8) ? write(2, "/!\\ missing northern texture\n", 29) : 0;
+	(err == -9) ? write(2, "/!\\ missing southern texture\n", 29) : 0;
+	(err == -10) ? write(2, "/!\\ missing western texture\n", 28) : 0;
+	(err == -11) ? write(2, "/!\\ missing eastern texture\n", 28) : 0;
+	(err == -12) ? write(2, "/!\\ missing sprite texture\n", 27) : 0;
+	(err == -13) ? write(2, "/!\\ missing floor color\n", 24) : 0;
+	(err == -14) ? write(2, "/!\\ missing ceiling color\n", 26) : 0;
+	(err == -15) ? write(2, "/!\\ wrong number of arguments\n", 30) : 0;
+	(err == -16 ) ? write(2, "/!\\ unauthorized character, '0-9 ' ONLY\n", 40) : 0;
 	return (-1);
 }
 
@@ -63,6 +65,8 @@ int		main(int ac, char **av)
 {
 	int fd;
 
+	if ((fd = open(av[1], O_DIRECTORY) >= 0))
+		return (print_error(-1));
 	fd = open(av[1], O_RDONLY);
 	if (ac == 2 && check_file(av[1], fd))
 		run_cub3d(fd);

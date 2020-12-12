@@ -6,13 +6,13 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 09:35:18 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/10 12:43:53 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/12 18:27:02 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int	check_width_and_height(char **tab)
+static int	check_width_and_height(char **tab)			//21
 {
 	int i;
 
@@ -20,10 +20,7 @@ static int	check_width_and_height(char **tab)
 	while (tab[i])
 		++i;
 	if (i != 2)
-	{
-		ft_printf("Error: R <int> <int>\n");
-		return (ft_printf("/!\\ wrong nb of arguments\n"));
-	}
+		return (print_error(ft_printf("Error: R <int> <int>\n") - 36));
 	return (0);
 }
 
@@ -35,10 +32,7 @@ static int	check_unauthorized_char(char *line)
 	while (line[++i])
 	{
 		if (!ft_isdigit(line[i]) && line[i] != ' ')
-		{
-			ft_printf("Error: R <int> <int>\n");
-			return (ft_printf("/!\\ unauthorized character, '0-9 ' ONLY\n"));
-		}
+			return (print_error(ft_printf("Error: R <int> <int>\n") - 37));
 	}
 	return (0);
 }
@@ -61,24 +55,24 @@ static int	check_resolution_integrity(char **tab, char *line)
 	return (0);
 }
 
-int			parse_resolution(t_data *d, char *line)
+int			parse_resolution(t_data *s, char *line)
 {
 	char	**tab;
 	int		i;
 
-	if ((d->res->x > 0 && d->res->y > 0))
+	if ((s->res->x > 0 && s->res->y > 0))
 		return (ft_printf("Error: resolution is described more than once\n"));
 	if (!(tab = ft_split(line, " ")) || check_resolution_integrity(tab, line))
 		return (1);
 	i = -1;
 	while (tab[++i])
 	{
-		d->res->x = i == 0 ? ft_atoi(tab[i]) : d->res->x;
-		d->res->y = i == 1 ? ft_atoi(tab[i]) : d->res->y;
+		s->res->x = i == 0 ? ft_atoi(tab[i]) : s->res->x;
+		s->res->y = i == 1 ? ft_atoi(tab[i]) : s->res->y;
 	}
 	ft_free_tab(tab);
-	if (!d->res->x || !d->res->y)
+	if (!s->res->x || !s->res->y)
 		return (ft_printf("Error: width or height is zero\n"));
-	++d->map->info;
+	++s->map->info;
 	return (0);
 }

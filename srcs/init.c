@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 14:09:53 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/10 14:57:58 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/12 15:57:57 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,47 +25,47 @@ t_map			*init_map(void)
 
 t_player		*init_player(void)
 {
-	t_player *player;
+	t_player *p;
 
-	if (!(player = malloc(sizeof(t_player))))
+	if (!(p = malloc(sizeof(t_player))))
 		return (NULL);
-	player->x = -1;
-	player->y = -1;
-	return (player);
+	p->x = -1;
+	p->y = -1;
+	return (p);
 }
 
 t_resolution	*init_resolution(void)
 {
-	t_resolution *resolution;
+	t_resolution *res;
 
-	if (!(resolution = malloc(sizeof(t_resolution))))
+	if (!(res = malloc(sizeof(t_resolution))))
 		return (NULL);
-	resolution->x = -1;
-	resolution->y = -1;
-	return (resolution);
+	res->x = -1;
+	res->y = -1;
+	return (res);
 }
 
 t_texture		*init_texture(void)
 {
-	t_texture		*texture;
+	t_texture		*txt;
 
-	if (!(texture = malloc(sizeof(t_texture))))
+	if (!(txt = malloc(sizeof(t_texture))))
 		return (NULL);
-	texture->no = NULL;
-	texture->so = NULL;
-	texture->we = NULL;
-	texture->ea = NULL;
-	texture->s = NULL;
-	return (texture);
+	txt->no = NULL;
+	txt->so = NULL;
+	txt->we = NULL;
+	txt->ea = NULL;
+	txt->s = NULL;
+	return (txt);
 }
 
 t_color			*init_color(void)
 {
-	t_color *color;
+	t_color *col;
 
-	if (!(color = malloc(sizeof(t_color))))
+	if (!(col = malloc(sizeof(t_color))))
 		return (NULL);
-	color->f = -1;
-	color->c = -1;
-	return (color);
+	col->f = -1;
+	col->c = -1;
+	return (col);
 }
