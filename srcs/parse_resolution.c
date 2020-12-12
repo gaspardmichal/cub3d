@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_resolution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 09:35:18 by gamichal          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/12/12 18:27:02 by gamichal         ###   ########lyon.fr   */
-=======
-/*   Updated: 2020/12/11 14:41:07 by gamichal         ###   ########lyon.fr   */
->>>>>>> 5c228cfb11d9b811f519347160044789ce1bfdc1
+/*   Created: 2020/12/12 20:34:36 by gamichal          #+#    #+#             */
+/*   Updated: 2020/12/12 20:34:48 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +73,11 @@ int			parse_resolution(t_data *s, char *line)
 	ft_free_tab(tab);
 	if (!s->res->x || !s->res->y)
 		return (ft_printf("Error: width or height is zero\n"));
-<<<<<<< HEAD
-=======
 	if (s->res->x > 5120 || s->res->y > 2880)
 	{
 		s->res->x = 2560;
 		s->res->y = 1400;
 	}
->>>>>>> 5c228cfb11d9b811f519347160044789ce1bfdc1
 	++s->map->info;
 	return (0);
 }

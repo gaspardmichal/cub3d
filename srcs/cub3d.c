@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 09:33:49 by gamichal          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/12/12 17:07:17 by gamichal         ###   ########lyon.fr   */
-=======
-/*   Updated: 2020/12/11 14:34:02 by gamichal         ###   ########lyon.fr   */
->>>>>>> 5c228cfb11d9b811f519347160044789ce1bfdc1
+/*   Created: 2020/12/12 20:33:31 by gamichal          #+#    #+#             */
+/*   Updated: 2020/12/12 20:34:07 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +16,7 @@
 ** Read data from map file
 */
 
-<<<<<<< HEAD
-int		parse_file(t_data *s, int fd, char *line)
-=======
 int		read_config_file(t_data *s, int fd, char *line)
->>>>>>> 5c228cfb11d9b811f519347160044789ce1bfdc1
 {
 	while ((get_next_line(fd, &line)))
 	{
@@ -41,11 +33,7 @@ int		read_config_file(t_data *s, int fd, char *line)
 ** Free all objects
 */
 
-<<<<<<< HEAD
-void	free_data(t_data *s)
-=======
 void	free_data_structs(t_data *s)
->>>>>>> 5c228cfb11d9b811f519347160044789ce1bfdc1
 {
 	int i;
 
@@ -76,15 +64,6 @@ t_data	*init_data_structs(void)
 
 	if (!(s = malloc(sizeof(t_data))))
 		return (NULL);
-<<<<<<< HEAD
-	s->map = init_map();
-	s->p = init_player();
-	s->res = init_resolution();
-	s->txt = init_texture();
-	s->col = init_color();
-	if (!s->map || !s->p || !s->res || !s->txt || !s->col)
-		free_data(s);
-=======
 	s->map = init_map_struct();
 	s->p = init_player_struct();
 	s->res = init_resolution_struct();
@@ -92,7 +71,6 @@ t_data	*init_data_structs(void)
 	s->col = init_color_struct();
 	if (!s->map || !s->p || !s->res || !s->txt || !s->col)
 		free_data_structs(s);
->>>>>>> 5c228cfb11d9b811f519347160044789ce1bfdc1
 	return (s);
 }
 
@@ -102,13 +80,6 @@ t_data	*init_data_structs(void)
 
 void	run_cub3d(int fd)
 {
-<<<<<<< HEAD
-	t_data *s;
-
-	s = init_data();
-	if (parse_file(s, fd, NULL))
-		free_data(s);
-=======
 	t_data	*s;
 	t_mlx	*mlx;
 	t_win	*win;
@@ -127,5 +98,4 @@ void	run_cub3d(int fd)
 	win->ptr = mlx_new_window(s->mlx->ptr, win->x, win->y, "cub3D");
 	s->win = win;
 	mlx_loop(s->win->ptr);
->>>>>>> 5c228cfb11d9b811f519347160044789ce1bfdc1
 }
