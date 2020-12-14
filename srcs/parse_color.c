@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:35:02 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/12 20:35:06 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/14 14:34:07 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,28 +66,16 @@ static int	check_number_of_colors(char **tab, int c)
 
 static int	convert_rgb(int r, int g, int b, int c)
 {
-	if (r < 0 || r > 255)
+	if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
 	{
 		ft_printf("Error: %c <int>,<int>,<int>\n", c);
-		ft_printf("/!\\ invalid value for the first <int> (red)\n");
-		return (-1);
-	}
-	if (g < 0 || g > 255)
-	{
-		ft_printf("Error: %c <int>,<int>,<int>\n", c);
-		ft_printf("/!\\ invalid value for the second <int> (green)\n");
-		return (-1);
-	}
-	if (b < 0 || b > 255)
-	{
-		ft_printf("Error: %c <int>,<int>,<int>\n", c);
-		ft_printf("/!\\ invalid value for third <int> (blue)\n");
+		ft_printf("/!\\ invalid value for r, g, or b\n");
 		return (-1);
 	}
 	return ((r << 16) + (g << 8) + b);
 }
 
-int			parse_color(t_data *s, char *line, char c)
+int			parse_color(t_all *s, char *line, char c)
 {
 	char	**tab;
 	int		i;

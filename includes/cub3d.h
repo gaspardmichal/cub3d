@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/12 20:36:56 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/14 10:02:42 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,13 @@
 
 typedef	struct		s_mlx
 {
-		void		*ptr;
+		void		*add;
+		void		*win;
+		int			rx;
+		int			ry;
+		int			sx;
+		int			sy;
 }					t_mlx;
-
-typedef struct		s_win
-{
-		void		*ptr;
-		int			x;
-		int			y;
-}					t_win;
 
 typedef	struct		s_map
 {
@@ -42,66 +40,57 @@ typedef	struct		s_map
 		int			info;
 }					t_map;
 
-typedef	struct		s_player
+typedef	struct		s_p
 {
 		int			x;
 		int			y;
-}					t_player;
+}					t_p;
 
-typedef	struct		s_resolution
-{
-		int			x;
-		int			y;
-}					t_resolution;
-
-typedef struct		s_texture
+typedef struct		s_txt
 {
 		char		*no;
 		char		*so;
 		char		*we;
 		char		*ea;
 		char		*s;
-}					t_texture;
+}					t_txt;
 
-typedef	struct		s_color
+typedef	struct		s_col
 {
 		int			f;
 		int			c;
-}					t_color;
+}					t_col;
 
-typedef struct		s_data
+typedef struct		s_all
 {
 	t_mlx			*mlx;
-	t_win			*win;
 	t_map			*map;
-	t_player		*p;
-	t_resolution	*res;
-	t_texture		*txt;
-	t_color			*col;
-}					t_data;
+	t_p				*p;
+	t_txt			*txt;
+	t_col			*col;
+}					t_all;
 
 void				run_cub3d(int fd);
-t_map				*init_map_struct(void);
-t_player			*init_player_struct(void);
-t_resolution		*init_resolution_struct(void);
-t_texture			*init_texture_struct(void);
-t_color				*init_color_struct(void);
-int					parse_line(t_data *s, char *line);
-int					allocate_map(t_data *s, char *line);
-int					parse_identifiers(t_data *s, char *line);
-int					parse_resolution(t_data *s, char *line);
-int					parse_color(t_data *s, char *line, char c);
-int					check_map_grid_cells(t_data *s, char *line, int ret);
-int					check_parsing(t_data *s);
-int					parse_map(t_data *s);
+t_mlx				*init_mlx();
+t_map				*init_map(void);
+t_p					*init_player(void);
+t_txt				*init_texture(void);
+t_col				*init_color(void);
+int					parse_line(t_all *s, char *line);
+int					parse_identifiers(t_all *s, char *line);
+int					parse_resolution(t_all *s, char *line);
 int					parse_texture(char **path, char *line, char *s);
+int					parse_color(t_all *s, char *line, char c);
 int					is_line_of_map(const char *set, const char *s);
+int					allocate_map(t_all *s, char *line);
+int					check_map_grid_cells(t_all *s, char *line, int ret);
+int					check_parsing(t_all *s);
+int					parse_map(t_all *s);
 int					check_up(char **map, char *error, int i, int j);
 int					check_down(char **map, char *error, int i, int j);
 int					check_left(char **map, char *error, int i, int j);
 int					check_right(char **map, char *error, int i, int j);
-int					check_map_grid_cells(t_data *s, char *line, int ret);
-int					check_parsing(t_data *s);
+int					check_map_grid_cells(t_all *s, char *line, int ret);
 int					print_error(int err);
 
 #endif

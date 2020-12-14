@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_walls.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:35:18 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/12 20:35:20 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/14 14:02:18 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	check_right(char **map, char *err, int i, int j)
 	return (0);
 }
 
-int	check_map_grid_cells(t_data *s, char *line, int ret)
+int	check_map_grid_cells(t_all *s, char *line, int ret)
 {
-	if (*line && s->map->info == 4)
+	if (*line && s->map->info == 4 && ret != -1)
 		ret = ft_printf("Error: unauthorized character in map description\n");
 	return (ft_exit(line, ret));
 }

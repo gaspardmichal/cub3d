@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:34:23 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/12 20:34:30 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/14 13:34:50 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,25 @@
 ** Check for potential missing information
 */
 
-int		check_parsing(t_data *s)
+int		check_parsing(t_all *s)
 {
-	int ret;
-
-	ret = 0;
-	if (s->res->x < 0 && s->res->y < 0)
-		ret = print_error(-7);
+	if (s->mlx->rx < 0 && s->mlx->ry < 0)
+		print_error(-7);
 	if (!s->txt->no)
-		ret = print_error(-8);
+		print_error(-8);
 	if (!s->txt->so)
-		ret = print_error(-9);
+		print_error(-9);
 	if (!s->txt->we)
-		ret = print_error(-10);
+		print_error(-10);
 	if (!s->txt->ea)
-		ret = print_error(-11);
+		print_error(-11);
 	if (!s->txt->s)
-		ret = print_error(-12);
+		print_error(-12);
 	if (s->col->f < 0)
-		ret = print_error(-13);
+		print_error(-13);
 	if (s->col->c < 0)
-		ret = print_error(-14);
-	return (ret);
+		print_error(-14);
+	return (-1);
 }
 
 /*
@@ -68,7 +65,7 @@ int		is_line_of_map(const char *set, const char *s)
 	return (1);
 }
 
-int		parse_identifiers(t_data *s, char *line)
+int		parse_identifiers(t_all *s, char *line)
 {
 	int ret;
 	int i;
@@ -96,7 +93,7 @@ int		parse_identifiers(t_data *s, char *line)
 	return (check_map_grid_cells(s, line, ret));
 }
 
-int		alloc_map_line(t_data *s, char *line)
+int		alloc_map_line(t_all *s, char *line)
 {
 	char	**tab;
 	int		i;
@@ -118,7 +115,7 @@ int		alloc_map_line(t_data *s, char *line)
 	return (ft_exit(line, 0));
 }
 
-int		parse_line(t_data *s, char *line)
+int		parse_line(t_all *s, char *line)
 {
 	if (!*line && s->map->grid)
 		return (ft_exit(line, print_error(-5)));
@@ -131,9 +128,9 @@ int		parse_line(t_data *s, char *line)
 		}
 		else
 		{
+			ft_printf("On passe par ici\n");
 			print_error(-6);
-			check_parsing(s);
-			return (ft_exit(line, -1));
+			return (ft_exit(line, check_parsing(s)));
 		}
 	}
 	else if (parse_identifiers(s, line))

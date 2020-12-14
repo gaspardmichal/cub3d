@@ -3,16 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:35:28 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/12 20:35:30 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/14 15:25:08 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-t_map			*init_map_struct(void)
+t_mlx	*init_mlx(void)
+{
+	t_mlx *mlx;
+
+	if (!(mlx = malloc(sizeof(t_mlx))))
+		return (NULL);
+	mlx->rx = -1;
+	mlx->ry = -1;
+	return (mlx);
+}
+
+t_map	*init_map(void)
 {
 	t_map *map;
 
@@ -23,33 +34,22 @@ t_map			*init_map_struct(void)
 	return (map);
 }
 
-t_player		*init_player_struct(void)
+t_p		*init_player(void)
 {
-	t_player *p;
+	t_p	*p;
 
-	if (!(p = malloc(sizeof(t_player))))
+	if (!(p = malloc(sizeof(t_p))))
 		return (NULL);
 	p->x = -1;
 	p->y = -1;
 	return (p);
 }
 
-t_resolution	*init_resolution_struct(void)
+t_txt	*init_texture(void)
 {
-	t_resolution *res;
+	t_txt *txt;
 
-	if (!(res = malloc(sizeof(t_resolution))))
-		return (NULL);
-	res->x = -1;
-	res->y = -1;
-	return (res);
-}
-
-t_texture		*init_texture_struct(void)
-{
-	t_texture		*txt;
-
-	if (!(txt = malloc(sizeof(t_texture))))
+	if (!(txt = malloc(sizeof(t_txt))))
 		return (NULL);
 	txt->no = NULL;
 	txt->so = NULL;
@@ -59,11 +59,11 @@ t_texture		*init_texture_struct(void)
 	return (txt);
 }
 
-t_color			*init_color_struct(void)
+t_col	*init_color(void)
 {
-	t_color *col;
+	t_col *col;
 
-	if (!(col = malloc(sizeof(t_color))))
+	if (!(col = malloc(sizeof(t_col))))
 		return (NULL);
 	col->f = -1;
 	col->c = -1;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:32:58 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/12 20:33:01 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/14 10:05:34 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int	get_start_position(int i, t_data *s)
+static int	get_start_position(int i, t_all *s)
 {
 	int		j;
 	int		it;
@@ -51,7 +51,7 @@ static int	check_around(char **map, char *err, int i, int j)
 	return (0);
 }
 
-static int	check_walls(t_data *s)
+static int	check_walls(t_all *s)
 {
 	int		i;
 	int		j;
@@ -78,7 +78,7 @@ static int	check_walls(t_data *s)
 	return (0);
 }
 
-int			parse_map(t_data *s)
+int			parse_map(t_all *s)
 {
 	int	i;
 

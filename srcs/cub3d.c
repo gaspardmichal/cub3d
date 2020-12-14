@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:33:31 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/12 20:34:07 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/14 15:25:38 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Read data from map file
 */
 
-int		read_config_file(t_data *s, int fd, char *line)
+int		parse_config_file(t_all *s, int fd, char *line)
 {
 	while ((get_next_line(fd, &line)))
 	{
@@ -33,7 +33,7 @@ int		read_config_file(t_data *s, int fd, char *line)
 ** Free all objects
 */
 
-void	free_data_structs(t_data *s)
+void	free_all(t_all *s)
 {
 	int i;
 
@@ -42,7 +42,6 @@ void	free_data_structs(t_data *s)
 		ft_free(s->map->grid[i]);
 	ft_free(s->map);
 	ft_free(s->p);
-	ft_free(s->res);
 	ft_free(s->txt->no);
 	ft_free(s->txt->so);
 	ft_free(s->txt->we);
@@ -58,19 +57,19 @@ void	free_data_structs(t_data *s)
 ** Initialize all objects
 */
 
-t_data	*init_data_structs(void)
+t_all	*init_all(void)
 {
-	t_data *s;
+	t_all *s;
 
-	if (!(s = malloc(sizeof(t_data))))
+	if (!(s = malloc(sizeof(t_all))))
 		return (NULL);
-	s->map = init_map_struct();
-	s->p = init_player_struct();
-	s->res = init_resolution_struct();
-	s->txt = init_texture_struct();
-	s->col = init_color_struct();
-	if (!s->map || !s->p || !s->res || !s->txt || !s->col)
-		free_data_structs(s);
+	s->mlx = init_mlx();
+	s->map = init_map();
+	s->p = init_player();
+	s->txt = init_texture();
+	s->col = init_color();
+	if (!s->mlx || !s->map || !s->p || !s->txt || !s->col)
+		free_all(s);
 	return (s);
 }
 
@@ -80,22 +79,12 @@ t_data	*init_data_structs(void)
 
 void	run_cub3d(int fd)
 {
-	t_data	*s;
-	t_mlx	*mlx;
-	t_win	*win;
+	t_all	*s;
 
-	s = init_data_structs();
-	if (read_config_file(s, fd, NULL))
-		free_data_structs(s);
-	if (!(mlx = malloc(sizeof(t_mlx))))
-		return ;
-	mlx->ptr = mlx_init();
-	s->mlx = mlx;
-	if (!(win = malloc(sizeof(t_win))))
-		return ;
-	win->x = s->res->x;
-	win->y = s->res->y;
-	win->ptr = mlx_new_window(s->mlx->ptr, win->x, win->y, "cub3D");
-	s->win = win;
-	mlx_loop(s->win->ptr);
+	s = init_all();
+	if (parse_config_file(s, fd, NULL) || parse_map(s))
+		free_all(s);
+	s->mlx->add = mlx_init();
+	s->mlx->win = mlx_new_window(s->mlx->add, s->mlx->rx, s->mlx->ry, "cub3D");
+	//mlx_loop(s->win->ptr);
 }
