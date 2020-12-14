@@ -19,17 +19,17 @@
 int		check_parsing(t_all *s)
 {
 	if (s->mlx->rx < 0 && s->mlx->ry < 0)
-		print_error(-7);
-	if (!s->txt->no)
 		print_error(-8);
-	if (!s->txt->so)
+	if (!s->txt->no)
 		print_error(-9);
-	if (!s->txt->we)
+	if (!s->txt->so)
 		print_error(-10);
-	if (!s->txt->ea)
+	if (!s->txt->we)
 		print_error(-11);
-	if (!s->txt->s)
+	if (!s->txt->ea)
 		print_error(-12);
+	if (!s->txt->s)
+		print_error(-13);
 	if (s->col->f < 0)
 		print_error(-13);
 	if (s->col->c < 0)
@@ -118,7 +118,7 @@ int		alloc_map_line(t_all *s, char *line)
 int		parse_line(t_all *s, char *line)
 {
 	if (!*line && s->map->grid)
-		return (ft_exit(line, print_error(-5)));
+		return (ft_exit(line, print_error(-6)));
 	else if (is_line_of_map(MAP, line) && *line)
 	{
 		if (s->map->info == 4)
@@ -128,8 +128,7 @@ int		parse_line(t_all *s, char *line)
 		}
 		else
 		{
-			ft_printf("On passe par ici\n");
-			print_error(-6);
+			print_error(-7);
 			return (ft_exit(line, check_parsing(s)));
 		}
 	}

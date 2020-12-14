@@ -3,7 +3,7 @@ NO ./textures/no_texture.xpm
 SO ./textures/so_texture.xpm
 WE ./textures/we_texture.xpm
 EA ./textures/ea_texture.xpm
-S ./textures/s_texture.xpm
+
 F 220,100,10
 C 225,30,0
 
