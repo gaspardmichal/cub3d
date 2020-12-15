@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/14 10:02:42 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/15 11:31:07 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_col				*init_color(void);
 int					parse_line(t_all *s, char *line);
 int					parse_identifiers(t_all *s, char *line);
 int					parse_resolution(t_all *s, char *line);
-int					parse_texture(char **path, char *line, char *s);
+int					parse_texture(char **path, char *line);
 int					parse_color(t_all *s, char *line, char c);
 int					is_line_of_map(const char *set, const char *s);
 int					allocate_map(t_all *s, char *line);

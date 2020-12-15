@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:34:36 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/14 14:48:51 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/15 11:14:28 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	check_width_and_height(char **tab)
 	while (tab[i])
 		++i;
 	if (i != 2)
-		return (print_error(ft_printf("Error: R <width> <height>\n") - 41));
+		return (print_error(ft_printf("Error: R <width> <height>\n") - 31));
 	return (0);
 }
 
@@ -32,7 +32,7 @@ static int	check_unauthorized_char(char *line)
 	while (line[++i])
 	{
 		if (!ft_isdigit(line[i]) && line[i] != ' ')
-			return (print_error(ft_printf("Error: R <width> <height>\n") - 42));
+			return (print_error(ft_printf("Error: R <width> <height>\n") - 43));
 	}
 	return (0);
 }
@@ -40,7 +40,7 @@ static int	check_unauthorized_char(char *line)
 static int	check_width_and_height_len(char **tab)
 {
 	if (ft_strlen(tab[0]) > 4 || ft_strlen(tab[1]) > 4)
-		return (print_error(ft_printf("Error: R <width> <height>\n") - 43));
+		return (print_error(ft_printf("Error: R <width> <height>\n") - 44));
 	return (0);
 }
 
@@ -61,7 +61,7 @@ int			parse_resolution(t_all *s, char *line)
 	int		i;
 
 	if ((s->mlx->rx > 0 && s->mlx->ry > 0))
-		return (print_error(ft_printf("Error: R <width> <height>\n") - 44));
+		return (print_error(ft_printf("Error: R <width> <height>\n") - 42));
 	if (!(tab = ft_split(line, " ")) || check_resolution_integrity(tab, line))
 		return (-1);
 	i = -1;

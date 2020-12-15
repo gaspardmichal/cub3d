@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:34:23 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/14 13:34:50 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/15 11:31:06 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int		check_parsing(t_all *s)
 	if (!s->txt->s)
 		print_error(-13);
 	if (s->col->f < 0)
-		print_error(-13);
-	if (s->col->c < 0)
 		print_error(-14);
+	if (s->col->c < 0)
+		print_error(-15);
 	return (-1);
 }
 
@@ -77,15 +77,15 @@ int		parse_identifiers(t_all *s, char *line)
 	if (line[i] == 'R')
 		ret = parse_resolution(s, line + i + 1);
 	else if (!ft_strncmp(line + i, "NO", 2))
-		ret = parse_texture(&s->txt->no, line + i + 2, "NO");
+		ret = parse_texture(&s->txt->no, line + i + 2);
 	else if (!ft_strncmp(line + i, "SO", 2))
-		ret = parse_texture(&s->txt->so, line + i + 2, "SO");
+		ret = parse_texture(&s->txt->so, line + i + 2);
 	else if (!ft_strncmp(line + i, "WE", 2))
-		ret = parse_texture(&s->txt->we, line + i + 2, "WE");
+		ret = parse_texture(&s->txt->we, line + i + 2);
 	else if (!ft_strncmp(line + i, "EA", 2))
-		ret = parse_texture(&s->txt->ea, line + i + 2, "EA");
+		ret = parse_texture(&s->txt->ea, line + i + 2);
 	else if (line[i] == 'S')
-		ret = parse_texture(&s->txt->s, line + i + 1, "S");
+		ret = parse_texture(&s->txt->s, line + i + 1);
 	else if (line[i] == 'F')
 		ret = parse_color(s, line + i + 1, 'F');
 	else if (line[i] == 'C')
