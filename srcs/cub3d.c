@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:33:31 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/15 12:48:59 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/16 12:32:05 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	run_cub3d(int fd)
 	s = init_all();
 	if (parse_config_file(s, fd, NULL) || parse_map(s))
 		free_all(s);
+	parse_config_file(s, fd, NULL);
+	parse_map(s);
 	s->mlx->add = mlx_init();
 	s->mlx->win = mlx_new_window(s->mlx->add, s->mlx->rx, s->mlx->ry, "cub3D");
 	//mlx_loop(s->win->ptr);

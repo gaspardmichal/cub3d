@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/15 11:31:07 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/15 16:57:07 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ int					check_left(char **map, char *error, int i, int j);
 int					check_right(char **map, char *error, int i, int j);
 int					check_map_grid_cells(t_all *s, char *line, int ret);
 int					print_error(int err);
+int					print_error2(int err);
 
 #endif

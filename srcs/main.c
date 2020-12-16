@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:48:25 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/15 12:48:49 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/16 12:31:13 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		print_error(int err)
 	(err == -4) ? write(2, "/!\\ second argument is not '--save'\n", 36) : 0;
 	(err == -5) ? write(2, "/!\\ wrong number of arguments\n", 30) : 0;
 	(err == -6) ? write(2, "Error: empty line in map description\n", 37) : 0;
-	(err == -7) ? write(2, "Error: Map description is not last\n", 35) : 0;
+	(err == -7) ? write(2, "Error: map description is not last\n", 35) : 0;
 	(err == -8) ? write(2, "/!\\ missing resolution\n", 23) : 0;
 	(err == -9) ? write(2, "/!\\ missing northern texture\n", 29) : 0;
 	(err == -10) ? write(2, "/!\\ missing southern texture\n", 29) : 0;
@@ -40,6 +40,17 @@ int		print_error(int err)
 	(err == -20) ? write(2, "/!\\ wrong number of commas\n", 27) : 0;
 	(err == -21) ? write(2, "/!\\ misplaced comma\n", 20) : 0;
 	(err == -22) ? write(2, "/!\\ invalid value for r, g, or b\n", 33) : 0;
+	(err == -23) ? write(2, "Error: no map description\n", 26) : 0;
+	return (-1);
+}
+
+int		print_error2(int err)
+{
+	(err == -1) ? write(2, "Error: too many starting positions\n", 36) : 0;
+	(err == -2) ? write(2, "Error: starting position ouf of bounds\n", 39) : 0; 
+	(err == -3) ? write(2, "Error: no starting position\n", 28) : 0; 
+	(err == -4) ? write(2, "Error: failed to allocate memory\n", 33) : 0;
+	(err == -4) ? write(2, "Error: failed to initialise mlx\n", 32) : 0;
 	return (-1);
 }
 

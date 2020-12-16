@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:34:23 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/15 11:31:06 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/15 16:29:58 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		check_parsing(t_all *s)
 		print_error(-14);
 	if (s->col->c < 0)
 		print_error(-15);
-	return (-1);
+	return (0);
 }
 
 /*
