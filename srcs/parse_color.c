@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:35:02 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/15 12:48:42 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/17 11:53:42 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	check_format(char *line)
 	return (0);
 }
 
-static int	check_col(char **tab)
+static int	check_number_of_col(char **tab)
 {
 	int i;
 
@@ -41,6 +41,16 @@ static int	check_col(char **tab)
 		++i;
 	if (i != 3)
 		return (print_error(ft_printf("Error: X <r>,<g>,<b>\n") - 26));
+	return (0);
+}
+
+static int	check_col(char **tab, char *line)
+{
+	if (check_number_of_col(tab) || check_format(line))
+	{
+		ft_free(tab);
+		return (-1);
+	}
 	return (0);
 }
 
@@ -59,11 +69,10 @@ int			parse_color(t_all *s, char *line, char c)
 
 	if ((s->col->f >= 0 && c == 'F') || (s->col->c >= 0 && c == 'C'))
 		return (print_error(ft_printf("Error: X <r>,<g>,<b>\n") - 37));
-	if (!(tab = ft_split(line, " ,")) || check_col(tab) || check_format(line))
-	{
-		ft_free_tab(tab);
-		return (1);
-	}
+	if (!(tab = ft_split(line, " ,")))
+		return (print_error2(-3));
+	if (check_col(tab, line))
+		return (-1);
 	i = -1;
 	while (tab[++i])
 		col[i] = ft_atoi(tab[i]);

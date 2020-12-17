@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:33:31 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/16 12:32:05 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/16 15:14:38 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,16 @@ t_all	*init_all(void)
 	t_all *s;
 
 	if (!(s = malloc(sizeof(t_all))))
+	{
+		print_error2(-3);
 		return (NULL);
+	}
 	s->mlx = init_mlx();
 	s->map = init_map();
 	s->p = init_player();
 	s->txt = init_texture();
 	s->col = init_color();
-	if (!s->mlx || !s->map || !s->p || !s->txt || !s->col)
-		free_all(s);
-	return (s);
+	return ((!s->mlx || !s->map || !s->p || !s->txt || !s->col) ? NULL : s);
 }
 
 /*
@@ -81,11 +82,10 @@ void	run_cub3d(int fd)
 {
 	t_all	*s;
 
-	s = init_all();
+	if (!(s = init_all()))
+		free_all(s);
 	if (parse_config_file(s, fd, NULL) || parse_map(s))
 		free_all(s);
-	parse_config_file(s, fd, NULL);
-	parse_map(s);
 	s->mlx->add = mlx_init();
 	s->mlx->win = mlx_new_window(s->mlx->add, s->mlx->rx, s->mlx->ry, "cub3D");
 	//mlx_loop(s->win->ptr);

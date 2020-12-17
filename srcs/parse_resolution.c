@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:34:36 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/15 11:14:28 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/17 11:42:12 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	check_width_and_height_len(char **tab)
 	return (0);
 }
 
-static int	check_resolution_integrity(char **tab, char *line)
+static int	check_res(char **tab, char *line)
 {
 	if (check_width_and_height(tab) || check_unauthorized_char(line)
 			|| check_width_and_height_len(tab))
@@ -62,7 +62,9 @@ int			parse_resolution(t_all *s, char *line)
 
 	if ((s->mlx->rx > 0 && s->mlx->ry > 0))
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 42));
-	if (!(tab = ft_split(line, " ")) || check_resolution_integrity(tab, line))
+	if (!(tab = ft_split(line, " ")))
+		return (print_error2(-3));
+	if (check_res(tab, line))
 		return (-1);
 	i = -1;
 	while (tab[++i])

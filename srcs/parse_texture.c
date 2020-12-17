@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 14:46:52 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/15 12:00:17 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/17 11:43:48 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ static int	check_txt(char **tab)
 	while (tab[i])
 		++i;
 	if (i != 1)
+	{
+		ft_free_tab(tab);
 		return (print_error(ft_printf("Error: XX <path.xpm>\n") - 26));
+	}
 	return (0);
 }
 
@@ -45,18 +48,16 @@ int			parse_texture(char **path, char *line)
 
 	if (*path)
 		return (print_error(ft_printf("Error: XX <path.xpm>\n") - 37));
-	if (!(tab = ft_split(line, " ")) || check_txt(tab))
-	{
-		ft_free_tab(tab);
+	if (!(tab = ft_split(line, " ")))
+		return (print_error2(-3));
+	if (check_txt(tab))
 		return (-1);
-	}
-	i = 0;
-	while (tab[i])
-	{
+	i = -1;
+	while (tab[++i])
 		*path = ft_strdup(tab[i]);
-		++i;
-	}
 	ft_free_tab(tab);
+	if (!*path)
+		return (print_error2(-3));
 	if (check_fd_ext(*path))
 		return (-1);
 	return (0);

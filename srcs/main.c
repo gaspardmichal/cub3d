@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:48:25 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/16 12:31:13 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/17 11:53:11 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ int		print_error(int err)
 	(err == -21) ? write(2, "/!\\ misplaced comma\n", 20) : 0;
 	(err == -22) ? write(2, "/!\\ invalid value for r, g, or b\n", 33) : 0;
 	(err == -23) ? write(2, "Error: no map description\n", 26) : 0;
+	(err == -24) ? write(2, "Error: too many starting positions\n", 36) : 0;
 	return (-1);
 }
 
 int		print_error2(int err)
 {
-	(err == -1) ? write(2, "Error: too many starting positions\n", 36) : 0;
-	(err == -2) ? write(2, "Error: starting position ouf of bounds\n", 39) : 0; 
-	(err == -3) ? write(2, "Error: no starting position\n", 28) : 0; 
-	(err == -4) ? write(2, "Error: failed to allocate memory\n", 33) : 0;
+	(err == -1) ? write(2, "Error: starting position ouf of bounds\n", 39) : 0;
+	(err == -2) ? write(2, "Error: no starting position\n", 28) : 0;
+	(err == -3) ? write(2, "Error: failed to allocate memory\n", 33) : 0;
 	(err == -4) ? write(2, "Error: failed to initialise mlx\n", 32) : 0;
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:34:23 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/15 16:29:58 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/17 10:04:18 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,10 @@ int		alloc_map_line(t_all *s, char *line)
 	while (s->map->grid && s->map->grid[i])
 		++i;
 	if (!(tab = malloc(sizeof(char **) * (++i + 1))))
-		return (ft_exit(line, 1));
+		return (ft_exit(line, print_error2(-3)));
 	tab[i] = 0;
-	tab[--i] = ft_strdup(line);
+	if (!(tab[--i] = ft_strdup(line)))
+		return (ft_exit(line, print_error2(-3)));
 	while (--i >= 0)
 	{
 		tab[i] = s->map->grid[i];

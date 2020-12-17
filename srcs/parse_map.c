@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:32:58 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/16 12:34:37 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/17 11:52:02 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	check_walls(t_all *s)
 	char	*err;
 
 	if (!(err = ft_strdup("Error: map not surrounded by walls\n")))
-		return (1);
+		return (print_error2(-3));
 	i = 0;
 	while (s->map->grid[i])
 	{
@@ -88,15 +88,15 @@ int			parse_map(t_all *s)
 	while (s->map->grid[i])
 	{
 		if (get_start_position(i, s))
-			return (print_error2(-1));
+			return (print_error2(-24));
 		if (!s->p->x || !s->p->y)
-			return (print_error2(-2));
+			return (print_error2(-1));
 		++i;
 	}
 	if (s->p->y == i - 1)
-		return (print_error2(-2));
+		return (print_error2(-1));
 	if (s->p->x < 0)
-		return (print_error2(-3));
+		return (print_error2(-2));
 	if (check_walls(s))
 		return (-1);
 	return (0);
