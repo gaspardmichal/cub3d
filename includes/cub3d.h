@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/15 16:57:07 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2020/12/17 14:53:58 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,16 @@ typedef	struct		s_col
 		int			f;
 		int			c;
 }					t_col;
+
+typedef struct		s_img
+{
+		void		*img;
+		char		*add;
+		int			bits_per_pixel;
+		int			line_length;
+		int			endian;
+}					t_img;
+
 
 typedef struct		s_all
 {

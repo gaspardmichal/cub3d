@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:33:31 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/16 15:14:38 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/02 10:34:44 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Read data from map file
 */
 
-int		parse_config_file(t_all *s, int fd, char *line)
+int		parse_map_file(t_all *s, int fd, char *line)
 {
 	while ((get_next_line(fd, &line)))
 	{
@@ -30,7 +30,7 @@ int		parse_config_file(t_all *s, int fd, char *line)
 }
 
 /*
-** Free all objects
+** Free all object
 */
 
 void	free_all(t_all *s)
@@ -54,7 +54,7 @@ void	free_all(t_all *s)
 }
 
 /*
-** Initialize all objects
+** Initialize all object s
 */
 
 t_all	*init_all(void)
@@ -84,9 +84,9 @@ void	run_cub3d(int fd)
 
 	if (!(s = init_all()))
 		free_all(s);
-	if (parse_config_file(s, fd, NULL) || parse_map(s))
+	if (parse_map_file(s, fd, NULL) || parse_map(s))
 		free_all(s);
-	s->mlx->add = mlx_init();
-	s->mlx->win = mlx_new_window(s->mlx->add, s->mlx->rx, s->mlx->ry, "cub3D");
-	//mlx_loop(s->win->ptr);
+	/*s->mlx->add = mlx_init();
+	s->mlx->win = mlx_new_window(s->mlx->add, 3200, 1440, "cub3D");
+	mlx_loop(s->mlx->win);*/
 }

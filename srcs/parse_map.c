@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:32:58 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/17 11:52:02 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/02 10:30:15 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	get_start_position(int i, t_all *s)
 				return (-1);
 			s->p->x = j;
 			s->p->y = i;
+			s->map->grid[i][j] = '0';
 			++it;
 		}
 		++j;
