@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:34:23 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/17 10:04:18 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/03 18:12:22 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@
 
 int		check_parsing(t_all *s)
 {
-	if (s->mlx->rx < 0 && s->mlx->ry < 0)
+	if (s->mlx.rx < 0 && s->mlx.ry < 0)
 		print_error(-8);
-	if (!s->txt->no)
+	if (!s->txt.no)
 		print_error(-9);
-	if (!s->txt->so)
+	if (!s->txt.so)
 		print_error(-10);
-	if (!s->txt->we)
+	if (!s->txt.we)
 		print_error(-11);
-	if (!s->txt->ea)
+	if (!s->txt.ea)
 		print_error(-12);
-	if (!s->txt->s)
+	if (!s->txt.s)
 		print_error(-13);
-	if (s->col->f < 0)
+	if (s->col.f < 0)
 		print_error(-14);
-	if (s->col->c < 0)
+	if (s->col.c < 0)
 		print_error(-15);
 	return (0);
 }
@@ -77,15 +77,15 @@ int		parse_identifiers(t_all *s, char *line)
 	if (line[i] == 'R')
 		ret = parse_resolution(s, line + i + 1);
 	else if (!ft_strncmp(line + i, "NO", 2))
-		ret = parse_texture(&s->txt->no, line + i + 2);
+		ret = parse_texture(&s->txt.no, line + i + 2);
 	else if (!ft_strncmp(line + i, "SO", 2))
-		ret = parse_texture(&s->txt->so, line + i + 2);
+		ret = parse_texture(&s->txt.so, line + i + 2);
 	else if (!ft_strncmp(line + i, "WE", 2))
-		ret = parse_texture(&s->txt->we, line + i + 2);
+		ret = parse_texture(&s->txt.we, line + i + 2);
 	else if (!ft_strncmp(line + i, "EA", 2))
-		ret = parse_texture(&s->txt->ea, line + i + 2);
+		ret = parse_texture(&s->txt.ea, line + i + 2);
 	else if (line[i] == 'S')
-		ret = parse_texture(&s->txt->s, line + i + 1);
+		ret = parse_texture(&s->txt.s, line + i + 1);
 	else if (line[i] == 'F')
 		ret = parse_color(s, line + i + 1, 'F');
 	else if (line[i] == 'C')
@@ -99,7 +99,7 @@ int		alloc_map_line(t_all *s, char *line)
 	int		i;
 
 	i = 0;
-	while (s->map->grid && s->map->grid[i])
+	while (s->map.grid && s->map.grid[i])
 		++i;
 	if (!(tab = malloc(sizeof(char **) * (++i + 1))))
 		return (ft_exit(line, print_error2(-3)));
@@ -108,21 +108,21 @@ int		alloc_map_line(t_all *s, char *line)
 		return (ft_exit(line, print_error2(-3)));
 	while (--i >= 0)
 	{
-		tab[i] = s->map->grid[i];
-		s->map->grid[i] = NULL;
+		tab[i] = s->map.grid[i];
+		s->map.grid[i] = NULL;
 	}
-	ft_free(s->map->grid);
-	s->map->grid = tab;
+	ft_free(s->map.grid);
+	s->map.grid = tab;
 	return (ft_exit(line, 0));
 }
 
 int		parse_line(t_all *s, char *line)
 {
-	if (!*line && s->map->grid)
+	if (!*line && s->map.grid)
 		return (ft_exit(line, print_error(-6)));
 	else if (is_line_of_map(MAP, line) && *line)
 	{
-		if (s->map->info == 4)
+		if (s->map.info == 4)
 		{
 			if (alloc_map_line(s, line))
 				return (-1);
@@ -130,13 +130,13 @@ int		parse_line(t_all *s, char *line)
 		else
 		{
 			print_error(-7);
-			return (ft_exit(line, check_parsing(s)));
+			return (ft_exit(line, -1));
 		}
 	}
 	else if (parse_identifiers(s, line))
 		return (-1);
-	if (s->txt->no && s->txt->so && s->txt->we &&
-		s->txt->ea && s->txt->s && s->map->info == 3)
-		++s->map->info;
+	if (s->txt.no && s->txt.so && s->txt.we &&
+		s->txt.ea && s->txt.s && s->map.info == 3)
+		++s->map.info;
 	return (0);
 }

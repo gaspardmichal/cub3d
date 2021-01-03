@@ -6,7 +6,7 @@
 #    By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/21 20:55:11 by gamichal          #+#    #+#              #
-#    Updated: 2020/12/12 19:42:42 by gamichal         ###   ########lyon.fr    #
+#    Updated: 2021/01/03 16:00:06 by gamichal         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ HEADER				=	includes/cub3d.h
 SRC					=	main.c					\
 						cub3d.c					\
 						init.c					\
+						init2.c					\
 						parse_line.c			\
 						parse_resolution.c		\
 						parse_texture.c			\
@@ -35,7 +36,7 @@ OBJS				=	$(patsubst $(SRCS_PATH)%.c,$(OBJS_PATH)%.o, $(SRCS))
 RM					=	rm -rf
 CC					=	clang
 FSANITIZE			=	-g3 -fsanitize=address
-CFLAGS				=	-Wall -Wextra -Werror
+CFLAGS				=	-g3 -Wall -Wextra -Werror
 
 OS_NAME				=	$(shell uname -s)
 

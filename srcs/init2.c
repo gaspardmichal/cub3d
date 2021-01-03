@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   init2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.le-101.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/05 10:18:29 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/03 15:27:31 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/02 15:11:02 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/03 14:22:28 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../includes/cub3d.h"
 
-void	ft_free(void *ptr)
+void	init_img(t_all *s)
 {
-	if (ptr)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
+	t_img img;
+
+	img.img = NULL;
+	img.add = NULL;
+	img.bpp = 0;
+	img.line_len = 0;
+	img.endian = 0;
+	s->img = img;
 }

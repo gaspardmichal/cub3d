@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:34:36 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/17 11:42:12 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/03 14:29:01 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			parse_resolution(t_all *s, char *line)
 	char	**tab;
 	int		i;
 
-	if ((s->mlx->rx > 0 && s->mlx->ry > 0))
+	if ((s->mlx.rx > 0 && s->mlx.ry > 0))
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 42));
 	if (!(tab = ft_split(line, " ")))
 		return (print_error2(-3));
@@ -69,17 +69,17 @@ int			parse_resolution(t_all *s, char *line)
 	i = -1;
 	while (tab[++i])
 	{
-		s->mlx->rx = i == 0 ? ft_atoi(tab[i]) : s->mlx->rx;
-		s->mlx->ry = i == 1 ? ft_atoi(tab[i]) : s->mlx->ry;
+		s->mlx.rx = i == 0 ? ft_atoi(tab[i]) : s->mlx.rx;
+		s->mlx.ry = i == 1 ? ft_atoi(tab[i]) : s->mlx.ry;
 	}
 	ft_free_tab(tab);
-	if (!s->mlx->rx || !s->mlx->ry)
+	if (!s->mlx.rx || !s->mlx.ry)
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 45));
-	if (s->mlx->rx > 5120 || s->mlx->ry > 2880)
+	if (s->mlx.rx > 5120 || s->mlx.ry > 2880)
 	{
-		s->mlx->rx = 2560;
-		s->mlx->ry = 1400;
+		s->mlx.rx = 2560;
+		s->mlx.ry = 1400;
 	}
-	++s->map->info;
+	++s->map.info;
 	return (0);
 }

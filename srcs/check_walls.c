@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:35:18 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/01 17:06:39 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/03 14:31:51 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	check_right(char **map, char *err, int i, int j)
 
 int	check_map_grid_cells(t_all *s, char *line, int ret)
 {
-	if (*line && s->map->info == 4 && ret != -1)
+	if (*line && s->map.info == 4 && ret != -1)
 		ret = ft_printf("Error: unauthorized character in map description\n");
 	return (ft_exit(line, ret));
 }

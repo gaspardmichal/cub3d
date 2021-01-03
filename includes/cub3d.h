@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/17 14:53:58 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/03 18:13:17 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,27 +65,29 @@ typedef struct		s_img
 {
 		void		*img;
 		char		*add;
-		int			bits_per_pixel;
-		int			line_length;
+		int			bpp;
+		int			line_len;
 		int			endian;
 }					t_img;
 
 
 typedef struct		s_all
 {
-	t_mlx			*mlx;
-	t_map			*map;
-	t_p				*p;
-	t_txt			*txt;
-	t_col			*col;
+	t_mlx			mlx;
+	t_map			map;
+	t_p				p;
+	t_txt			txt;
+	t_col			col;
+	t_img			img;
 }					t_all;
 
 void				run_cub3d(int fd);
-t_mlx				*init_mlx();
-t_map				*init_map(void);
-t_p					*init_player(void);
-t_txt				*init_texture(void);
-t_col				*init_color(void);
+void				init_mlx(t_all *s);
+void				init_map(t_all *s);
+void				init_player(t_all *s);
+void				init_texture(t_all *s);
+void				init_color(t_all *s);
+void				init_img(t_all *s);
 int					parse_line(t_all *s, char *line);
 int					parse_identifiers(t_all *s, char *line);
 int					parse_resolution(t_all *s, char *line);

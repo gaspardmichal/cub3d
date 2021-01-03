@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:48:25 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/01 15:37:41 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/03 17:44:18 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,8 @@ int		main(int ac, char **av)
 		run_cub3d(fd);
 	else
 		exit(print_error(ft_printf("Error: ./cub3D <path.cub>\n") - 31));
+	while (1)
+	{
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:35:02 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/17 11:53:42 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/03 14:29:56 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			parse_color(t_all *s, char *line, char c)
 	int		i;
 	int		col[3];
 
-	if ((s->col->f >= 0 && c == 'F') || (s->col->c >= 0 && c == 'C'))
+	if ((s->col.f >= 0 && c == 'F') || (s->col.c >= 0 && c == 'C'))
 		return (print_error(ft_printf("Error: X <r>,<g>,<b>\n") - 37));
 	if (!(tab = ft_split(line, " ,")))
 		return (print_error2(-3));
@@ -77,8 +77,8 @@ int			parse_color(t_all *s, char *line, char c)
 	while (tab[++i])
 		col[i] = ft_atoi(tab[i]);
 	ft_free_tab(tab);
-	s->col->f = c == 'F' ? atorgb(col[0], col[1], col[2]) : s->col->f;
-	s->col->c = c == 'C' ? atorgb(col[0], col[1], col[2]) : s->col->c;
-	++s->map->info;
+	s->col.f = c == 'F' ? atorgb(col[0], col[1], col[2]) : s->col.f;
+	s->col.c = c == 'C' ? atorgb(col[0], col[1], col[2]) : s->col.c;
+	++s->map.info;
 	return (0);
 }
