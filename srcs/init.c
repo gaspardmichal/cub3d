@@ -6,19 +6,20 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:35:28 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/03 14:09:06 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 10:34:50 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	init_mlx(t_all *s)
+void	init_win(t_all *s)
 {
-	t_mlx mlx;
+	t_win win;
 
-	mlx.rx = -1;
-	mlx.ry = -1;
-	s->mlx = mlx;
+	win.ptr = NULL;
+	win.x = -1;
+	win.y = -1;
+	s->win = win;
 }
 
 void	init_map(t_all *s)
@@ -30,16 +31,16 @@ void	init_map(t_all *s)
 	s->map = map;
 }
 
-void	init_player(t_all *s)
+void	init_pos(t_all *s)
 {
-	t_p p;
+	t_pos pos;
 
-	p.x = -1;
-	p.y = -1;
-	s->p = p;
+	pos.x = -1;
+	pos.y = -1;
+	s->pos = pos;
 }
 
-void	init_texture(t_all *s)
+void	init_txt(t_all *s)
 {
 	t_txt txt;
 
@@ -51,7 +52,7 @@ void	init_texture(t_all *s)
 	s->txt = txt;
 }
 
-void	init_color(t_all *s)
+void	init_col(t_all *s)
 {
 	t_col col;
 

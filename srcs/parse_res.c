@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_resolution.c                                 :+:      :+:    :+:   */
+/*   parse_res.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/12 20:34:36 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/03 14:29:01 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/04 10:26:01 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/04 11:39:52 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ static int	check_res(char **tab, char *line)
 	return (0);
 }
 
-int			parse_resolution(t_all *s, char *line)
+int			parse_res(t_all *s, char *line)
 {
 	char	**tab;
 	int		i;
 
-	if ((s->mlx.rx > 0 && s->mlx.ry > 0))
+	if ((s->win.x > 0 && s->win.y > 0))
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 42));
 	if (!(tab = ft_split(line, " ")))
 		return (print_error2(-3));
@@ -69,16 +69,16 @@ int			parse_resolution(t_all *s, char *line)
 	i = -1;
 	while (tab[++i])
 	{
-		s->mlx.rx = i == 0 ? ft_atoi(tab[i]) : s->mlx.rx;
-		s->mlx.ry = i == 1 ? ft_atoi(tab[i]) : s->mlx.ry;
+		s->win.x = i == 0 ? ft_atoi(tab[i]) : s->win.x;
+		s->win.y = i == 1 ? ft_atoi(tab[i]) : s->win.y;
 	}
 	ft_free_tab(tab);
-	if (!s->mlx.rx || !s->mlx.ry)
+	if (!s->win.x || !s->win.y)
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 45));
-	if (s->mlx.rx > 5120 || s->mlx.ry > 2880)
+	if (s->win.x > 5120 || s->win.y > 2880)
 	{
-		s->mlx.rx = 2560;
-		s->mlx.ry = 1400;
+		s->win.x = 1920;
+		s->win.y = 1080;
 	}
 	++s->map.info;
 	return (0);

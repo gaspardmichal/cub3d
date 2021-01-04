@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:34:23 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/03 18:12:22 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 10:23:02 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int		check_parsing(t_all *s)
 {
-	if (s->mlx.rx < 0 && s->mlx.ry < 0)
+	if (s->win.x < 0 && s->win.y < 0)
 		print_error(-8);
 	if (!s->txt.no)
 		print_error(-9);
@@ -75,21 +75,21 @@ int		parse_identifiers(t_all *s, char *line)
 	while (line[i] == ' ')
 		++i;
 	if (line[i] == 'R')
-		ret = parse_resolution(s, line + i + 1);
+		ret = parse_res(s, line + i + 1);
 	else if (!ft_strncmp(line + i, "NO", 2))
-		ret = parse_texture(&s->txt.no, line + i + 2);
+		ret = parse_txt(&s->txt.no, line + i + 2);
 	else if (!ft_strncmp(line + i, "SO", 2))
-		ret = parse_texture(&s->txt.so, line + i + 2);
+		ret = parse_txt(&s->txt.so, line + i + 2);
 	else if (!ft_strncmp(line + i, "WE", 2))
-		ret = parse_texture(&s->txt.we, line + i + 2);
+		ret = parse_txt(&s->txt.we, line + i + 2);
 	else if (!ft_strncmp(line + i, "EA", 2))
-		ret = parse_texture(&s->txt.ea, line + i + 2);
+		ret = parse_txt(&s->txt.ea, line + i + 2);
 	else if (line[i] == 'S')
-		ret = parse_texture(&s->txt.s, line + i + 1);
+		ret = parse_txt(&s->txt.s, line + i + 1);
 	else if (line[i] == 'F')
-		ret = parse_color(s, line + i + 1, 'F');
+		ret = parse_col(s, line + i + 1, 'F');
 	else if (line[i] == 'C')
-		ret = parse_color(s, line + i + 1, 'C');
+		ret = parse_col(s, line + i + 1, 'C');
 	return (check_map_grid_cells(s, line, ret));
 }
 

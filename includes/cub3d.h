@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/03 18:13:17 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 15:04:30 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <math.h>
 # include <fcntl.h>
 
+# define OS_LINUX 0
 # define CUB ".cub"
 # define XPM ".xpm"
 # define MAP "NSWE012 "
@@ -26,13 +27,32 @@
 
 typedef	struct		s_mlx
 {
-		void		*add;
-		void		*win;
-		int			rx;
-		int			ry;
-		int			sx;
-		int			sy;
+		void		*ptr;
 }					t_mlx;
+
+typedef struct		s_win
+{
+		void		*ptr;
+		int			x;
+		int			y;
+		int			resx;
+		int			resy;
+}					t_win;
+
+typedef struct		s_img
+{
+		void		*ptr;
+		char		*buf;
+		int			bpp;
+		int			size_line;
+		int			endian;
+}					t_img;
+
+typedef struct		s_ray
+{
+		double		dirx;
+		double		diry;
+}
 
 typedef	struct		s_map
 {
@@ -40,11 +60,11 @@ typedef	struct		s_map
 		int			info;
 }					t_map;
 
-typedef	struct		s_p
+typedef	struct		s_pos
 {
 		int			x;
 		int			y;
-}					t_p;
+}					t_pos;
 
 typedef struct		s_txt
 {
@@ -61,38 +81,30 @@ typedef	struct		s_col
 		int			c;
 }					t_col;
 
-typedef struct		s_img
-{
-		void		*img;
-		char		*add;
-		int			bpp;
-		int			line_len;
-		int			endian;
-}					t_img;
-
-
 typedef struct		s_all
 {
 	t_mlx			mlx;
+	t_win			win;
 	t_map			map;
-	t_p				p;
+	t_pos			pos;
 	t_txt			txt;
 	t_col			col;
 	t_img			img;
 }					t_all;
 
 void				run_cub3d(int fd);
-void				init_mlx(t_all *s);
+void				init_win(t_all *s);
 void				init_map(t_all *s);
-void				init_player(t_all *s);
-void				init_texture(t_all *s);
-void				init_color(t_all *s);
+void				init_pos(t_all *s);
+void				init_txt(t_all *s);
+void				init_col(t_all *s);
+void				init_mlx(t_all *s);
 void				init_img(t_all *s);
 int					parse_line(t_all *s, char *line);
 int					parse_identifiers(t_all *s, char *line);
-int					parse_resolution(t_all *s, char *line);
-int					parse_texture(char **path, char *line);
-int					parse_color(t_all *s, char *line, char c);
+int					parse_res(t_all *s, char *line);
+int					parse_txt(char **path, char *line);
+int					parse_col(t_all *s, char *line, char c);
 int					is_line_of_map(const char *set, const char *s);
 int					allocate_map(t_all *s, char *line);
 int					check_map_grid_cells(t_all *s, char *line, int ret);

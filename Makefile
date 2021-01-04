@@ -6,7 +6,7 @@
 #    By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/21 20:55:11 by gamichal          #+#    #+#              #
-#    Updated: 2021/01/03 16:00:06 by gamichal         ###   ########lyon.fr    #
+#    Updated: 2021/01/04 10:27:33 by gamichal         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,9 @@ SRC					=	main.c					\
 						init.c					\
 						init2.c					\
 						parse_line.c			\
-						parse_resolution.c		\
-						parse_texture.c			\
-						parse_color.c			\
+						parse_res.c				\
+						parse_txt.c				\
+						parse_col.c				\
 						parse_map.c				\
 						check_walls.c
 

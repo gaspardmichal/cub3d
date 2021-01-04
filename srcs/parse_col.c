@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_color.c                                      :+:      :+:    :+:   */
+/*   parse_col.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/12 20:35:02 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/03 14:29:56 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/04 10:26:45 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/04 10:26:48 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	atorgb(int r, int g, int b)
 	return ((r << 16) + (g << 8) + b);
 }
 
-int			parse_color(t_all *s, char *line, char c)
+int			parse_col(t_all *s, char *line, char c)
 {
 	char	**tab;
 	int		i;

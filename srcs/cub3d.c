@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:33:31 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/03 18:33:28 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 14:40:07 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		parse_map_file(t_all *s, int fd, char *line)
 }
 
 /*
-** Free all object
+** Free all objects
 */
 
 void	free_all(t_all *s)
@@ -46,21 +46,27 @@ void	free_all(t_all *s)
 	ft_free(s->txt.we);
 	ft_free(s->txt.ea);
 	ft_free(s->txt.s);
-	//exit(-1);
 }
 
 /*
-** Initialize all object s
+** Initialize all objects
 */
 
 void	init_all(t_all *s)
 {
-	init_mlx(s);
+	init_win(s);
 	init_map(s);
-	init_player(s);
-	init_texture(s);
-	init_color(s);
-	init_img(s);
+	init_pos(s);
+	init_txt(s);
+	init_col(s);
+}
+
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+{
+	char *dst;
+
+	dst = img->buf + (y * img->size_line + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
 }
 
 /*
@@ -69,14 +75,16 @@ void	init_all(t_all *s)
 
 void	run_cub3d(int fd)
 {
-	t_all s;
+	t_all	s;
+	t_img	img;
 
 	init_all(&s);
 	if (parse_map_file(&s, fd, NULL) || parse_map(&s))
 		free_all(&s);
-	s.mlx.add = mlx_init();
-	s.img.img = mlx_new_image(s.mlx.add, 1920, 1080);
-	s.img.add = mlx_get_data_addr(&s.img, &s.img.bpp, &s.img.line_len, &s.img.endian);
-	s.mlx.win = mlx_new_window(s.mlx.add, 1920, 1080, "cub3D");
-	mlx_loop(s.mlx.win);
+	init_mlx(&s);
+	img.ptr = mlx_new_image(s.mlx.ptr, s.win.x, s.win.y);
+	img.buf = mlx_get_data_addr(img.ptr, &img.bpp, &img.size_line, &img.endian);
+	my_mlx_pixel_put(&img, 5, 5, 0xFF0000);
+	mlx_put_image_to_window(s.mlx.ptr, s.win.ptr, img.ptr, 0, 0);
+	mlx_loop(s.mlx.ptr);
 }

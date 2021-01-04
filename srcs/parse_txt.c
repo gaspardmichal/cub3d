@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_texture.c                                    :+:      :+:    :+:   */
+/*   parse_txt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/10 14:46:52 by gamichal          #+#    #+#             */
-/*   Updated: 2020/12/17 11:43:48 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/04 10:26:24 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/04 10:26:27 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	check_txt(char **tab)
 	return (0);
 }
 
-int			parse_texture(char **path, char *line)
+int			parse_txt(char **path, char *line)
 {
 	char	**tab;
 	int		i;

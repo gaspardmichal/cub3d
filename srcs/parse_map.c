@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 20:32:58 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/03 18:06:51 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 10:30:04 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static int	get_start_position(int i, t_all *s)
 	{
 		if (ft_strchr("NSWE", s->map.grid[i][j]))
 		{
-			if (s->p.x >= 0 && s->p.y >= 0)
+			if (s->pos.x >= 0 && s->pos.y >= 0)
 				return (-1);
-			s->p.x = j;
-			s->p.y = i;
+			s->pos.x = j;
+			s->pos.y = i;
 			s->map.grid[i][j] = '0';
 			++it;
 		}
@@ -90,13 +90,13 @@ int			parse_map(t_all *s)
 	{
 		if (get_start_position(i, s))
 			return (print_error2(-24));
-		if (!s->p.x || !s->p.y)
+		if (!s->pos.x || !s->pos.y)
 			return (print_error2(-1));
 		++i;
 	}
-	if (s->p.y == i - 1)
+	if (s->pos.y == i - 1)
 		return (print_error2(-1));
-	if (s->p.x < 0)
+	if (s->pos.x < 0)
 		return (print_error2(-2));
 	if (check_walls(s))
 		return (-1);
