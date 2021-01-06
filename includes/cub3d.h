@@ -19,7 +19,6 @@
 # include <math.h>
 # include <fcntl.h>
 
-# define OS_LINUX 0
 # define CUB ".cub"
 # define XPM ".xpm"
 # define MAP "NSWE012 "
@@ -52,7 +51,7 @@ typedef struct		s_ray
 {
 		double		dirx;
 		double		diry;
-}
+}					t_ray;
 
 typedef	struct		s_map
 {

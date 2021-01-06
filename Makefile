@@ -55,7 +55,7 @@ LIBFT_FLAGS			=	-L $(LIBFT) -l ft
 $(OBJS_PATH)%.o		:	$(SRCS_PATH)%.c $(HEADER) 
 						$(shell mkdir -p $(OBJS_PATH))
 ifdef FSAN
-						$(CC) $(DEEFINES) $(CFLAGS) $(FSANITIZE) -c $< -o $@
+						$(CC) $(DEFINES) $(CFLAGS) $(FSANITIZE) -c $< -o $@
 else
 						$(CC) $(DEFINES) $(CFLAGS) -c $< -o $@
 endif
