@@ -12,11 +12,12 @@
 
 #include "../includes/cub3d.h"
 
-void	init_mlx(t_all *s)
+int		init_mlx(t_all *s)
 {
 	t_mlx mlx;
 
-	mlx.ptr = mlx_init();
+	if (!(mlx.ptr = mlx_init()))
+		return (print_error2(-3));
 	s->mlx = mlx;
 	if (OS_LINUX == 1)
 	{
@@ -24,7 +25,9 @@ void	init_mlx(t_all *s)
 		s->win.x = (s->win.x > s->win.resx) ? s->win.resx : s->win.x;
 		s->win.y = (s->win.y > s->win.resy) ? s->win.resy : s->win.y;
 	}
-	s->win.ptr = mlx_new_window(mlx.ptr, s->win.x, s->win.y, "cub3D");
+	if (!(s->win.ptr = mlx_new_window(mlx.ptr, s->win.x, s->win.y, "cub3D")))
+		return (print_error2(-3));
+	return (0);
 }
 
 void	init_img(t_all *s)
