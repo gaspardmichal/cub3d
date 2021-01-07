@@ -76,15 +76,28 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 void	run_cub3d(int fd)
 {
 	t_all	s;
-	t_img	img;
+	//t_img	img;
+	int i;
 
 	init_all(&s);
 	if (parse_map_file(&s, fd, NULL) || parse_map(&s))
 		free_all(&s);
-	init_mlx(&s);
+	/*init_mlx(&s);
 	img.ptr = mlx_new_image(s.mlx.ptr, s.win.x, s.win.y);
 	img.buf = mlx_get_data_addr(img.ptr, &img.bpp, &img.size_line, &img.endian);
 	my_mlx_pixel_put(&img, 5, 5, 0xFF0000);
 	mlx_put_image_to_window(s.mlx.ptr, s.win.ptr, img.ptr, 0, 0);
-	mlx_loop(s.mlx.ptr);
+	mlx_loop(s.mlx.ptr);*/
+	i = -1;
+	ft_printf("%d	%d\n", s.win.x, s.win.y);
+	ft_printf("%s\n", s.txt.no);
+	ft_printf("%s\n", s.txt.so);
+	ft_printf("%s\n", s.txt.we);
+	ft_printf("%s\n", s.txt.ea);
+	ft_printf("%s\n", s.txt.s);
+	ft_printf("%d\n", s.col.f);
+	ft_printf("%d\n", s.col.c);
+	ft_printf("\n");
+	while (s.map.grid[++i])
+		ft_printf("%s\n", s.map.grid[i]);
 }
