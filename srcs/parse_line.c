@@ -18,7 +18,7 @@
 
 int		check_parsing(t_all *s)
 {
-	if (s->win.x < 0 && s->win.y < 0)
+	if (s->res.width < 0 && s->res.height < 0)
 		print_error(-8);
 	if (!s->txt.no)
 		print_error(-9);

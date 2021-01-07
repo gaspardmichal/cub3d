@@ -60,7 +60,7 @@ int			parse_res(t_all *s, char *line)
 	char	**tab;
 	int		i;
 
-	if ((s->win.x > 0 && s->win.y > 0))
+	if ((s->res.width > 0 && s->res.height > 0))
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 42));
 	if (!(tab = ft_split(line, " ")))
 		return (print_error2(-3));
@@ -69,16 +69,16 @@ int			parse_res(t_all *s, char *line)
 	i = -1;
 	while (tab[++i])
 	{
-		s->win.x = i == 0 ? ft_atoi(tab[i]) : s->win.x;
-		s->win.y = i == 1 ? ft_atoi(tab[i]) : s->win.y;
+		s->res.width = i == 0 ? ft_atoi(tab[i]) : s->res.width;
+		s->res.height = i == 1 ? ft_atoi(tab[i]) : s->res.height;
 	}
 	ft_free_tab(tab);
 	if (!s->win.x || !s->win.y)
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 45));
-	if (s->win.x > 5120 || s->win.y > 2880)
+	if (s->res.width > 5120 || s->res.height > 2880)
 	{
-		s->win.x = 1920;
-		s->win.y = 1080;
+		s->res.width = 1920;
+		s->res.height = 1080;
 	}
 	++s->map.info;
 	return (0);

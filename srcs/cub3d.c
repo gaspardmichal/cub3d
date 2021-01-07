@@ -48,25 +48,33 @@ void	free_all(t_all *s)
 	ft_free(s->txt.s);
 }
 
-/*
-** Initialize all objects
-*/
-
-void	init_all(t_all *s)
-{
-	init_win(s);
-	init_map(s);
-	init_pos(s);
-	init_txt(s);
-	init_col(s);
-}
-
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char *dst;
 
 	dst = img->buf + (y * img->size_line + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
+}
+
+/*
+** Initialize all objects
+*/
+
+void	init_pars(t_all *s)
+{
+	init_res(s);
+	init_txt(s);
+	init_col(s);
+	init_map(s);
+	init_pos(s);
+	init_win(s);
+}
+
+int		init_raycasting(t_all *s)
+{
+	if (init_mlx(s))
+		return (print_error2(-3));
+	init_img(s);
 }
 
 /*
@@ -78,10 +86,10 @@ void	run_cub3d(int fd)
 	t_all	s;
 	t_img	img;
 
-	init_all(&s);
+	init_pars(&s);
 	if (parse_map_file(&s, fd, NULL) || parse_map(&s))
 		free_all(&s);
-	if (init_mlx(&s))
+	if (init_raycast(&s))
 		free_all(&s);
 	img.ptr = mlx_new_image(s.mlx.ptr, s.win.x, s.win.y);
 	img.buf = mlx_get_data_addr(img.ptr, &img.bpp, &img.size_line, &img.endian);

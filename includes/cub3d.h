@@ -32,8 +32,8 @@ typedef	struct		s_mlx
 typedef struct		s_win
 {
 		void		*ptr;
-		int			x;
-		int			y;
+		double		x;
+		double		y;
 		int			resx;
 		int			resy;
 }					t_win;
@@ -65,6 +65,12 @@ typedef	struct		s_pos
 		int			y;
 }					t_pos;
 
+typedef struct		s_res
+{
+		double		width;
+		double		height;
+}					t_res;
+
 typedef struct		s_txt
 {
 		char		*no;
@@ -82,12 +88,13 @@ typedef	struct		s_col
 
 typedef struct		s_all
 {
-	t_mlx			mlx;
-	t_win			win;
-	t_map			map;
-	t_pos			pos;
+	t_res			res;
 	t_txt			txt;
 	t_col			col;
+	t_map			map;
+	t_pos			pos;
+	t_mlx			mlx;
+	t_win			win;
 	t_img			img;
 }					t_all;
 
@@ -97,7 +104,7 @@ void				init_map(t_all *s);
 void				init_pos(t_all *s);
 void				init_txt(t_all *s);
 void				init_col(t_all *s);
-void				init_mlx(t_all *s);
+int					init_mlx(t_all *s);
 void				init_img(t_all *s);
 int					parse_line(t_all *s, char *line);
 int					parse_identifiers(t_all *s, char *line);

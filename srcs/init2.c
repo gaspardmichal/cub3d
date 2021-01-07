@@ -39,5 +39,7 @@ void	init_img(t_all *s)
 	img.bpp = 32;
 	img.size_line = s->win.x * 4;
 	img.endian = 0;
+	img.ptr = mlx_new_image(s->mlx.ptr, s->win.x, w->win.y);
+	img.buf = mlx_get_data_addr(img.ptr, &img.bpp, &img.size_line, &img.endian);
 	s->img = img;
 }
