@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_line.c                                       :+:      :+:    :+:   */
+/*   pars_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/12 20:34:23 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/04 10:23:02 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/07 16:58:59 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/07 17:02:50 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Check for potential missing information
 */
 
-int		check_parsing(t_all *s)
+int		check_pars(t_all *s)
 {
 	if (s->res.width < 0 && s->res.height < 0)
 		print_error(-8);
@@ -65,7 +65,7 @@ int		is_line_of_map(const char *set, const char *s)
 	return (1);
 }
 
-int		parse_identifiers(t_all *s, char *line)
+int		parse_res_txt_col(t_all *s, char *line)
 {
 	int ret;
 	int i;
@@ -90,10 +90,10 @@ int		parse_identifiers(t_all *s, char *line)
 		ret = parse_col(s, line + i + 1, 'F');
 	else if (line[i] == 'C')
 		ret = parse_col(s, line + i + 1, 'C');
-	return (check_map_grid_cells(s, line, ret));
+	return (check_grid(s, line, ret));
 }
 
-int		alloc_map_line(t_all *s, char *line)
+int		alloc_line_of_map(t_all *s, char *line)
 {
 	char	**tab;
 	int		i;
@@ -124,7 +124,7 @@ int		parse_line(t_all *s, char *line)
 	{
 		if (s->map.info == 4)
 		{
-			if (alloc_map_line(s, line))
+			if (alloc_line_of_map(s, line))
 				return (-1);
 		}
 		else
@@ -133,7 +133,7 @@ int		parse_line(t_all *s, char *line)
 			return (ft_exit(line, -1));
 		}
 	}
-	else if (parse_identifiers(s, line))
+	else if (parse_res_txt_col(s, line))
 		return (-1);
 	if (s->txt.no && s->txt.so && s->txt.we &&
 		s->txt.ea && s->txt.s && s->map.info == 3)

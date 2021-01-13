@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_res.c                                        :+:      :+:    :+:   */
+/*   pars_res.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/04 10:26:01 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/04 11:39:52 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/07 16:57:40 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/13 08:17:17 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			parse_res(t_all *s, char *line)
 		s->res.height = i == 1 ? ft_atoi(tab[i]) : s->res.height;
 	}
 	ft_free_tab(tab);
-	if (!s->win.x || !s->win.y)
+	if (!s->res.width || !s->res.height)
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 45));
 	if (s->res.width > 5120 || s->res.height > 2880)
 	{

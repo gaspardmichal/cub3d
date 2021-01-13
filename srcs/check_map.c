@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/12 20:32:58 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/04 10:30:04 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/07 16:50:54 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/07 17:03:52 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int	get_start_position(int i, t_all *s)
+static int	get_start_pos(int i, t_all *s)
 {
 	int		j;
 	int		it;
@@ -79,7 +79,7 @@ static int	check_walls(t_all *s)
 	return (0);
 }
 
-int			parse_map(t_all *s)
+int			check_map(t_all *s)
 {
 	int	i;
 
@@ -88,7 +88,7 @@ int			parse_map(t_all *s)
 	i = 0;
 	while (s->map.grid[i])
 	{
-		if (get_start_position(i, s))
+		if (get_start_pos(i, s))
 			return (print_error2(-24));
 		if (!s->pos.x || !s->pos.y)
 			return (print_error2(-1));
