@@ -6,42 +6,34 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:58:59 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/07 17:02:50 by gamichal         ###   ########.fr       */
+/*   Updated: 2021/01/14 15:24:14 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/*
-** Check for potential missing information
-*/
-
-int		check_pars(t_all *s)
+int		check_pars(t_id id)
 {
-	if (s->res.width < 0 && s->res.height < 0)
+	if (id.x < 0 && id.y < 0)
 		print_error(-8);
-	if (!s->txt.no)
+	if (!id.no)
 		print_error(-9);
-	if (!s->txt.so)
+	if (!id.so)
 		print_error(-10);
-	if (!s->txt.we)
+	if (!id.we)
 		print_error(-11);
-	if (!s->txt.ea)
+	if (!id.ea)
 		print_error(-12);
-	if (!s->txt.s)
+	if (!id.s)
 		print_error(-13);
-	if (s->col.f < 0)
+	if (id.f < 0)
 		print_error(-14);
-	if (s->col.c < 0)
+	if (id.c < 0)
 		print_error(-15);
 	return (0);
 }
 
-/*
-** Check if line only made of map characters "NSWE012 "
-*/
-
-int		is_line_of_map(const char *set, const char *s)
+int		line_of_map(const char *set, const char *s)
 {
 	int i;
 	int j;
@@ -65,7 +57,7 @@ int		is_line_of_map(const char *set, const char *s)
 	return (1);
 }
 
-int		parse_res_txt_col(t_all *s, char *line)
+int		pars_id(t_id *id, char *line)
 {
 	int ret;
 	int i;
@@ -75,31 +67,31 @@ int		parse_res_txt_col(t_all *s, char *line)
 	while (line[i] == ' ')
 		++i;
 	if (line[i] == 'R')
-		ret = parse_res(s, line + i + 1);
+		ret = pars_res(id, line + i + 1);
 	else if (!ft_strncmp(line + i, "NO", 2))
-		ret = parse_txt(&s->txt.no, line + i + 2);
+		ret = pars_txt(&id->no, line + i + 2);
 	else if (!ft_strncmp(line + i, "SO", 2))
-		ret = parse_txt(&s->txt.so, line + i + 2);
+		ret = pars_txt(&id->so, line + i + 2);
 	else if (!ft_strncmp(line + i, "WE", 2))
-		ret = parse_txt(&s->txt.we, line + i + 2);
+		ret = pars_txt(&id->we, line + i + 2);
 	else if (!ft_strncmp(line + i, "EA", 2))
-		ret = parse_txt(&s->txt.ea, line + i + 2);
+		ret = pars_txt(&id->ea, line + i + 2);
 	else if (line[i] == 'S')
-		ret = parse_txt(&s->txt.s, line + i + 1);
+		ret = pars_txt(&id->s, line + i + 1);
 	else if (line[i] == 'F')
-		ret = parse_col(s, line + i + 1, 'F');
+		ret = pars_col(id, line + i + 1, 'F');
 	else if (line[i] == 'C')
-		ret = parse_col(s, line + i + 1, 'C');
-	return (check_grid(s, line, ret));
+		ret = pars_col(id, line + i + 1, 'C');
+	return (check_grid(id, line, ret));
 }
 
-int		alloc_line_of_map(t_all *s, char *line)
+int		alloc_line_of_map(t_map *map, char *line)
 {
 	char	**tab;
 	int		i;
 
 	i = 0;
-	while (s->map.grid && s->map.grid[i])
+	while (map->grid && map->grid[i])
 		++i;
 	if (!(tab = malloc(sizeof(char **) * (++i + 1))))
 		return (ft_exit(line, print_error2(-3)));
@@ -108,23 +100,23 @@ int		alloc_line_of_map(t_all *s, char *line)
 		return (ft_exit(line, print_error2(-3)));
 	while (--i >= 0)
 	{
-		tab[i] = s->map.grid[i];
-		s->map.grid[i] = NULL;
+		tab[i] = map->grid[i];
+		map->grid[i] = NULL;
 	}
-	ft_free(s->map.grid);
-	s->map.grid = tab;
+	ft_free(map->grid);
+	map->grid = tab;
 	return (ft_exit(line, 0));
 }
 
-int		parse_line(t_all *s, char *line)
+int		pars_line(t_all *s, char *line)
 {
 	if (!*line && s->map.grid)
 		return (ft_exit(line, print_error(-6)));
-	else if (is_line_of_map(MAP, line) && *line)
+	else if (line_of_map("NSWE012 ", line) && *line)
 	{
-		if (s->map.info == 4)
+		if (s->id.i == 4)
 		{
-			if (alloc_line_of_map(s, line))
+			if (alloc_line_of_map(&s->map, line))
 				return (-1);
 		}
 		else
@@ -133,10 +125,9 @@ int		parse_line(t_all *s, char *line)
 			return (ft_exit(line, -1));
 		}
 	}
-	else if (parse_res_txt_col(s, line))
+	else if (pars_id(&s->id, line))
 		return (-1);
-	if (s->txt.no && s->txt.so && s->txt.we &&
-		s->txt.ea && s->txt.s && s->map.info == 3)
-		++s->map.info;
+	if (s->id.no && s->id.so && s->id.we && s->id.ea && s->id.s && s->id.i == 3)
+		++s->id.i;
 	return (0);
 }

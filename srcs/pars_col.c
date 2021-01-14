@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pars_col.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:58:26 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/07 16:58:39 by gamichal         ###   ########.fr       */
+/*   Updated: 2021/01/14 15:25:44 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int	check_format(char *line)
+int		check_col(char *line)
 {
 	int i;
 
@@ -32,7 +32,7 @@ static int	check_format(char *line)
 	return (0);
 }
 
-static int	check_number_of_col(char **tab)
+int		check_split_col(char **tab)
 {
 	int i;
 
@@ -44,41 +44,34 @@ static int	check_number_of_col(char **tab)
 	return (0);
 }
 
-static int	check_col(char **tab, char *line)
-{
-	if (check_number_of_col(tab) || check_format(line))
-	{
-		ft_free(tab);
-		return (-1);
-	}
-	return (0);
-}
-
-static int	atorgb(int r, int g, int b)
+int		atorgb(int r, int g, int b)
 {
 	if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
 		return (print_error(ft_printf("Error: X <r>,<g>,<b>\n") - 43));
 	return ((r << 16) + (g << 8) + b);
 }
 
-int			parse_col(t_all *s, char *line, char c)
+int		pars_col(t_id *id, char *line, char c)
 {
 	char	**tab;
+	int		rgb[3];
 	int		i;
-	int		col[3];
 
-	if ((s->col.f >= 0 && c == 'F') || (s->col.c >= 0 && c == 'C'))
+	if ((id->f >= 0 && c == 'F') || (id->c >= 0 && c == 'C'))
 		return (print_error(ft_printf("Error: X <r>,<g>,<b>\n") - 37));
 	if (!(tab = ft_split(line, " ,")))
 		return (print_error2(-3));
-	if (check_col(tab, line))
+	if (check_split_col(tab) || check_col(line))
+	{
+		ft_free(tab);
 		return (-1);
+	}
 	i = -1;
 	while (tab[++i])
-		col[i] = ft_atoi(tab[i]);
+		rgb[i] = ft_atoi(tab[i]);
 	ft_free_tab(tab);
-	s->col.f = c == 'F' ? atorgb(col[0], col[1], col[2]) : s->col.f;
-	s->col.c = c == 'C' ? atorgb(col[0], col[1], col[2]) : s->col.c;
-	++s->map.info;
+	id->f = c == 'F' ? atorgb(rgb[0], rgb[1], rgb[2]) : id->f;
+	id->c = c == 'C' ? atorgb(rgb[0], rgb[1], rgb[2]) : id->c;
+	++id->i;
 	return (0);
 }

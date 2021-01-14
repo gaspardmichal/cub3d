@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pars_res.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 16:57:40 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/13 08:17:17 by gamichal         ###   ########.fr       */
+/*   Updated: 2021/01/14 15:25:13 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int	check_width_and_height(char **tab)
+int		check_split_res(char **tab)
 {
 	int i;
 
@@ -24,7 +24,7 @@ static int	check_width_and_height(char **tab)
 	return (0);
 }
 
-static int	check_unauthorized_char(char *line)
+int		check_char(char *line)
 {
 	int i;
 
@@ -37,30 +37,29 @@ static int	check_unauthorized_char(char *line)
 	return (0);
 }
 
-static int	check_width_and_height_len(char **tab)
+int		check_len(char **tab)
 {
 	if (ft_strlen(tab[0]) > 4 || ft_strlen(tab[1]) > 4)
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 44));
 	return (0);
 }
 
-static int	check_res(char **tab, char *line)
+int		check_res(char **tab, char *line)
 {
-	if (check_width_and_height(tab) || check_unauthorized_char(line)
-			|| check_width_and_height_len(tab))
+	if (check_split_res(tab) || check_char(line) || check_len(tab))
 	{
-		ft_free_tab(tab);
+		ft_free(tab);
 		return (-1);
 	}
 	return (0);
 }
 
-int			parse_res(t_all *s, char *line)
+int		pars_res(t_id *id, char *line)
 {
 	char	**tab;
 	int		i;
 
-	if ((s->res.width > 0 && s->res.height > 0))
+	if ((id->x > 0 && id->y > 0))
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 42));
 	if (!(tab = ft_split(line, " ")))
 		return (print_error2(-3));
@@ -69,17 +68,17 @@ int			parse_res(t_all *s, char *line)
 	i = -1;
 	while (tab[++i])
 	{
-		s->res.width = i == 0 ? ft_atoi(tab[i]) : s->res.width;
-		s->res.height = i == 1 ? ft_atoi(tab[i]) : s->res.height;
+		id->x = i == 0 ? ft_atoi(tab[i]) : id->x;
+		id->y = i == 1 ? ft_atoi(tab[i]) : id->y;
 	}
 	ft_free_tab(tab);
-	if (!s->res.width || !s->res.height)
+	if (!id->x || !id->y)
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 45));
-	if (s->res.width > 5120 || s->res.height > 2880)
+	if (id->x > 5120 || id->y > 2880)
 	{
-		s->res.width = 1920;
-		s->res.height = 1080;
+		id->x = 1920;
+		id->y = 1080;
 	}
-	++s->map.info;
+	++id->i;
 	return (0);
 }

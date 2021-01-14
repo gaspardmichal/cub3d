@@ -6,7 +6,7 @@
 #    By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/21 20:55:11 by gamichal          #+#    #+#              #
-#    Updated: 2021/01/07 17:01:51 by gamichal         ###   ########.fr        #
+#    Updated: 2021/01/14 15:38:51 by gamichal         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,16 +19,16 @@ SRCS_PATH			=	srcs/
 OBJS_PATH			=	objs/
 HEADER				=	includes/cub3d.h
 
-SRC					=	main.c					\
-						cub3d.c					\
-						init_pars.c				\
-						pars_map.c				\
-						pars_res.c				\
-						pars_txt.c				\
-						pars_col.c				\
-						check_map.c				\
-						check_walls.c			\
-						init_raycast.c
+SRC					=	main.c			\
+						init.c			\
+						pars_map.c		\
+						pars_res.c		\
+						pars_txt.c		\
+						pars_col.c		\
+						check_map.c		\
+						check_walls.c	\
+						raycast.c		\
+						error.c
 
 SRCS 				= 	$(addprefix $(SRCS_PATH),$(SRC))
 OBJS				=	$(patsubst $(SRCS_PATH)%.c,$(OBJS_PATH)%.o, $(SRCS))
