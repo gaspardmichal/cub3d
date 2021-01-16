@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 13:04:16 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/14 13:32:53 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/16 20:42:41 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ int		print_error2(int err)
 	return (-1);
 }
 
-void	free_all(t_all *s)
+void	free_parameters(t_parameters *p)
 {
 	int i;
 
 	i = -1;
-	while (s->map.grid && s->map.grid[++i])
-		ft_free(s->map.grid[i]);
-	ft_free(s->map.grid);
-	ft_free(s->id.no);
-	ft_free(s->id.so);
-	ft_free(s->id.we);
-	ft_free(s->id.ea);
-	ft_free(s->id.s);
+	while (p->map.grid && p->map.grid[++i])
+		ft_free(p->map.grid[i]);
+	ft_free(p->map.grid);
+	ft_free(p->id.no);
+	ft_free(p->id.so);
+	ft_free(p->id.we);
+	ft_free(p->id.ea);
+	ft_free(p->id.s);
 }

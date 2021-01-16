@@ -6,7 +6,7 @@
 #    By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/21 20:55:11 by gamichal          #+#    #+#              #
-#    Updated: 2021/01/14 15:38:51 by gamichal         ###   ########lyon.fr    #
+#    Updated: 2021/01/16 21:14:09 by gamichal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,15 +19,15 @@ SRCS_PATH			=	srcs/
 OBJS_PATH			=	objs/
 HEADER				=	includes/cub3d.h
 
-SRC					=	main.c			\
-						init.c			\
-						pars_map.c		\
-						pars_res.c		\
-						pars_txt.c		\
-						pars_col.c		\
-						check_map.c		\
-						check_walls.c	\
-						raycast.c		\
+SRC					=	main.c					\
+						init.c					\
+						parse_line.c			\
+						parse_resolution.c		\
+						parse_texture.c			\
+						parse_colors.c			\
+						check.c					\
+						check_walls.c			\
+						raycast.c				\
 						error.c
 
 SRCS 				= 	$(addprefix $(SRCS_PATH),$(SRC))

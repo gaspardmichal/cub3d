@@ -6,51 +6,52 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:48:25 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/14 16:00:39 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/16 21:02:08 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-#include <stdio.h>
 
-int		check_save(char *save)
+int		check_arg_save(char *arg)
 {
-	if (ft_strcmp(save, "--save"))
+	if (ft_strcmp(arg, "--save"))
 		exit(print_error(ft_printf("Error: ./cub3D <path.cub> --save\n") - 37));
 	return (1);
 }
 
-int		check_file(char *file, int fd)
+int		check_arg_fd_ext(char *arg, int fd)
 {
 	if (fd < 0)
 		exit(print_error(ft_printf("Error: ./cub3D <path.cub>\n") - 28));
-	else if (ft_strcmp(file + ft_strlen(file) - 4, ".cub"))
+	else if (ft_strcmp(arg + ft_strlen(arg) - 4, ".cub"))
 		exit(print_error(ft_printf("Error: ./cub3D <path.cub>\n") - 29));
 	return (1);
 }
 
-int		pars_file(t_all *s, int fd, char *line)
+int		parse_identifiers_map(t_parameters *p, int fd, char *line)
 {
 	while ((get_next_line(fd, &line)))
 	{
-		if (pars_line(s, line))
+		if (parse_line(p, line))
 			return (-1);
 	}
-	if (pars_line(s, line))
+	if (parse_line(p, line))
 		return (-1);
 	close(fd);
-	return (check_pars(s->id));
+	if (check_identifiers(p) || check_map(&p->map))
+		return (-1);
+	return (0);
 }
 
 void	cub3d(int fd)
 {
-	t_all	s;
+	t_parameters p;;
 
-	init_id(&s);
-	if (pars_file(&s, fd, NULL) || check_map(&s.map))
-		free_all(&s);
-	init_all(&s);
-	raycast(&s);
+	init_identifiers(&p);
+	if (parse_identifiers_map(&p, fd, NULL))
+		free_parameters(&p);
+	init_parameters(&p);
+	raycast(&p);
 }
 
 int		main(int ac, char **av)
@@ -60,15 +61,14 @@ int		main(int ac, char **av)
 	if ((fd = open(av[1], O_DIRECTORY) >= 0))
 		return ((print_error(ft_printf("Error: ./cub3D <path.cub>\n") - 27)));
 	fd = open(av[1], O_RDONLY);
-	if (ac == 2 && check_file(av[1], fd))
+	if (ac == 2 && check_arg_fd_ext(av[1], fd))
 		cub3d(fd);
-	else if (ac == 3 && check_file(av[1], fd) && check_save(av[2]))
+	else if (ac == 3 && check_arg_fd_ext(av[1], fd) && check_arg_save(av[2]))
 		cub3d(fd);
 	else
 		exit(print_error(ft_printf("Error: ./cub3D <path.cub>\n") - 31));
 	while (1)
 	{
-		
 	}
 	return (0);
 }

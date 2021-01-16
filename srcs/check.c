@@ -1,18 +1,73 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 16:50:54 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/14 15:26:28 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/16 21:03:12 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/16 21:15:09 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int		get_start_pos(t_map *map, int i)
+int	check_identifiers(t_parameters *p)
+{
+	if (p->mlx.width < 0 && p->mlx.height < 0)
+		print_error(-8);
+	if (!p->id.no)
+		print_error(-9);
+	if (!p->id.so)
+		print_error(-10);
+	if (!p->id.we)
+		print_error(-11);
+	if (!p->id.ea)
+		print_error(-12);
+	if (!p->id.s)
+		print_error(-13);
+	if (p->id.f < 0)
+		print_error(-14);
+	if (p->id.c < 0)
+		print_error(-15);
+	return (0);
+}
+
+int check_map_characters(char *line, int count, int ret)
+{
+	if (*line && count == 4 && ret != -1)
+		ret = ft_printf("Error: unauthorized character in map description\n");
+	return (ft_exit(line, ret));
+}
+
+int	map_not_valid(t_map *map)
+{
+	int		i;
+	int		j;
+	char	*err;
+
+	if (!(err = ft_strdup("Error: map not surrounded by walls\n")))
+		return (print_error2(-3));
+	i = 0;
+	while (map->grid[i])
+	{
+		j = 0;
+		while (map->grid[i][j])
+		{
+			if (ft_strchr("02NSWE", map->grid[i][j]))
+			{
+				if (check_walls(map->grid, err, i, j))
+					return (ft_exit(err, 1));
+			}
+			++j;
+		}
+		++i;
+	}
+	ft_free(err);
+	return (0);
+}
+
+int	get_start_position(t_map *map, int i)
 {
 	int		j;
 	int		count;
@@ -37,49 +92,7 @@ int		get_start_pos(t_map *map, int i)
 	return (0);
 }
 
-int		check_cell(char **grid, char *err, int i, int j)
-{
-	if (!i || !j || !grid[i + 1] || j == (int)ft_strlen(grid[i]) - 1)
-		return (ft_printf("%s/!\\ [%d][%d] out of bounds\n", err, i, j));
-	if (check_down(grid, err, i, j))
-		return (-1);
-	if (check_left(grid, err, i, j))
-		return (-1);
-	if (check_right(grid, err, i, j))
-		return (-1);
-	if (check_up(grid, err, i, j))
-		return (-1);
-	return (0);
-}
-
-int		check_walls(t_map *map)
-{
-	int		i;
-	int		j;
-	char	*err;
-
-	if (!(err = ft_strdup("Error: map not surrounded by walls\n")))
-		return (print_error2(-3));
-	i = 0;
-	while (map->grid[i])
-	{
-		j = 0;
-		while (map->grid[i][j])
-		{
-			if (ft_strchr("02NSWE", map->grid[i][j]))
-			{
-				if (check_cell(map->grid, err, i, j))
-					return (ft_exit(err, 1));
-			}
-			++j;
-		}
-		++i;
-	}
-	ft_free(err);
-	return (0);
-}
-
-int		check_map(t_map *map)
+int	check_map(t_map *map)
 {
 	int	i;
 
@@ -88,7 +101,7 @@ int		check_map(t_map *map)
 	i = -1;
 	while (map->grid[++i])
 	{
-		if (get_start_pos(map, i))
+		if (get_start_position(map, i))
 			return (print_error2(-24));
 		if (!map->x || !map->y)
 			return (print_error2(-1));
@@ -97,7 +110,7 @@ int		check_map(t_map *map)
 		return (print_error2(-1));
 	if (map->x < 0)
 		return (print_error2(-2));
-	if (check_walls(map))
+	if (map_not_valid(map))
 		return (-1);
 	return (0);
 }

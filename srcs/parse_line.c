@@ -1,63 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_map.c                                         :+:      :+:    :+:   */
+/*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 16:58:59 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/14 15:24:14 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/16 20:03:21 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/16 21:10:00 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int		check_pars(t_id id)
-{
-	if (id.x < 0 && id.y < 0)
-		print_error(-8);
-	if (!id.no)
-		print_error(-9);
-	if (!id.so)
-		print_error(-10);
-	if (!id.we)
-		print_error(-11);
-	if (!id.ea)
-		print_error(-12);
-	if (!id.s)
-		print_error(-13);
-	if (id.f < 0)
-		print_error(-14);
-	if (id.c < 0)
-		print_error(-15);
-	return (0);
-}
-
-int		line_of_map(const char *set, const char *s)
-{
-	int i;
-	int j;
-
-	if (!set || !s || !*set)
-		return (0);
-	i = 0;
-	while (s[i])
-	{
-		j = 0;
-		while (set[j])
-		{
-			if (s[i] == set[j])
-				break ;
-			++j;
-			if (!set[j])
-				return (0);
-		}
-		++i;
-	}
-	return (1);
-}
-
-int		pars_id(t_id *id, char *line)
+int	parse_identifiers(t_parameters *p, char *line)
 {
 	int ret;
 	int i;
@@ -67,25 +22,25 @@ int		pars_id(t_id *id, char *line)
 	while (line[i] == ' ')
 		++i;
 	if (line[i] == 'R')
-		ret = pars_res(id, line + i + 1);
+		ret = parse_resolution(p, line + i + 1);
 	else if (!ft_strncmp(line + i, "NO", 2))
-		ret = pars_txt(&id->no, line + i + 2);
+		ret = parse_textures(&p->id.no, line + i + 2);
 	else if (!ft_strncmp(line + i, "SO", 2))
-		ret = pars_txt(&id->so, line + i + 2);
+		ret = parse_textures(&p->id.so, line + i + 2);
 	else if (!ft_strncmp(line + i, "WE", 2))
-		ret = pars_txt(&id->we, line + i + 2);
+		ret = parse_textures(&p->id.we, line + i + 2);
 	else if (!ft_strncmp(line + i, "EA", 2))
-		ret = pars_txt(&id->ea, line + i + 2);
+		ret = parse_textures(&p->id.ea, line + i + 2);
 	else if (line[i] == 'S')
-		ret = pars_txt(&id->s, line + i + 1);
+		ret = parse_textures(&p->id.s, line + i + 1);
 	else if (line[i] == 'F')
-		ret = pars_col(id, line + i + 1, 'F');
+		ret = parse_colors(&p->id, line + i + 1, 'F');
 	else if (line[i] == 'C')
-		ret = pars_col(id, line + i + 1, 'C');
-	return (check_grid(id, line, ret));
+		ret = parse_colors(&p->id, line + i + 1, 'C');
+	return (check_map_characters(line, p->id.count, ret));
 }
 
-int		alloc_line_of_map(t_map *map, char *line)
+int	alloc_map_line(t_map *map, char *line)
 {
 	char	**tab;
 	int		i;
@@ -108,15 +63,39 @@ int		alloc_line_of_map(t_map *map, char *line)
 	return (ft_exit(line, 0));
 }
 
-int		pars_line(t_all *s, char *line)
+int	is_line_of_map(const char *map_charset, const char *line)
 {
-	if (!*line && s->map.grid)
-		return (ft_exit(line, print_error(-6)));
-	else if (line_of_map("NSWE012 ", line) && *line)
+	int i;
+	int j;
+
+	if (!map_charset || !*map_charset || !line)
+		return (0);
+	i = 0;
+	while (line[i])
 	{
-		if (s->id.i == 4)
+		j = 0;
+		while (map_charset[j])
 		{
-			if (alloc_line_of_map(&s->map, line))
+			if (line[i] == map_charset[j])
+				break ;
+			++j;
+			if (!map_charset[j])
+				return (0);
+		}
+		++i;
+	}
+	return (-1);
+}
+
+int	parse_line(t_parameters *p, char *line)
+{
+	if (!*line && p->map.grid)
+		return (ft_exit(line, print_error(-6)));
+	else if (is_line_of_map(MAP_CHARSET, line) && *line)
+	{
+		if (p->id.count == 4)
+		{
+			if (alloc_map_line(&p->map, line))
 				return (-1);
 		}
 		else
@@ -125,9 +104,10 @@ int		pars_line(t_all *s, char *line)
 			return (ft_exit(line, -1));
 		}
 	}
-	else if (pars_id(&s->id, line))
+	else if (parse_identifiers(p, line))
 		return (-1);
-	if (s->id.no && s->id.so && s->id.we && s->id.ea && s->id.s && s->id.i == 3)
-		++s->id.i;
+	if (p->id.no && p->id.so && p->id.we && p->id.ea && p->id.s &&
+			p->id.count == 3)
+		++p->id.count;
 	return (0);
 }

@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_col.c                                         :+:      :+:    :+:   */
+/*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/07 16:58:26 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/14 15:25:44 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/16 19:04:48 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/16 20:34:09 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int		check_col(char *line)
+/*
+* * Check the number and places of the commas in the color format
+*/
+
+int	check_commas(char *line)
 {
 	int i;
 
@@ -32,7 +36,11 @@ int		check_col(char *line)
 	return (0);
 }
 
-int		check_split_col(char **tab)
+/*
+* * Check that the color format is precisely three integers between 0 and 255
+*/
+
+int	check_color_format(char **tab)
 {
 	int i;
 
@@ -44,14 +52,18 @@ int		check_split_col(char **tab)
 	return (0);
 }
 
-int		atorgb(int r, int g, int b)
+/*
+* * Return the rgb color encoded in an integer with a left bitshift
+*/
+
+int	atorgb(int r, int g, int b)
 {
 	if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
 		return (print_error(ft_printf("Error: X <r>,<g>,<b>\n") - 43));
 	return ((r << 16) + (g << 8) + b);
 }
 
-int		pars_col(t_id *id, char *line, char c)
+int	parse_colors(t_identifiers *id, char *line, char c)
 {
 	char	**tab;
 	int		rgb[3];
@@ -61,7 +73,7 @@ int		pars_col(t_id *id, char *line, char c)
 		return (print_error(ft_printf("Error: X <r>,<g>,<b>\n") - 37));
 	if (!(tab = ft_split(line, " ,")))
 		return (print_error2(-3));
-	if (check_split_col(tab) || check_col(line))
+	if (check_color_format(tab) || check_commas(line))
 	{
 		ft_free(tab);
 		return (-1);
@@ -72,6 +84,6 @@ int		pars_col(t_id *id, char *line, char c)
 	ft_free_tab(tab);
 	id->f = c == 'F' ? atorgb(rgb[0], rgb[1], rgb[2]) : id->f;
 	id->c = c == 'C' ? atorgb(rgb[0], rgb[1], rgb[2]) : id->c;
-	++id->i;
+	++id->count;
 	return (0);
 }

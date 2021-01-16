@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:22:37 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/14 16:12:51 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/16 19:01:05 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,15 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	raycast(t_all *s)
+void	raycast(t_parameters *p)
 {
 	t_data	img;
 	int		i;
 	int		j;
 
-	ft_printf("%f	%f\n", s->mlx.x, s->mlx.y);
-	s->mlx.ptr = mlx_init();
-	s->mlx.win = mlx_new_window(s->mlx.ptr, s->mlx.x, s->mlx.y, "cub3D");
-	img.img = mlx_new_image(s->mlx.ptr, s->mlx.x, s->mlx.y);
+	p->mlx.ptr = mlx_init();
+	p->mlx.win = mlx_new_window(p->mlx.ptr, p->mlx.width, p->mlx.height, "cub3D");
+	img.img = mlx_new_image(p->mlx.ptr, p->mlx.width, p->mlx.height);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length, &img.endian);
 	i = -1;
 	while (++i < 100)
@@ -47,6 +46,6 @@ void	raycast(t_all *s)
 		while (++j < 100)
 			my_mlx_pixel_put(&img, i - 1, j + 1, 0x00FF0000);
 	}
-	mlx_put_image_to_window(s->mlx.ptr, s->mlx.win, img.img, 0, 0);
-	mlx_loop(s->mlx.ptr);
+	mlx_put_image_to_window(p->mlx.ptr, p->mlx.win, img.img, 0, 0);
+	mlx_loop(p->mlx.ptr);
 }

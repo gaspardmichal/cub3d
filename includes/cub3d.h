@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/14 16:01:09 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/16 21:08:14 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@
 
 # define CUB ".cub"
 # define XPM ".xpm"
-# define MAP "NSWE012 "
+# define MAP_CHARSET "NSWE012 "
 
-typedef struct		s_id
+typedef struct		s_identifiers
 {
-		double		x;
-		double		y;
 		char		*no;
 		char		*so;
 		char		*we;
@@ -34,8 +32,8 @@ typedef struct		s_id
 		char		*s;
 		int			f;
 		int			c;
-		int			i;
-}					t_id;
+		int			count;
+}					t_identifiers;
 
 typedef struct		s_map
 {
@@ -44,42 +42,37 @@ typedef struct		s_map
 		int			y;
 }					t_map;
 
-typedef struct		s_mlx
+typedef struct		s_minilibx
 {
 		void		*ptr;
 		void		*win;
-		int			sizex;
-		int			sizey;
-		double		x;
-		double		y;
-}					t_mlx;
+		double		width;
+		double		height;
+		void		*img;
+		int			*pxl;
+}					t_minilibx;
 
-typedef struct		s_all
+typedef struct		s_parameters
 {
-	t_id			id;
+	t_identifiers	id;
 	t_map			map;
-	t_mlx			mlx;
-}					t_all;
+	t_minilibx		mlx;
+}					t_parameters;
 
-void				init_id(t_all *s);
-int					pars_line(t_all *s, char *line);
-int					pars_id(t_id *id, char *line);
-int					pars_res(t_id *id, char *line);
-int					pars_col(t_id *id, char *line, char c);
-int					pars_txt(char **txt, char *line);
-int					line_of_map(const char *set, const char *s);
-int					alloc_line_of_map(t_map *map, char *line);
+void				init_identifiers(t_parameters *p);
+int					parse_line(t_parameters *p, char *line);
+int					parse_identifiers(t_parameters *p, char *line);
+int					parse_resolution(t_parameters *p, char *line);
+int					parse_textures(char **path_to_txt, char *line);
+int					parse_colors(t_identifiers *id, char *line, char c);
+int					check_identifiers(t_parameters *p);
 int					check_map(t_map *map);
-int					check_up(char **grid, char *error, int i, int j);
-int					check_down(char **grid, char *error, int i, int j);
-int					check_left(char **grid, char *error, int i, int j);
-int					check_right(char **grid, char *error, int i, int j);
-int					check_grid(t_id *id, char *line, int ret);
-int					check_pars(t_id id);
-void				init_all(t_all *s);
-void				raycast(t_all *s);
+int					check_map_characters(char *line, int count, int ret);
+int					check_walls(char **grid, char *err, int i, int j);
+void				init_parameters(t_parameters *p);
+void				raycast(t_parameters *p);
 int					print_error(int err);
 int					print_error2(int err);
-void				free_all(t_all *s);
+void				free_parameters(t_parameters *p);
 
 #endif
