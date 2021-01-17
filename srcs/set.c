@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/14 11:36:31 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 10:33:31 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/17 11:27:23 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/17 11:33:46 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,32 @@ void	set_identifiers(t_parameters *p)
 	p->map.y = -1;
 }
 
-void	set_minilibx(t_parameters *p)
+int		set_minilibx(t_parameters *p)
 {
-	int vm_width;
-	int vm_height;
+	t_minilibx	m;
+	int			vm_width;
+	int			vm_height;
 
+	
 	if (OS_LINUX == 1)
 	{
-		mlx_get_screen_size(p->mlx.ptr, &vm_width, &vm_height);
-		p->mlx.width = (p->mlx.width > vm_width) ? vm_width : p->mlx.width;
-		p->mlx.height = (p->mlx.height > vm_height) ? vm_height : p->mlx.height;
+		mlx_get_screen_size(m.ptr, &vm_width, &vm_height);
+		m.width = (m.width > vm_width) ? vm_width : m.width;
+		m.height = (m.height > vm_height) ? vm_height : m.height;
 	}
+	else
+	{
+		m.width = p->id.rx;
+		m.height = p->id.ry;
+	}
+	if (!(m.ptr = mlx_init()))
+		return (print_error2(-3));
+	if (!(m.win = mlx_new_window(m.ptr, m.width, m.height, "cub3D")))
+		return (print_error2(-3));
+	if (!(m.img = mlx_new_image(m.ptr, m.width, m.height)))
+		return (print_error2(-3));
+	if (!(m.pxl = (int *)mlx_get_data_addr(m.ptr, &m.bpp, &m.size, &m.endian)))
+		return (print_error2(-3));
+	p->mlx = m;
+	return (0);
 }

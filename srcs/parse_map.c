@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 09:09:27 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 09:09:29 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/17 11:12:26 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	parse_identifiers(t_parameters *p, char *line)
 	while (line[i] == ' ')
 		++i;
 	if (line[i] == 'R')
-		ret = parse_resolution(p, line + i + 1);
+		ret = parse_resolution(&p->id, line + i + 1);
 	else if (!ft_strncmp(line + i, "NO", 2))
 		ret = parse_textures(&p->id.no, line + i + 2);
 	else if (!ft_strncmp(line + i, "SO", 2))

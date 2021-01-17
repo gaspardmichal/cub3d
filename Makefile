@@ -19,7 +19,7 @@ OBJS_PATH			=	objs/
 HEADER				=	includes/cub3d.h
 
 SRC					=	main.c					\
-						init.c					\
+						set.c					\
 						parse_map.c				\
 						parse_resolution.c		\
 						parse_texture.c			\

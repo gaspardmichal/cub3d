@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:48:25 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 10:37:40 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/17 10:46:57 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	cub3d(int fd)
 	set_identifiers(p);
 	if (parse_cub(p, fd, NULL))
 		free_all(p);
-	set_minilibx(p);
+	if (set_minilibx(p))
+		free_all(p);
 }
 
 int		main(int ac, char **av)

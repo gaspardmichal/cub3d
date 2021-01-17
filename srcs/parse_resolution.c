@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 09:17:25 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 09:17:34 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/17 11:17:20 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ int	check_resolution(char **tab, char *line)
 	return (0);
 }
 
-int	parse_resolution(t_parameters *p, char *line)
+int	parse_resolution(t_identifiers *id, char *line)
 {
 	char	**tab;
 	int		i;
 
-	if ((p->mlx.width > 0 && p->mlx.height > 0))
+	if ((id->rx > 0 && id->ry > 0))
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 42));
 	if (!(tab = ft_split(line, " ")))
 		return (print_error2(-3));
@@ -85,17 +85,17 @@ int	parse_resolution(t_parameters *p, char *line)
 	i = -1;
 	while (tab[++i])
 	{
-		p->mlx.width = i == 0 ? ft_atoi(tab[i]) : p->mlx.width;
-		p->mlx.height = i == 1 ? ft_atoi(tab[i]) : p->mlx.height;
+		id->rx = i == 0 ? ft_atoi(tab[i]) : id->rx;
+		id->ry = i == 1 ? ft_atoi(tab[i]) : id->ry;
 	}
 	ft_free_tab(tab);
-	if (!p->mlx.width || !p->mlx.height)
+	if (!id->rx || !id->ry)
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 45));
-	if (p->mlx.width > 5120 || p->mlx.height > 2880)
+	if (id->rx > 5120 || id->ry > 2880)
 	{
-		p->mlx.width = 1920;
-		p->mlx.height = 1080;
+		id->rx = 1920;
+		id->ry = 1080;
 	}
-	++p->id.count;
+	++id->count;
 	return (0);
 }

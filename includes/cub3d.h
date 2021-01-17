@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 10:32:23 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/17 11:31:51 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 typedef struct		s_identifiers
 {
+		double		rx;
+		double		ry;
 		char		*no;
 		char		*so;
 		char		*we;
@@ -50,6 +52,9 @@ typedef struct		s_minilibx
 		double		height;
 		void		*img;
 		int			*pxl;
+		int			bpp;
+		int			size;
+		int			endian;
 }					t_minilibx;
 
 typedef struct		s_parameters
@@ -62,15 +67,15 @@ typedef struct		s_parameters
 void				set_identifiers(t_parameters *p);
 int					parse_map(t_parameters *p, char *line);
 int					parse_identifiers(t_parameters *p, char *line);
-int					parse_resolution(t_parameters *p, char *line);
-int					parse_textures(char **path_to_txt, char *line);
+int					parse_resolution(t_identifiers *id, char *line);
 int					parse_colors(t_identifiers *id, char *line, char c);
+int					parse_textures(char **path_to_txt, char *line);
 int					check_identifiers(t_parameters *p);
 int					check_map(t_map *map);
 int					check_map_characters(char *line, int count, int ret);
 int					check_walls(char **grid, char *err, int i, int j);
 
-void				set_minilibx(t_parameters *p);
+int					set_minilibx(t_parameters *p);
 void				raycast(t_parameters *p);
 int					print_error(int err);
 int					print_error2(int err);
