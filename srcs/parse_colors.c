@@ -6,14 +6,14 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 19:04:48 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/16 20:34:09 by gamichal         ###   ########.fr       */
+/*   Updated: 2021/01/17 09:16:59 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
 /*
-* * Check the number and places of the commas in the color format
+** Check the number and places of the commas in the color format
 */
 
 int	check_commas(char *line)
@@ -37,7 +37,7 @@ int	check_commas(char *line)
 }
 
 /*
-* * Check that the color format is precisely three integers between 0 and 255
+** Check that the color format is precisely three integers between 0 and 255
 */
 
 int	check_color_format(char **tab)
@@ -53,7 +53,7 @@ int	check_color_format(char **tab)
 }
 
 /*
-* * Return the rgb color encoded in an integer with a left bitshift
+** Return the rgb color encoded in an integer with a left bitshift
 */
 
 int	atorgb(int r, int g, int b)

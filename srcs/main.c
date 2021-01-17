@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:48:25 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/16 21:02:08 by gamichal         ###   ########.fr       */
+/*   Updated: 2021/01/17 10:37:40 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int		check_arg_fd_ext(char *arg, int fd)
 	return (1);
 }
 
-int		parse_identifiers_map(t_parameters *p, int fd, char *line)
+int		parse_cub(t_parameters *p, int fd, char *line)
 {
 	while ((get_next_line(fd, &line)))
 	{
-		if (parse_line(p, line))
+		if (parse_map(p, line))
 			return (-1);
 	}
-	if (parse_line(p, line))
+	if (parse_map(p, line))
 		return (-1);
 	close(fd);
 	if (check_identifiers(p) || check_map(&p->map))
@@ -45,13 +45,13 @@ int		parse_identifiers_map(t_parameters *p, int fd, char *line)
 
 void	cub3d(int fd)
 {
-	t_parameters p;;
+	t_parameters *p;
 
-	init_identifiers(&p);
-	if (parse_identifiers_map(&p, fd, NULL))
-		free_parameters(&p);
-	init_parameters(&p);
-	raycast(&p);
+	p = NULL;
+	set_identifiers(p);
+	if (parse_cub(p, fd, NULL))
+		free_all(p);
+	set_minilibx(p);
 }
 
 int		main(int ac, char **av)

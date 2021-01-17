@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 13:22:21 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/16 19:58:50 by gamichal         ###   ########.fr       */
+/*   Created: 2021/01/17 09:17:25 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/17 09:17:34 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
 /*
-* * Check that the resolution format is precisely two integers
+** Check that the resolution format is precisely two integers
 */
 
 int	check_resolution_format(char **tab)
@@ -29,7 +29,7 @@ int	check_resolution_format(char **tab)
 }
 
 /*
-* * Check that the width and height format is four digits or less
+** Check that the width and height format is four digits or less
 */
 
 int	check_value(char **tab)
@@ -40,7 +40,7 @@ int	check_value(char **tab)
 }
 
 /*
-* * Check that the resolution does not contain any unauthorized character
+** Check that the resolution does not contain any unauthorized character
 */
 
 int	check_characters(char *line)
@@ -57,7 +57,7 @@ int	check_characters(char *line)
 }
 
 /*
-* * Check the return values of the above functions
+** Check the return values of the above functions
 */
 
 int	check_resolution(char **tab, char *line)
@@ -94,7 +94,7 @@ int	parse_resolution(t_parameters *p, char *line)
 	if (p->mlx.width > 5120 || p->mlx.height > 2880)
 	{
 		p->mlx.width = 1920;
-		p->mlx.height= 1080;
+		p->mlx.height = 1080;
 	}
 	++p->id.count;
 	return (0);

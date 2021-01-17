@@ -6,13 +6,13 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 11:36:31 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/16 19:03:24 by gamichal         ###   ########.fr       */
+/*   Updated: 2021/01/17 10:33:31 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	init_identifiers(t_parameters *p)
+void	set_identifiers(t_parameters *p)
 {
 	p->mlx.width = -1;
 	p->mlx.height = -1;
@@ -29,13 +29,11 @@ void	init_identifiers(t_parameters *p)
 	p->map.y = -1;
 }
 
-void	init_parameters(t_parameters *p)
+void	set_minilibx(t_parameters *p)
 {
 	int vm_width;
 	int vm_height;
-	
-	p->mlx.ptr = NULL;
-	p->mlx.win = NULL;
+
 	if (OS_LINUX == 1)
 	{
 		mlx_get_screen_size(p->mlx.ptr, &vm_width, &vm_height);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/14 13:04:16 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/16 20:42:41 by gamichal         ###   ########.fr       */
+/*   Created: 2021/01/17 09:16:24 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/17 09:31:51 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		print_error2(int err)
 	return (-1);
 }
 
-void	free_parameters(t_parameters *p)
+void	free_all(t_parameters *p)
 {
 	int i;
 

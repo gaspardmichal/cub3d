@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 21:03:12 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/16 21:15:09 by gamichal         ###   ########.fr       */
+/*   Created: 2021/01/17 09:15:38 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/17 09:15:50 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_identifiers(t_parameters *p)
 	return (0);
 }
 
-int check_map_characters(char *line, int count, int ret)
+int	check_map_characters(char *line, int count, int ret)
 {
 	if (*line && count == 4 && ret != -1)
 		ret = ft_printf("Error: unauthorized character in map description\n");

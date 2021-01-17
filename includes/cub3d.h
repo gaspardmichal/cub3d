@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/16 21:08:14 by gamichal         ###   ########.fr       */
+/*   Updated: 2021/01/17 10:32:23 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ typedef struct		s_parameters
 	t_minilibx		mlx;
 }					t_parameters;
 
-void				init_identifiers(t_parameters *p);
-int					parse_line(t_parameters *p, char *line);
+void				set_identifiers(t_parameters *p);
+int					parse_map(t_parameters *p, char *line);
 int					parse_identifiers(t_parameters *p, char *line);
 int					parse_resolution(t_parameters *p, char *line);
 int					parse_textures(char **path_to_txt, char *line);
@@ -69,10 +69,11 @@ int					check_identifiers(t_parameters *p);
 int					check_map(t_map *map);
 int					check_map_characters(char *line, int count, int ret);
 int					check_walls(char **grid, char *err, int i, int j);
-void				init_parameters(t_parameters *p);
+
+void				set_minilibx(t_parameters *p);
 void				raycast(t_parameters *p);
 int					print_error(int err);
 int					print_error2(int err);
-void				free_parameters(t_parameters *p);
+void				free_all(t_parameters *p);
 
 #endif

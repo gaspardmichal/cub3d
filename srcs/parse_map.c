@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_line.c                                       :+:      :+:    :+:   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/16 20:03:21 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/16 21:10:00 by gamichal         ###   ########.fr       */
+/*   Created: 2021/01/17 09:09:27 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/17 09:09:29 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	is_line_of_map(const char *map_charset, const char *line)
 	return (-1);
 }
 
-int	parse_line(t_parameters *p, char *line)
+int	parse_map(t_parameters *p, char *line)
 {
 	if (!*line && p->map.grid)
 		return (ft_exit(line, print_error(-6)));

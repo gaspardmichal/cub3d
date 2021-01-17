@@ -1,4 +1,3 @@
-# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,7 +5,7 @@
 #    By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/21 20:55:11 by gamichal          #+#    #+#              #
-#    Updated: 2021/01/16 21:14:09 by gamichal         ###   ########.fr        #
+#    Updated: 2021/01/17 10:34:27 by gamichal         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +20,7 @@ HEADER				=	includes/cub3d.h
 
 SRC					=	main.c					\
 						init.c					\
-						parse_line.c			\
+						parse_map.c				\
 						parse_resolution.c		\
 						parse_texture.c			\
 						parse_colors.c			\

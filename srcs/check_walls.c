@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_walls.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/12 20:35:18 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/16 20:58:34 by gamichal         ###   ########.fr       */
+/*   Created: 2021/01/17 09:15:10 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/17 09:15:24 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int check_up(char **grid, char *err, int i, int j)
+int	check_up(char **grid, char *err, int i, int j)
 {
 	if (j >= (int)ft_strlen(grid[i - 1]))
 		return (ft_printf("%s/!\\ no wall above [%d][%d]\n", err, i, j));
@@ -44,7 +44,7 @@ int	check_right(char **grid, char *err, int i, int j)
 	return (0);
 }
 
-int check_walls(char **grid, char *err, int i, int j)
+int	check_walls(char **grid, char *err, int i, int j)
 {
 	if (!i || !j || !grid[i + 1] || j == (int)ft_strlen(grid[i]) - 1)
 		return (ft_printf("%s/!\\ [%d][%d] out of bounds\n", err, i, j));
