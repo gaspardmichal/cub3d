@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 11:27:23 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 11:33:46 by gamichal         ###   ########.fr       */
+/*   Updated: 2021/01/17 14:21:31 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	set_identifiers(t_parameters *p)
 {
-	p->mlx.width = -1;
-	p->mlx.height = -1;
+	p->id.rx = -1;
+	p->id.ry = -1;
 	p->id.no = NULL;
 	p->id.so = NULL;
 	p->id.we = NULL;
@@ -53,7 +53,7 @@ int		set_minilibx(t_parameters *p)
 		return (print_error2(-3));
 	if (!(m.img = mlx_new_image(m.ptr, m.width, m.height)))
 		return (print_error2(-3));
-	if (!(m.pxl = (int *)mlx_get_data_addr(m.ptr, &m.bpp, &m.size, &m.endian)))
+	if (!(m.pxl = mlx_get_data_addr(m.ptr, &m.bpp, &m.size, &m.endian)))
 		return (print_error2(-3));
 	p->mlx = m;
 	return (0);

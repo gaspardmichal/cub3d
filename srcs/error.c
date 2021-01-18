@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 09:16:24 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 09:31:51 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/17 12:00:34 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void	free_all(t_parameters *p)
 	ft_free(p->id.we);
 	ft_free(p->id.ea);
 	ft_free(p->id.s);
+	ft_free(p);
 }

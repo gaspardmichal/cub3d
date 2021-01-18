@@ -6,29 +6,29 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 09:15:38 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 09:15:50 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/17 12:08:21 by gamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	check_identifiers(t_parameters *p)
+int	check_identifiers(t_identifiers *id)
 {
-	if (p->mlx.width < 0 && p->mlx.height < 0)
+	if (id->rx < 0 && id->ry < 0)
 		print_error(-8);
-	if (!p->id.no)
+	if (!id->no)
 		print_error(-9);
-	if (!p->id.so)
+	if (!id->so)
 		print_error(-10);
-	if (!p->id.we)
+	if (!id->we)
 		print_error(-11);
-	if (!p->id.ea)
+	if (!id->ea)
 		print_error(-12);
-	if (!p->id.s)
+	if (!id->s)
 		print_error(-13);
-	if (p->id.f < 0)
+	if (id->f < 0)
 		print_error(-14);
-	if (p->id.c < 0)
+	if (id->c < 0)
 		print_error(-15);
 	return (0);
 }
