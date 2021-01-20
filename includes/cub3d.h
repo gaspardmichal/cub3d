@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 14:21:05 by gamichal         ###   ########.fr       */
+/*   Updated: 2021/01/20 14:31:11 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,23 @@
 # define CUB ".cub"
 # define XPM ".xpm"
 # define MAP_CHARSET "NSWE012 "
+# define TILE_SIZE 64
+
+typedef struct		s_int
+{
+		int			x;
+		int			y;
+}					t_int;
+
+typedef struct		s_double
+{
+		double		x;
+		double		y;
+}					t_double;
 
 typedef struct		s_identifiers
 {
-		double		rx;
-		double		ry;
+		t_int		r;
 		char		*no;
 		char		*so;
 		char		*we;
@@ -40,9 +52,29 @@ typedef struct		s_identifiers
 typedef struct		s_map
 {
 		char		**grid;
-		int			x;
-		int			y;
 }					t_map;
+
+typedef struct		s_player
+{
+		t_double	pos;
+		double		turn_dir;
+		double		walk_dir;
+		double		move_speed;
+		double		rot_angle;
+		double		rot_speed;
+}					t_player;
+
+typedef struct		s_ray
+{
+		int			x;
+		double		dist;
+		double		ray_angle;
+		double		was_vert_hit;
+		double		ray_facing_up;
+		double		ray_facing_down;
+		double		ray_facing_left;
+		double		ray_facing_right;
+}					t_ray;
 
 typedef struct		s_minilibx
 {
@@ -51,7 +83,7 @@ typedef struct		s_minilibx
 		double		width;
 		double		height;
 		void		*img;
-		char		*pxl;
+		int			*pxl;
 		int			bpp;
 		int			size;
 		int			endian;
@@ -61,6 +93,8 @@ typedef struct		s_parameters
 {
 	t_identifiers	id;
 	t_map			map;
+	t_player		ply;
+	t_ray			ray;
 	t_minilibx		mlx;
 }					t_parameters;
 
@@ -71,12 +105,14 @@ int					parse_resolution(t_identifiers *id, char *line);
 int					parse_colors(t_identifiers *id, char *line, char c);
 int					parse_textures(char **path_to_txt, char *line);
 int					check_identifiers(t_identifiers *id);
-int					check_map(t_map *map);
+int					check_map(t_parameters *p);
 int					check_map_characters(char *line, int count, int ret);
 int					check_walls(char **grid, char *err, int i, int j);
-
 int					set_minilibx(t_parameters *p);
+void				set_player(t_parameters *p);
+int					draw(t_parameters *p);
 void				raycast(t_parameters *p);
+int					grid_has_wall_at(t_parameters *p);
 int					print_error(int err);
 int					print_error2(int err);
 void				free_all(t_parameters *p);

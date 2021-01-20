@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 09:17:25 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 11:17:20 by gamichal         ###   ########.fr       */
+/*   Updated: 2021/01/20 09:51:31 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	parse_resolution(t_identifiers *id, char *line)
 	char	**tab;
 	int		i;
 
-	if ((id->rx > 0 && id->ry > 0))
+	if ((id->r.x > 0 && id->r.y > 0))
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 42));
 	if (!(tab = ft_split(line, " ")))
 		return (print_error2(-3));
@@ -85,16 +85,16 @@ int	parse_resolution(t_identifiers *id, char *line)
 	i = -1;
 	while (tab[++i])
 	{
-		id->rx = i == 0 ? ft_atoi(tab[i]) : id->rx;
-		id->ry = i == 1 ? ft_atoi(tab[i]) : id->ry;
+		id->r.x = i == 0 ? ft_atoi(tab[i]) : id->r.x;
+		id->r.y = i == 1 ? ft_atoi(tab[i]) : id->r.y;
 	}
 	ft_free_tab(tab);
-	if (!id->rx || !id->ry)
+	if (!id->r.x || !id->r.y)
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 45));
-	if (id->rx > 5120 || id->ry > 2880)
+	if (id->r.x > 5120 || id->r.y > 2880)
 	{
-		id->rx = 1920;
-		id->ry = 1080;
+		id->r.x = 1920;
+		id->r.y = 1080;
 	}
 	++id->count;
 	return (0);

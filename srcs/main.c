@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:48:25 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 12:54:06 by gamichal         ###   ########.fr       */
+/*   Updated: 2021/01/20 14:32:44 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		parse_cub(int fd, t_parameters *p, char *line)
 	if (parse_map(p, line))
 		return (-1);
 	close(fd);
-	if (check_identifiers(&p->id) || check_map(&p->map))
+	if (check_identifiers(&p->id) || check_map(p))
 		return (-1);
 	return (0);
 }
@@ -50,7 +50,9 @@ void	cub3d(int fd, t_parameters *p)
 		free_all(p);
 	if (set_minilibx(p))
 		free_all(p);
-	raycast(p);
+	set_player(p);
+	mlx_loop_hook(p->mlx.ptr, draw, p);
+	mlx_loop(p->mlx.ptr);
 }
 
 int		main(int ac, char **av)

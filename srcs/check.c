@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 09:15:38 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 12:08:21 by gamichal         ###   ########.fr       */
+/*   Updated: 2021/01/20 10:01:44 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_identifiers(t_identifiers *id)
 {
-	if (id->rx < 0 && id->ry < 0)
+	if (id->r.x < 0 && id->r.y < 0)
 		print_error(-8);
 	if (!id->no)
 		print_error(-9);
@@ -40,7 +40,7 @@ int	check_map_characters(char *line, int count, int ret)
 	return (ft_exit(line, ret));
 }
 
-int	map_not_valid(t_map *map)
+int	map_not_valid(t_map map)
 {
 	int		i;
 	int		j;
@@ -49,14 +49,14 @@ int	map_not_valid(t_map *map)
 	if (!(err = ft_strdup("Error: map not surrounded by walls\n")))
 		return (print_error2(-3));
 	i = 0;
-	while (map->grid[i])
+	while (map.grid[i])
 	{
 		j = 0;
-		while (map->grid[i][j])
+		while (map.grid[i][j])
 		{
-			if (ft_strchr("02NSWE", map->grid[i][j]))
+			if (ft_strchr("02NSWE", map.grid[i][j]))
 			{
-				if (check_walls(map->grid, err, i, j))
+				if (check_walls(map.grid, err, i, j))
 					return (ft_exit(err, 1));
 			}
 			++j;
@@ -67,22 +67,22 @@ int	map_not_valid(t_map *map)
 	return (0);
 }
 
-int	get_start_position(t_map *map, int i)
+int	get_player_position(t_parameters *p, int i)
 {
 	int		j;
 	int		count;
 
 	count = 0;
 	j = 0;
-	while (map->grid[i][j])
+	while (p->map.grid[i][j])
 	{
-		if (ft_strchr("NSWE", map->grid[i][j]))
+		if (ft_strchr("NSWE", p->map.grid[i][j]))
 		{
-			if (map->x >= 0 && map->y >= 0)
+			if (p->ply.pos.x >= 0 && p->ply.pos.y >= 0)
 				return (-1);
-			map->x = j;
-			map->y = i;
-			map->grid[i][j] = '0';
+			p->ply.pos.x = j;
+			p->ply.pos.y = i;
+			p->map.grid[i][j] = '0';
 			++count;
 		}
 		++j;
@@ -92,25 +92,25 @@ int	get_start_position(t_map *map, int i)
 	return (0);
 }
 
-int	check_map(t_map *map)
+int	check_map(t_parameters *p)
 {
 	int	i;
 
-	if (!map->grid)
+	if (!p->map.grid)
 		return (print_error(-23));
 	i = -1;
-	while (map->grid[++i])
+	while (p->map.grid[++i])
 	{
-		if (get_start_position(map, i))
+		if (get_player_position(p, i))
 			return (print_error2(-24));
-		if (!map->x || !map->y)
+		if (!p->ply.pos.x || !p->ply.pos.y)
 			return (print_error2(-1));
 	}
-	if (map->y == i - 1)
+	if (p->ply.pos.y == i - 1)
 		return (print_error2(-1));
-	if (map->x < 0)
+	if (p->ply.pos.x < 0)
 		return (print_error2(-2));
-	if (map_not_valid(map))
+	if (map_not_valid(p->map))
 		return (-1);
 	return (0);
 }

@@ -26,7 +26,8 @@ SRC					=	main.c					\
 						parse_colors.c			\
 						check.c					\
 						check_walls.c			\
-						raycast.c				\
+						draw.c					\
+						utils.c					\
 						error.c
 
 SRCS 				= 	$(addprefix $(SRCS_PATH),$(SRC))
