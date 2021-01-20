@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 09:03:49 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/20 14:37:37 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/20 17:03:56 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	update_player(t_parameters *p)
 	}
 }
 
-void	raycast(t_parameters *p)
+void	cast_rays(t_parameters *p)
 {
 	(void)p;
 }
@@ -34,6 +34,6 @@ int		draw(t_parameters *p)
 {
 	update_player(p);
 	while (++p->ray.x < p->mlx.width)
-		raycast(p);
+		cast_rays(p);
 	return (0);
 }

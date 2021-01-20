@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/20 14:31:11 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/20 17:03:27 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@
 # define XPM ".xpm"
 # define MAP_CHARSET "NSWE012 "
 # define TILE_SIZE 64
+
+# define PRESS 2
+# define PRESS_MASK	1
+# define RELEASE 3
+# define RELEASE_MASK 10
+
+# define W 13
+# define A 0
+# define S 1
+# define D 2
+# define RIGHT_ARROW 123
+# define LEFT_ARROW 124
 
 typedef struct		s_int
 {
@@ -111,7 +123,8 @@ int					check_walls(char **grid, char *err, int i, int j);
 int					set_minilibx(t_parameters *p);
 void				set_player(t_parameters *p);
 int					draw(t_parameters *p);
-void				raycast(t_parameters *p);
+int					key_pressed(int key, t_parameters *p);
+int					key_released(int key, t_parameters *p);
 int					grid_has_wall_at(t_parameters *p);
 int					print_error(int err);
 int					print_error2(int err);
