@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:48:25 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/21 08:50:25 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/21 12:45:28 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Check that second argument is "save"
 */
 
-int		check_arg_save(char *arg)
+static int	check_arg_save(char *arg)
 {
 	if (ft_strcmp(arg, "--save"))
 		exit(print_error(ft_printf("Error: ./cub3D <path.cub> --save\n") - 37));
@@ -27,7 +27,7 @@ int		check_arg_save(char *arg)
 ** Check map fd and extension
 */
 
-int		check_arg_fd_ext(char *arg, int fd)
+static int	check_arg_fd_ext(char *arg, int fd)
 {
 	if (fd < 0)
 		exit(print_error(ft_printf("Error: ./cub3D <path.cub>\n") - 28));
@@ -40,7 +40,7 @@ int		check_arg_fd_ext(char *arg, int fd)
 ** Parse map file with get_next_line
 */
 
-int		parse_cub(int fd, t_parameters *p, char *line)
+static int	parse_cub(int fd, t_parameters *p, char *line)
 {
 	while ((get_next_line(fd, &line)))
 	{
@@ -50,24 +50,23 @@ int		parse_cub(int fd, t_parameters *p, char *line)
 	if (parse_map(p, line))
 		return (-1);
 	close(fd);
-	if (check_identifiers(&p->id) || check_map(p))
+	if (parse_check_identifiers(&p->id) || parse_check_map(p))
 		return (-1);
 	return (0);
 }
 
-void	cub3d(int fd, t_parameters *p)
+static void	cub3d(int fd, t_parameters *p)
 {
 	set_identifiers(p);
 	if (parse_cub(fd, p, NULL))
 		free_all(p);
 	if (set_minilibx(p))
 		free_all(p);
-	set_player(p);
-	mlx_loop_hook(p->mlx.ptr, draw, p);
+	mlx_loop_hook(p->mlx.ptr, render_game, p);
 	mlx_loop(p->mlx.ptr);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	int				fd;
 	t_parameters	*p;

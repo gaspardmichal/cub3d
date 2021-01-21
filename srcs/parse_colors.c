@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 19:04:48 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 09:16:59 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/21 12:59:33 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Check the number and places of the commas in the color format
 */
 
-int	check_commas(char *line)
+static int	check_commas(char *line)
 {
 	int i;
 
@@ -40,7 +40,7 @@ int	check_commas(char *line)
 ** Check that the color format is precisely three integers between 0 and 255
 */
 
-int	check_color_format(char **tab)
+static int	check_color_format(char **tab)
 {
 	int i;
 
@@ -56,14 +56,14 @@ int	check_color_format(char **tab)
 ** Return the rgb color encoded in an integer with a left bitshift
 */
 
-int	atorgb(int r, int g, int b)
+static int	atorgb(int r, int g, int b)
 {
 	if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
 		return (print_error(ft_printf("Error: X <r>,<g>,<b>\n") - 43));
 	return ((r << 16) + (g << 8) + b);
 }
 
-int	parse_colors(t_identifiers *id, char *line, char c)
+int			parse_colors(t_identifiers *id, char *line, char c)
 {
 	char	**tab;
 	int		rgb[3];

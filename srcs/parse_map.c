@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 14:56:01 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/21 08:38:47 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/21 12:57:15 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Parse line according to its starting identifier
 */
 
-int	parse_identifiers(t_parameters *p, char *line)
+static int	parse_identifiers(t_parameters *p, char *line)
 {
 	int ret;
 	int i;
@@ -41,14 +41,14 @@ int	parse_identifiers(t_parameters *p, char *line)
 		ret = parse_colors(&p->id, line + i + 1, 'F');
 	else if (line[i] == 'C')
 		ret = parse_colors(&p->id, line + i + 1, 'C');
-	return (check_map_characters(line, p->id.count, ret));
+	return (parse_check_map_characters(line, p->id.count, ret));
 }
 
 /*
 ** Allocate line to map into a new map array
 */
 
-int	alloc_map_line(t_map *map, char *line)
+static int	alloc_map_line(t_map *map, char *line)
 {
 	char	**tab;
 	int		i;
@@ -75,7 +75,7 @@ int	alloc_map_line(t_map *map, char *line)
 ** Check line contain only map characters i.e map charset : 012NSWE and ' '
 */
 
-int	is_line_of_map(const char *map_charset, const char *line)
+static int	is_line_of_map(const char *map_charset, const char *line)
 {
 	int i;
 	int j;
@@ -103,7 +103,7 @@ int	is_line_of_map(const char *map_charset, const char *line)
 ** Allocate map once every identifer has been parsed
 */
 
-int	parse_map(t_parameters *p, char *line)
+int			parse_map(t_parameters *p, char *line)
 {
 	if (!*line && p->map.grid)
 		return (ft_exit(line, print_error(-6)));

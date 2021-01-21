@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 09:17:25 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/20 09:51:31 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/21 12:58:24 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Check that the resolution format is precisely two integers
 */
 
-int	check_resolution_format(char **tab)
+static int	check_resolution_format(char **tab)
 {
 	int i;
 
@@ -32,7 +32,7 @@ int	check_resolution_format(char **tab)
 ** Check that the width and height format is four digits or less
 */
 
-int	check_value(char **tab)
+static int	check_value(char **tab)
 {
 	if (ft_strlen(tab[0]) > 4 || ft_strlen(tab[1]) > 4)
 		return (print_error(ft_printf("Error: R <width> <height>\n") - 44));
@@ -43,7 +43,7 @@ int	check_value(char **tab)
 ** Check that the resolution does not contain any unauthorized character
 */
 
-int	check_characters(char *line)
+static int	check_characters(char *line)
 {
 	int i;
 
@@ -60,7 +60,7 @@ int	check_characters(char *line)
 ** Check the return values of the above functions
 */
 
-int	check_resolution(char **tab, char *line)
+static int	check_resolution(char **tab, char *line)
 {
 	if (check_resolution_format(tab) || check_value(tab)
 			|| check_characters(line))
@@ -71,7 +71,7 @@ int	check_resolution(char **tab, char *line)
 	return (0);
 }
 
-int	parse_resolution(t_identifiers *id, char *line)
+int			parse_resolution(t_identifiers *id, char *line)
 {
 	char	**tab;
 	int		i;

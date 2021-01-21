@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 09:17:43 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/21 08:33:14 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/21 12:58:58 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Check the fd and extension format of the texture
 */
 
-int	check_fd_ext(char *path_txt)
+static int	check_fd_ext(char *path_txt)
 {
 	int fd;
 
@@ -34,7 +34,7 @@ int	check_fd_ext(char *path_txt)
 ** Check that the texture format is made of only one path
 */
 
-int	check_texture(char **tab)
+static int	check_texture(char **tab)
 {
 	int i;
 
@@ -49,7 +49,7 @@ int	check_texture(char **tab)
 	return (0);
 }
 
-int	parse_textures(char **path_txt, char *line)
+int			parse_textures(char **path_txt, char *line)
 {
 	char	**tab;
 	int		i;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set.c                                              :+:      :+:    :+:   */
+/*   annex_set.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/17 11:27:23 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/21 08:48:30 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/21 09:57:24 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/21 11:44:27 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,4 @@ int		set_minilibx(t_parameters *p)
 		return (print_error2(-3));
 	p->mlx = m;
 	return (0);
-}
-
-/*
-** Set player default values
-*/
-
-void	set_player(t_parameters *p)
-{
-	(void)p;
 }

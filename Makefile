@@ -18,16 +18,17 @@ SRCS_PATH			=	srcs/
 OBJS_PATH			=	objs/
 HEADER				=	includes/cub3d.h
 
-SRC					=	main.c					\
-						set.c					\
+SRC					=	annex_check.c			\
+						annex_error.c			\
+						annex_set.c				\
+						main.c					\
+						parse_check.c			\
+						parse_colors.c			\
 						parse_map.c				\
 						parse_resolution.c		\
 						parse_texture.c			\
-						parse_colors.c			\
-						check.c					\
-						check_walls.c			\
-						draw.c					\
-						error.c
+						render_game.c			\
+						render_walls.c
 
 SRCS 				= 	$(addprefix $(SRCS_PATH),$(SRC))
 OBJS				=	$(patsubst $(SRCS_PATH)%.c,$(OBJS_PATH)%.o, $(SRCS))

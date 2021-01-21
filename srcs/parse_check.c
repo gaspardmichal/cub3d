@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   parse_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/17 09:15:38 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/21 08:42:13 by gamichal         ###   ########lyon.fr   */
+/*   Created: 2021/01/21 09:59:06 by gamichal          #+#    #+#             */
+/*   Updated: 2021/01/21 13:36:53 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Check that no identifier is missing
 */
 
-int	check_identifiers(t_identifiers *id)
+int			parse_check_identifiers(t_identifiers *id)
 {
 	if (id->r.x < 0 && id->r.y < 0)
 		print_error(-8);
@@ -41,7 +41,7 @@ int	check_identifiers(t_identifiers *id)
 ** Check map description for unauthorized characters
 */
 
-int	check_map_characters(char *line, int count, int ret)
+int			parse_check_map_characters(char *line, int count, int ret)
 {
 	if (*line && count == 4 && ret != -1)
 		ret = ft_printf("Error: unauthorized character in map description\n");
@@ -52,7 +52,7 @@ int	check_map_characters(char *line, int count, int ret)
 ** Check map validity
 */
 
-int	map_not_valid(t_map map)
+static int	map_not_valid(t_map map)
 {
 	int		i;
 	int		j;
@@ -68,7 +68,7 @@ int	map_not_valid(t_map map)
 		{
 			if (ft_strchr("02NSWE", map.grid[i][j]))
 			{
-				if (check_walls(map.grid, err, i, j))
+				if (parse_check_walls(map.grid, err, i, j))
 					return (ft_exit(err, 1));
 			}
 			++j;
@@ -83,7 +83,7 @@ int	map_not_valid(t_map map)
 ** Find player starting position and replace it with an empty space i.e '0'
 */
 
-int	get_player_position(t_parameters *p, int i)
+static int	get_player_position(t_parameters *p, int i)
 {
 	int		j;
 	int		count;
@@ -108,7 +108,7 @@ int	get_player_position(t_parameters *p, int i)
 	return (0);
 }
 
-int	check_map(t_parameters *p)
+int			parse_check_map(t_parameters *p)
 {
 	int	i;
 
