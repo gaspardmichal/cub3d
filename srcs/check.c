@@ -6,11 +6,15 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 09:15:38 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/20 10:01:44 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/21 08:42:13 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+/*
+** Check that no identifier is missing
+*/
 
 int	check_identifiers(t_identifiers *id)
 {
@@ -33,12 +37,20 @@ int	check_identifiers(t_identifiers *id)
 	return (0);
 }
 
+/*
+** Check map description for unauthorized characters
+*/
+
 int	check_map_characters(char *line, int count, int ret)
 {
 	if (*line && count == 4 && ret != -1)
 		ret = ft_printf("Error: unauthorized character in map description\n");
 	return (ft_exit(line, ret));
 }
+
+/*
+** Check map validity
+*/
 
 int	map_not_valid(t_map map)
 {
@@ -66,6 +78,10 @@ int	map_not_valid(t_map map)
 	ft_free(err);
 	return (0);
 }
+
+/*
+** Find player starting position and replace it with an empty space i.e '0'
+*/
 
 int	get_player_position(t_parameters *p, int i)
 {

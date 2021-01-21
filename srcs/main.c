@@ -6,11 +6,15 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:48:25 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/20 16:59:57 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/21 08:50:25 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+/*
+** Check that second argument is "save"
+*/
 
 int		check_arg_save(char *arg)
 {
@@ -18,6 +22,10 @@ int		check_arg_save(char *arg)
 		exit(print_error(ft_printf("Error: ./cub3D <path.cub> --save\n") - 37));
 	return (1);
 }
+
+/*
+** Check map fd and extension
+*/
 
 int		check_arg_fd_ext(char *arg, int fd)
 {
@@ -27,6 +35,10 @@ int		check_arg_fd_ext(char *arg, int fd)
 		exit(print_error(ft_printf("Error: ./cub3D <path.cub>\n") - 29));
 	return (1);
 }
+
+/*
+** Parse map file with get_next_line
+*/
 
 int		parse_cub(int fd, t_parameters *p, char *line)
 {
@@ -51,8 +63,6 @@ void	cub3d(int fd, t_parameters *p)
 	if (set_minilibx(p))
 		free_all(p);
 	set_player(p);
-	mlx_hook(p->mlx.win, PRESS, PRESS_MASK, key_pressed, p);
-	mlx_hook(p->mlx.win, RELEASE, RELEASE_MASK, key_released, p);
 	mlx_loop_hook(p->mlx.ptr, draw, p);
 	mlx_loop(p->mlx.ptr);
 }

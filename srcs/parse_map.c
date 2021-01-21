@@ -6,11 +6,15 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 14:56:01 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/20 14:56:03 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/21 08:38:47 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+/*
+** Parse line according to its starting identifier
+*/
 
 int	parse_identifiers(t_parameters *p, char *line)
 {
@@ -40,6 +44,10 @@ int	parse_identifiers(t_parameters *p, char *line)
 	return (check_map_characters(line, p->id.count, ret));
 }
 
+/*
+** Allocate line to map into a new map array
+*/
+
 int	alloc_map_line(t_map *map, char *line)
 {
 	char	**tab;
@@ -62,6 +70,10 @@ int	alloc_map_line(t_map *map, char *line)
 	map->grid = tab;
 	return (ft_exit(line, 0));
 }
+
+/*
+** Check line contain only map characters i.e map charset : 012NSWE and ' '
+*/
 
 int	is_line_of_map(const char *map_charset, const char *line)
 {
@@ -86,6 +98,10 @@ int	is_line_of_map(const char *map_charset, const char *line)
 	}
 	return (-1);
 }
+
+/*
+** Allocate map once every identifer has been parsed
+*/
 
 int	parse_map(t_parameters *p, char *line)
 {

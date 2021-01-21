@@ -27,8 +27,6 @@ SRC					=	main.c					\
 						check.c					\
 						check_walls.c			\
 						draw.c					\
-						key_events.c			\
-						utils.c					\
 						error.c
 
 SRCS 				= 	$(addprefix $(SRCS_PATH),$(SRC))

@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/20 17:03:27 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/21 08:28:47 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,6 @@
 # define CUB ".cub"
 # define XPM ".xpm"
 # define MAP_CHARSET "NSWE012 "
-# define TILE_SIZE 64
-
-# define PRESS 2
-# define PRESS_MASK	1
-# define RELEASE 3
-# define RELEASE_MASK 10
-
-# define W 13
-# define A 0
-# define S 1
-# define D 2
-# define RIGHT_ARROW 123
-# define LEFT_ARROW 124
 
 typedef struct		s_int
 {
@@ -66,40 +53,25 @@ typedef struct		s_map
 		char		**grid;
 }					t_map;
 
-typedef struct		s_player
-{
-		t_double	pos;
-		double		turn_dir;
-		double		walk_dir;
-		double		move_speed;
-		double		rot_angle;
-		double		rot_speed;
-}					t_player;
-
-typedef struct		s_ray
-{
-		int			x;
-		double		dist;
-		double		ray_angle;
-		double		was_vert_hit;
-		double		ray_facing_up;
-		double		ray_facing_down;
-		double		ray_facing_left;
-		double		ray_facing_right;
-}					t_ray;
-
 typedef struct		s_minilibx
 {
-		void		*ptr;
-		void		*win;
 		double		width;
 		double		height;
+		void		*ptr;
+		void		*win;
 		void		*img;
 		int			*pxl;
 		int			bpp;
 		int			size;
 		int			endian;
 }					t_minilibx;
+
+typedef struct		s_player
+{
+		t_double	pos;
+		t_double	dir;
+		t_double	plan;
+}					t_player;
 
 typedef struct		s_parameters
 {
@@ -121,11 +93,7 @@ int					check_map(t_parameters *p);
 int					check_map_characters(char *line, int count, int ret);
 int					check_walls(char **grid, char *err, int i, int j);
 int					set_minilibx(t_parameters *p);
-void				set_player(t_parameters *p);
 int					draw(t_parameters *p);
-int					key_pressed(int key, t_parameters *p);
-int					key_released(int key, t_parameters *p);
-int					grid_has_wall_at(t_parameters *p);
 int					print_error(int err);
 int					print_error2(int err);
 void				free_all(t_parameters *p);

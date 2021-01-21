@@ -6,11 +6,15 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 09:17:43 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/17 09:17:44 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/21 08:33:14 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+/*
+** Check the fd and extension format of the texture
+*/
 
 int	check_fd_ext(char *path_txt)
 {
@@ -25,6 +29,10 @@ int	check_fd_ext(char *path_txt)
 		return (print_error(ft_printf("Error: XX <path.xpm>\n") - 24));
 	return (0);
 }
+
+/*
+** Check that the texture format is made of only one path
+*/
 
 int	check_texture(char **tab)
 {

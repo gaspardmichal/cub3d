@@ -6,11 +6,15 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 11:27:23 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/20 14:55:47 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/21 08:48:30 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+/*
+** Set identifiers default values
+*/
 
 void	set_identifiers(t_parameters *p)
 {
@@ -28,6 +32,10 @@ void	set_identifiers(t_parameters *p)
 	p->ply.pos.x = -1;
 	p->ply.pos.y = -1;
 }
+
+/*
+** Initialize minilibx addresses
+*/
 
 int		set_minilibx(t_parameters *p)
 {
@@ -58,14 +66,11 @@ int		set_minilibx(t_parameters *p)
 	return (0);
 }
 
+/*
+** Set player default values
+*/
+
 void	set_player(t_parameters *p)
 {
-	t_player one;
-
-	one.turn_dir = 0;
-	one.walk_dir = 0;
-	one.rot_angle = M_PI / 2;
-	one.move_speed = 5.0;
-	one.rot_speed = 2.0 * M_PI;
-	p->ply = one;
+	(void)p;
 }
