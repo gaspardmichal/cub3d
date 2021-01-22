@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   annex_set.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 09:57:24 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/21 11:44:27 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/22 11:26:20 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 void	set_identifiers(t_parameters *p)
 {
+	ft_bzero(p, sizeof(t_parameters));
 	p->id.r.x = -1;
 	p->id.r.y = -1;
 	p->id.no = NULL;

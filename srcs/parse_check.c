@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 09:59:06 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/21 13:36:53 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/22 12:26:19 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ static int	get_player_position(t_parameters *p, int i)
 		{
 			if (p->ply.pos.x >= 0 && p->ply.pos.y >= 0)
 				return (-1);
-			p->ply.pos.x = j;
-			p->ply.pos.y = i;
+			p->ply.pos.x = i;
+			p->ply.pos.y = j;
 			p->map.grid[i][j] = '0';
 			++count;
 		}
