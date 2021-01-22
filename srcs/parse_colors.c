@@ -6,7 +6,7 @@
 /*   By: gamichal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 19:04:48 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/21 12:59:33 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/22 13:21:35 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	atorgb(int r, int g, int b)
 {
 	if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
 		return (print_error(ft_printf("Error: X <r>,<g>,<b>\n") - 43));
-	return ((r << 16) + (g << 8) + b);
+	return (r << 16 | g << 8 | b);
 }
 
 int			parse_colors(t_identifiers *id, char *line, char c)

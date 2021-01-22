@@ -28,6 +28,7 @@ SRC					=	annex_check.c			\
 						parse_resolution.c		\
 						parse_texture.c			\
 						render_game.c			\
+						render_moves.c			\
 						render_walls.c
 
 SRCS 				= 	$(addprefix $(SRCS_PATH),$(SRC))

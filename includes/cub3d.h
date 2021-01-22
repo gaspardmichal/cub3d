@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/21 15:56:42 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/22 16:01:04 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct		s_identifiers
 typedef struct		s_map
 {
 		char		**grid;
-		t_double	cell;
+		t_int		cell;
 }					t_map;
 
 typedef struct		s_minilibx
@@ -74,28 +74,28 @@ typedef struct		s_display
 
 typedef struct		s_player
 {
-		t_double	pos;
-		t_double	dir;
-		t_double	cam;
+	t_double		pos;
+	t_double		dir;
+	t_double		cam;
 }					t_player;
 
 typedef struct		s_ray
 {
-		t_double	dir;
-		t_double	plane;
-		t_double	side;
-		t_double	delta;
-		t_int		step;
+	t_double		dir;
+	t_double		plan;
+	t_double		side;
+	t_double		delta;
+	t_int			step;
 }					t_ray;
 
 typedef struct		s_wall
 {
-		int			hit;
-		int			side;
-		double		dist;
-		double		height;
-		int			start;
-		int			end;
+	double			dist;
+	int				height;
+	int				side;
+	int				start;
+	int				end;
+	int				hit;
 }					t_wall;
 
 typedef struct		s_parameters
@@ -111,7 +111,6 @@ typedef struct		s_parameters
 
 void				set_identifiers(t_parameters *p);
 int					set_minilibx(t_parameters *p);
-void				set_raycast(t_parameters *p);
 int					parse_map(t_parameters *p, char *line);
 int					parse_colors(t_identifiers *id, char *line, char c);
 int					parse_resolution(t_identifiers *id, char *line);
@@ -121,6 +120,7 @@ int					parse_check_map(t_parameters *p);
 int					parse_check_map_characters(char *line, int count, int ret);
 int					parse_check_walls(char **grid, char *err, int i, int j);
 int					render_game(t_parameters *p);
+void				render_moves(t_parameters  *p);
 void				render_walls(t_parameters *p);
 int					print_error(int err);
 int					print_error2(int err);

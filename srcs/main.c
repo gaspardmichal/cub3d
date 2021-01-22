@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:48:25 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/22 11:27:31 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/22 15:55:35 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	cub3d(int fd, t_parameters *p)
 		free_all(p);
 	if (set_minilibx(p))
 		free_all(p);
+	mlx_hook(p->mlx.ptr, KEY_PRESS, KEY_PRESS_MASK, key_hook, p);
 	mlx_loop_hook(p->mlx.ptr, render_game, p);
 	mlx_loop(p->mlx.ptr);
 }
