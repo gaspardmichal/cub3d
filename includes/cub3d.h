@@ -6,7 +6,7 @@
 /*   By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:50:11 by gamichal          #+#    #+#             */
-/*   Updated: 2021/01/22 16:01:04 by gamichal         ###   ########lyon.fr   */
+/*   Updated: 2021/01/23 16:38:26 by gamichal         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@
 # define CUB ".cub"
 # define XPM ".xpm"
 # define MAP_CHARSET "NSWE012 "
+
+# define KEY_PRESS 2
+# define KEY_PRESS_MASK 1L<<0
+
+# define KEY_RELEASE 3
+# define KEY_RELEASE_MASK 1L<<1
+
+# define W 0x0D
+# define A 0x00
+# define S 0x01
+# define D 0x02
+# define LEFT_ARROW 0x7B
+# define RIGHT_ARROW 0x7C 
 
 typedef struct		s_int
 {
@@ -77,6 +90,7 @@ typedef struct		s_player
 	t_double		pos;
 	t_double		dir;
 	t_double		cam;
+	t_move			move;
 }					t_player;
 
 typedef struct		s_ray
@@ -97,6 +111,14 @@ typedef struct		s_wall
 	int				end;
 	int				hit;
 }					t_wall;
+
+typedef struct		s_move
+{
+		int			forward;
+		int			backward;
+		int			left;
+		int			right;
+}
 
 typedef struct		s_parameters
 {
@@ -121,6 +143,8 @@ int					parse_check_map_characters(char *line, int count, int ret);
 int					parse_check_walls(char **grid, char *err, int i, int j);
 int					render_game(t_parameters *p);
 void				render_moves(t_parameters  *p);
+int					key_press(int keycode, t_parameters *p);
+int					key_release(int keycode, t_parameters *p);
 void				render_walls(t_parameters *p);
 int					print_error(int err);
 int					print_error2(int err);

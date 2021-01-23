@@ -1,11 +1,12 @@
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gamichal <gamichal@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: gamichal <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/02/21 20:55:11 by gamichal          #+#    #+#              #
-#    Updated: 2021/01/17 10:34:27 by gamichal         ###   ########lyon.fr    #
+#    Created: 2021/01/23 15:28:34 by gamichal          #+#    #+#              #
+#    Updated: 2021/01/23 15:28:40 by gamichal         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +21,7 @@ HEADER				=	includes/cub3d.h
 
 SRC					=	annex_check.c			\
 						annex_error.c			\
+						annex_keys.c			\
 						annex_set.c				\
 						main.c					\
 						parse_check.c			\
